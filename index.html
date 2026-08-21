@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bespoke 'MINI ME' Custom Bobblehead & Figurine | Tarelcraft</title>
+  <meta name="description" content="Handcrafted personalized Mini Me bobbleheads and figurines made from your photos. Free WhatsApp preview before production, unlimited revisions, and stress-free photo upload after checkout.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Confetti Canvas for Celebrations -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- TOP ANNOUNCEMENT BAR -->
+  <div class="announcement-bar">
+    <span><span class="badge-pill"><i class="fa-solid fa-sparkles"></i> LIMITED DEAL</span> <strong>2-For-1 Offer Active</strong> + 100% Free WhatsApp Preview & Unlimited Revisions Included!</span>
+    <a href="#how-it-works">Learn How It Works →</a>
+  </div>
+
+  <!-- SITE HEADER WITH THEME TOGGLE -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="#" class="brand-logo">
+          <div class="logo-icon"><i class="fa-solid fa-gem"></i></div>
+          <span>TARELCRAFT</span>
+        </a>
+
+        <div class="header-trust-badge">
+          <div class="trustpilot-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star-half-stroke"></i>
+          </div>
+          <span><strong>4.9/5</strong> Rating (1,480+ Verified Reviews)</span>
+        </div>
+
+        <div class="header-actions">
+          <!-- Light / Dark Theme Switcher Button -->
+          <button class="theme-toggle-btn" id="theme-toggle-btn" title="Toggle Light / Dark Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+
+          <!-- Currency Selector -->
+          <select id="currency-selector" class="currency-selector">
+            <option value="CHF">CHF (Fr.)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="USD">USD ($)</option>
+          </select>
+
+          <!-- Cart Button -->
+          <button class="cart-button" id="header-cart-btn">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span>Cart</span>
+            <span class="cart-count" id="cart-count-badge">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB NAVIGATION -->
+  <div class="container">
+    <nav class="breadcrumb-nav">
+      <a href="#">Home</a>
+      <span>/</span>
+      <a href="#">Custom Figures</a>
+      <span>/</span>
+      <strong>Handmade Bespoke MINI ME</strong>
+    </nav>
+  </div>
+
+  <!-- MAIN PRODUCT SECTION -->
+  <main class="product-main-section">
+    <div class="container">
+      <div class="product-layout-grid">
+
+        <!-- LEFT COLUMN: STICKY MEDIA GALLERY -->
+        <div class="product-gallery-sticky reveal-on-scroll delay-1">
+          <div class="main-image-viewport">
+            <div class="gallery-floating-badge">
+              <span class="pulse-dot"></span>
+              <span>100% Handcrafted Artisan Clay</span>
+            </div>
+
+            <!-- Interactive Bobblehead Trigger Pill -->
+            <div class="bobble-interactive-pill" id="bobble-trigger-pill">
+              <span>✨ Tap to Bobble!</span>
+              <i class="fa-solid fa-hand-pointer"></i>
+            </div>
+
+            <img id="main-product-img" src="assets/images/hero-bobblehead.jpg" alt="Handmade Custom Mini Me Bobblehead Figurine">
+
+            <button class="gallery-interactive-trigger" id="upload-info-trigger">
+              <i class="fa-brands fa-whatsapp" style="color: #25D366; font-size: 1.1rem;"></i>
+              <span>See WhatsApp Proof Flow</span>
+            </button>
+          </div>
+
+          <!-- THUMBNAIL STRIP (SYNCED WITH FIGURE TYPES) -->
+          <div class="thumbnail-strip">
+            <div class="thumb-item active" data-img="assets/images/hero-bobblehead.jpg" data-type="single">
+              <img src="assets/images/hero-bobblehead.jpg" alt="Single Custom Bobblehead">
+              <div class="thumb-label">Single Person</div>
+            </div>
+            <div class="thumb-item" data-img="assets/images/couple-figure.jpg" data-type="couple">
+              <img src="assets/images/couple-figure.jpg" alt="Couple Custom Figurine">
+              <div class="thumb-label">Couple</div>
+            </div>
+            <div class="thumb-item" data-img="assets/images/pet-figure.jpg" data-type="pet">
+              <img src="assets/images/pet-figure.jpg" alt="With Pet Custom Figurine">
+              <div class="thumb-label">With Pet</div>
+            </div>
+            <div class="thumb-item" data-img="assets/images/family-figure.jpg" data-type="family">
+              <img src="assets/images/family-figure.jpg" alt="Family / Group Custom Figurine">
+              <div class="thumb-label">Family / Group</div>
+            </div>
+          </div>
+
+          <!-- GALLERY MICRO VALUE CARDS -->
+          <div class="gallery-features-row">
+            <div class="gallery-feature-card">
+              <div class="icon">💬</div>
+              <h4>WhatsApp Preview</h4>
+              <p>HD preview before final cast</p>
+            </div>
+            <div class="gallery-feature-card">
+              <div class="icon">🔄</div>
+              <h4>Unlimited Edits</h4>
+              <p>Sculpted until 100% happy</p>
+            </div>
+            <div class="gallery-feature-card">
+              <div class="icon">📸</div>
+              <h4>No Photo Rush</h4>
+              <p>Upload anytime post-checkout</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: PRODUCT BUY BOX & CONFIGURATOR -->
+        <div class="product-info-column reveal-on-scroll delay-2">
+
+          <!-- PRODUCT TITLE & PRICING -->
+          <div class="product-meta-header">
+            <div class="rating-eyebrow">
+              <div class="stars-badge">
+                <span class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
+                <span>4.9/5</span>
+              </div>
+              <span class="social-proof-text">Over 1,480 Happy Customers • Handcrafted in Switzerland</span>
+            </div>
+
+            <h1 class="product-title">Handcrafted Custom 'MINI ME' Figurine & Bobblehead</h1>
+            <p class="product-subtitle">Turn any photo into a detailed, museum-quality personalized figurine. Made by master artisans with lifelike expressions and premium materials.</p>
+
+            <div class="product-price-row">
+              <div class="current-price" id="current-price-val">CHF 49.90</div>
+              <div class="compare-price" id="compare-price-val">CHF 99.80</div>
+              <span class="discount-badge"><i class="fa-solid fa-bolt"></i> 50% OFF (2-For-1 Promo)</span>
+            </div>
+          </div>
+
+          <!-- THE 3 CORE PILLARS CARD (KEY REQUIREMENTS CALLOUT) -->
+          <div class="hero-pillars-card">
+            <div class="pillars-header">
+              <div class="pillars-title">
+                <i class="fa-solid fa-shield-halved text-emerald-600"></i>
+                <span>Our 3-Step Stress-Free Guarantee</span>
+              </div>
+              <span class="pillars-badge">Zero Risk</span>
+            </div>
+
+            <div class="pillars-list">
+              <!-- Pillar 1: Upload After Checkout -->
+              <div class="pillar-item">
+                <div class="pillar-icon-box photo-upload">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+                <div class="pillar-content">
+                  <h4>1. Upload Photos After Checkout <span class="highlight-tag">No Rush!</span></h4>
+                  <p>You don't need to choose or upload photos right now. Complete your order first, then take your time to send your favorite photos via WhatsApp or our private link.</p>
+                </div>
+              </div>
+
+              <!-- Pillar 2: WhatsApp Preview -->
+              <div class="pillar-item">
+                <div class="pillar-icon-box whatsapp">
+                  <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <div class="pillar-content">
+                  <h4>2. WhatsApp Preview Before Production <span class="highlight-tag">Direct with Artist</span></h4>
+                  <p>Our master sculptor sends you high-resolution 360° photos of the clay model via WhatsApp before casting and painting your statue.</p>
+                </div>
+              </div>
+
+              <!-- Pillar 3: Unlimited Revisions -->
+              <div class="pillar-item">
+                <div class="pillar-icon-box revisions">
+                  <i class="fa-solid fa-arrows-rotate"></i>
+                </div>
+                <div class="pillar-content">
+                  <h4>3. Unlimited Free Revisions <span class="highlight-tag">100% Love It Guarantee</span></h4>
+                  <p>Want a smile wider or hair adjusted? Request unlimited changes directly on WhatsApp until you are 100% completely in love with the design.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRODUCT CONFIGURATOR -->
+          <div class="configurator-block">
+
+            <!-- OPTION 1: FIGURE TYPE (LIVE SWITCHER) -->
+            <div class="option-group">
+              <div class="option-header">
+                <span class="option-title">1. Select Figure Type</span>
+                <span class="option-selected-val" id="selected-figure-val">Single Person</span>
+              </div>
+              <div class="variant-grid cols-4">
+                <div class="variant-card figure-card active" data-figure="single">
+                  <span class="badge-popular">Popular</span>
+                  <span class="v-title">Single Person</span>
+                  <span class="v-sub">1 Figurine</span>
+                  <span class="v-price-extra">Included</span>
+                </div>
+                <div class="variant-card figure-card" data-figure="couple">
+                  <span class="v-title">Couple</span>
+                  <span class="v-sub">2 Figurines</span>
+                  <span class="v-price-extra">+ CHF 30.00</span>
+                </div>
+                <div class="variant-card figure-card" data-figure="pet">
+                  <span class="v-title">With Pet</span>
+                  <span class="v-sub">Person + Pet</span>
+                  <span class="v-price-extra">+ CHF 15.00</span>
+                </div>
+                <div class="variant-card figure-card" data-figure="family">
+                  <span class="badge-popular" style="background:#10B981; color:#fff;">Family Pack</span>
+                  <span class="v-title">Family/Group</span>
+                  <span class="v-sub">3+ Figurines</span>
+                  <span class="v-price-extra">+ CHF 60.00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- OPTION 2: HEAD MOTION STYLE -->
+            <div class="option-group">
+              <div class="option-header">
+                <span class="option-title">2. Choose Head Motion Style</span>
+                <span class="option-selected-val">Interactive Bobblehead</span>
+              </div>
+              <div class="head-style-container">
+                <div class="head-style-card active" data-head="bobblehead">
+                  <div class="icon-demo"><i class="fa-solid fa-face-laugh-beam"></i></div>
+                  <div class="head-style-info">
+                    <h5>Fun Bobblehead (Spring Head)</h5>
+                    <p>Spring-mounted head that wobbles and bobs delightfully on vibration or touch.</p>
+                  </div>
+                </div>
+
+                <div class="head-style-card" data-head="fixed">
+                  <div class="icon-demo"><i class="fa-solid fa-monument"></i></div>
+                  <div class="head-style-info">
+                    <h5>Classic Fixed Figurine</h5>
+                    <p>Sculpted solid seamless statue for a refined, museum-grade sculpture look.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- OPTION 3: STATUE HEIGHT -->
+            <div class="option-group">
+              <div class="option-header">
+                <span class="option-title">3. Select Statue Height</span>
+                <span class="option-selected-val" id="selected-height-val">18 cm (Standard)</span>
+              </div>
+              <div class="variant-grid cols-3">
+                <div class="variant-card height-card active" data-height="18cm">
+                  <span class="v-title">18 cm (7.1")</span>
+                  <span class="v-sub">Classic Desk Size</span>
+                  <span class="v-price-extra">Included</span>
+                </div>
+                <div class="variant-card height-card" data-height="20cm">
+                  <span class="badge-popular">Best Value</span>
+                  <span class="v-title">20 cm (7.9")</span>
+                  <span class="v-sub">Enhanced Details</span>
+                  <span class="v-price-extra">+ CHF 10.00</span>
+                </div>
+                <div class="variant-card height-card" data-height="22cm">
+                  <span class="v-title">22 cm (8.7")</span>
+                  <span class="v-sub">Premium Statement</span>
+                  <span class="v-price-extra">+ CHF 20.00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- OPTION 4: BASE THEME & ENGRAVING -->
+            <div class="option-group">
+              <div class="option-header">
+                <span class="option-title">4. Stand Base Theme</span>
+                <span class="option-selected-val">Natural Walnut Base</span>
+              </div>
+              <div class="variant-grid cols-4">
+                <div class="variant-card base-card active" data-base="walnut">
+                  <span class="v-title">Walnut Wood</span>
+                  <span class="v-sub">Warm Natural</span>
+                  <span class="v-price-extra">Free</span>
+                </div>
+                <div class="variant-card base-card" data-base="acrylic">
+                  <span class="v-title">Black Crystal</span>
+                  <span class="v-sub">Modern Gloss</span>
+                  <span class="v-price-extra">+ CHF 5.00</span>
+                </div>
+                <div class="variant-card base-card" data-base="heart">
+                  <span class="v-title">Romantic Heart</span>
+                  <span class="v-sub">Love Edition</span>
+                  <span class="v-price-extra">+ CHF 5.00</span>
+                </div>
+                <div class="variant-card base-card" data-base="soccer">
+                  <span class="v-title">Sports / Soccer</span>
+                  <span class="v-sub">Pitch Field</span>
+                  <span class="v-price-extra">+ CHF 5.00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- FREE CUSTOM ENGRAVING PLATE -->
+            <div class="engraving-box">
+              <div class="option-header">
+                <span class="option-title"><i class="fa-solid fa-signature" style="color: #C99742;"></i> Free Custom Brass Engraving (Optional)</span>
+                <span class="option-selected-val">100% Free</span>
+              </div>
+              <div class="engraving-input-wrap">
+                <input type="text" id="engraving-input" class="engraving-input" placeholder="e.g. 'Best Dad Ever • 2026' or 'The Miller Family'" maxlength="30">
+                <div class="engraving-hint">
+                  <span>Laser-engraved onto the metallic pedestal plate</span>
+                  <span id="engraving-count">0/30 characters</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- PRIMARY CALL TO ACTION -->
+          <div class="cta-action-area">
+            <button class="buy-button-main" id="main-buy-btn">
+              <span><i class="fa-solid fa-bag-shopping"></i> CUSTOMIZE & ORDER NOW</span>
+              <span class="btn-sub-label">No Photos Needed Now — Upload Anytime After Checkout!</span>
+            </button>
+
+            <button class="whatsapp-assist-btn" id="whatsapp-modal-trigger">
+              <i class="fa-brands fa-whatsapp"></i>
+              <span>Questions? Chat Directly with a Tarelcraft Sculptor</span>
+            </button>
+
+            <!-- TRUST INDICATORS ROW -->
+            <div class="trust-indicators-row">
+              <div class="trust-item">
+                <i class="fa-solid fa-truck-fast t-icon"></i>
+                <span>Fast & Safe Insured Delivery</span>
+              </div>
+              <div class="trust-item">
+                <i class="fa-solid fa-gift t-icon"></i>
+                <span>Luxury Gift Box Included</span>
+              </div>
+              <div class="trust-item">
+                <i class="fa-solid fa-award t-icon"></i>
+                <span>100% Handcrafted Guarantee</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- SECTION 2: HOW IT WORKS (STRESS-FREE 3 STEPS) -->
+  <section class="process-section" id="how-it-works">
+    <div class="container">
+      <div class="section-head reveal-on-scroll">
+        <div class="section-eyebrow">EFFORTLESS EXPERIENCE</div>
+        <h2 class="section-title">How Ordering Your MINI ME Works</h2>
+        <p class="section-subtitle">We removed the stress of uploading photos during checkout. Here is our simple 3-step journey from your order to your doorstep.</p>
+      </div>
+
+      <div class="steps-timeline-grid">
+        <!-- Step 1 -->
+        <div class="step-card reveal-on-scroll delay-1">
+          <div class="step-number">1</div>
+          <div class="step-icon-area">🛒</div>
+          <h3>Order Without Stress</h3>
+          <p>Select your figure options and complete checkout. <strong>You don't need to select or upload any photos right now.</strong> Secure your discount first!</p>
+          <div class="card-highlight-pill"><i class="fa-solid fa-check" style="color: #10B981;"></i> No photo upload required at checkout</div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card featured reveal-on-scroll delay-2">
+          <div class="step-number">2</div>
+          <div class="step-icon-area">📸</div>
+          <h3>Send Photos At Your Own Pace</h3>
+          <p>After ordering, you receive an instant WhatsApp message and private link. Take your time to pick your favorite photos and send them when ready.</p>
+          <div class="card-highlight-pill"><i class="fa-brands fa-whatsapp" style="color: #25D366;"></i> Instant WhatsApp or secure upload portal</div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card reveal-on-scroll delay-3">
+          <div class="step-number">3</div>
+          <div class="step-icon-area">✨</div>
+          <h3>WhatsApp Preview & Approval</h3>
+          <p>Our artist sends you a 3D clay preview on WhatsApp. You have <strong>Unlimited Revisions</strong> until you say "I love it!" before we cast and ship.</p>
+          <div class="card-highlight-pill"><i class="fa-solid fa-arrows-rotate" style="color: #3B82F6;"></i> 100% Unlimited Free Revisions</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 2.5: REAL UNBOXING MOMENTS (AUTHENTIC PLAYABLE VIDEOS)
+       ========================================================================== -->
+  <section class="unboxing-section">
+    <div class="container">
+      <div class="section-head reveal-on-scroll">
+        <div class="section-eyebrow" style="color: #F59E0B;">GENUINE EMOTIONS • REAL CUSTOMERS</div>
+        <h2 class="section-title">Real Unboxing Moments</h2>
+        <p class="section-subtitle">Click any reel to play real customer video unboxings with live sound and emotional reactions!</p>
+      </div>
+
+      <div class="unboxing-reels-grid">
+        <!-- Reel Card 1 with Real Tarelcraft Unboxing Video -->
+        <div class="unboxing-reel-card reveal-on-scroll delay-1" data-reel-index="0">
+          <video class="reel-preview-video" poster="assets/images/unboxing-1.jpg" loop muted playsinline preload="metadata">
+            <source src="assets/videos/unboxing-1.mp4" type="video/mp4">
+            <source src="https://tarelcraft.com/cdn/shop/videos/c/vp/60f6bbcf350f44228c57ce5410424d05/60f6bbcf350f44228c57ce5410424d05.HD-1080p-7.2Mbps-50901326.mp4?v=0" type="video/mp4">
+          </video>
+          <img src="assets/images/unboxing-1.jpg" alt="Emily unboxing her custom Mini Me bobblehead" class="reel-fallback-poster">
+          <div class="reel-play-btn"><i class="fa-solid fa-play"></i></div>
+          <div class="reel-overlay">
+            <div class="reel-top-tags">
+              <span class="reel-badge"><i class="fa-brands fa-instagram"></i> @emily_lifestyle</span>
+              <button class="reel-like-btn" title="Like this unboxing"><i class="fa-solid fa-heart"></i></button>
+            </div>
+            <div class="reel-bottom-info">
+              <div class="reel-stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <div class="reel-customer-name">
+                <span>Emily R., Zurich</span>
+                <i class="fa-solid fa-circle-check verified-check" title="Verified Customer"></i>
+              </div>
+              <p class="reel-quote">"The WhatsApp preview was so reassuring! When it arrived in the gold box, the resemblance blew me away! 😭✨"</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reel Card 2 with Real Tarelcraft Unboxing Video -->
+        <div class="unboxing-reel-card reveal-on-scroll delay-2" data-reel-index="1">
+          <video class="reel-preview-video" poster="assets/images/unboxing-2.jpg" loop muted playsinline preload="metadata">
+            <source src="assets/videos/unboxing-2.mp4" type="video/mp4">
+            <source src="https://tarelcraft.com/cdn/shop/videos/c/vp/ea4909b6b23b4e46875a3cc0b2c6970a/ea4909b6b23b4e46875a3cc0b2c6970a.HD-1080p-7.2Mbps-83368704.mp4?v=0" type="video/mp4">
+          </video>
+          <img src="assets/images/unboxing-2.jpg" alt="Couple unboxing anniversary custom figurine" class="reel-fallback-poster">
+          <div class="reel-play-btn"><i class="fa-solid fa-play"></i></div>
+          <div class="reel-overlay">
+            <div class="reel-top-tags">
+              <span class="reel-badge"><i class="fa-brands fa-tiktok"></i> @liam_sarah</span>
+              <button class="reel-like-btn" title="Like this unboxing"><i class="fa-solid fa-heart"></i></button>
+            </div>
+            <div class="reel-bottom-info">
+              <div class="reel-stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <div class="reel-customer-name">
+                <span>Liam & Sarah, Bern</span>
+                <i class="fa-solid fa-circle-check verified-check" title="Verified Customer"></i>
+              </div>
+              <p class="reel-quote">"We ordered without photos first, then sent our favorite trip photos on WhatsApp. Best anniversary gift ever!"</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reel Card 3 with Real Tarelcraft Unboxing Video -->
+        <div class="unboxing-reel-card reveal-on-scroll delay-3" data-reel-index="2">
+          <video class="reel-preview-video" poster="assets/images/unboxing-3.jpg" loop muted playsinline preload="metadata">
+            <source src="assets/videos/unboxing-3.mp4" type="video/mp4">
+            <source src="https://tarelcraft.com/cdn/shop/videos/c/vp/ea8367eefbb84d70925e3c9160f73a6a/ea8367eefbb84d70925e3c9160f73a6a.HD-1080p-7.2Mbps-86226255.mp4?v=0" type="video/mp4">
+          </video>
+          <img src="assets/images/unboxing-3.jpg" alt="Dad laughing with tears of joy holding his retirement custom bobblehead" class="reel-fallback-poster">
+          <div class="reel-play-btn"><i class="fa-solid fa-play"></i></div>
+          <div class="reel-overlay">
+            <div class="reel-top-tags">
+              <span class="reel-badge"><i class="fa-solid fa-gift"></i> Retirement Surprise</span>
+              <button class="reel-like-btn" title="Like this unboxing"><i class="fa-solid fa-heart"></i></button>
+            </div>
+            <div class="reel-bottom-info">
+              <div class="reel-stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <div class="reel-customer-name">
+                <span>Sarah (for Dad Arthur), Geneva</span>
+                <i class="fa-solid fa-circle-check verified-check" title="Verified Customer"></i>
+              </div>
+              <p class="reel-quote">"Dad literally cried happy tears! The artist made 2 hair tweaks on WhatsApp for free until it was 100% him."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 3: CREATIVE REDESIGN - QUALITY MATTERS: WHY TARELCRAFT IS DIFFERENT
+       ========================================================================== -->
+  <section class="creative-comparison-section">
+    <div class="container">
+      <div class="section-head reveal-on-scroll">
+        <div class="section-eyebrow">MASTER CRAFTSMANSHIP VS FACTORY MOLDS</div>
+        <h2 class="section-title">QUALITY MATTERS: Why Tarelcraft is Different</h2>
+        <p class="section-subtitle">We believe your memories deserve heirloom quality, not mass-produced plastic toys. See the difference below:</p>
+      </div>
+
+      <!-- Interactive Category Switcher Tabs -->
+      <div class="comp-interactive-tabs reveal-on-scroll delay-1">
+        <button class="comp-tab-btn active" data-tab="all">All Differences</button>
+        <button class="comp-tab-btn" data-tab="artisan">Artisan Craft</button>
+        <button class="comp-tab-btn" data-tab="process">WhatsApp Proof Flow</button>
+        <button class="comp-tab-btn" data-tab="packaging">Luxury Gift Presentation</button>
+      </div>
+
+      <!-- Side-by-Side Comparison Showcase Cards -->
+      <div class="creative-comp-grid reveal-on-scroll delay-2">
+
+        <!-- WINNER: TARELCRAFT CARD -->
+        <div class="creative-comp-card tarelcraft-tier">
+          <div class="tarelcraft-floating-badge"><i class="fa-solid fa-award"></i> The Tarelcraft Standard</div>
+          
+          <div class="comp-card-header">
+            <h3>✨ Tarelcraft Custom MINI ME</h3>
+            <p>Individually hand-sculpted in organic polymer clay with direct artist care</p>
+          </div>
+
+          <div class="comp-features-list">
+            <div class="comp-feature-row">
+              <div class="comp-status-icon success"><i class="fa-solid fa-check"></i></div>
+              <div class="comp-feature-text">
+                <h4>Upload Photos Anytime After Checkout</h4>
+                <p>Order in 60s with zero stress; upload whenever convenient via WhatsApp or link.</p>
+              </div>
+            </div>
+
+            <div class="comp-feature-row">
+              <div class="comp-status-icon success"><i class="fa-solid fa-check"></i></div>
+              <div class="comp-feature-text">
+                <h4>Direct WhatsApp 3D Clay Proof</h4>
+                <p>See high-resolution 360° photos of your sculpt directly on your phone before casting.</p>
+              </div>
+            </div>
+
+            <div class="comp-feature-row">
+              <div class="comp-status-icon success"><i class="fa-solid fa-check"></i></div>
+              <div class="comp-feature-text">
+                <h4>100% Unlimited Free Revisions</h4>
+                <p>Our sculptors adjust hair, smile, or posture until you are completely in love.</p>
+              </div>
+            </div>
+
+            <div class="comp-feature-row">
+              <div class="comp-status-icon success"><i class="fa-solid fa-check"></i></div>
+              <div class="comp-feature-text">
+                <h4>Organic Polymer Ceramic Clay</h4>
+                <p>Heavy, warm, stone-like texture that preserves vibrant colors for decades.</p>
+              </div>
+            </div>
+
+            <div class="comp-feature-row">
+              <div class="comp-status-icon success"><i class="fa-solid fa-check"></i></div>
+              <div class="comp-feature-text">
+                <h4>Matte Black & Gold Foil Gift Packaging</h4>
+                <p>Includes polished natural walnut wooden pedestal & personalized brass engraving.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOSER: GENERIC COMPETITOR CARD -->
+        <div class="creative-comp-card generic-tier">
+          <div class="comp-card-header">
+            <h3>❌ Cheap Generic 3D Print Sellers</h3>
+            <p>Mass-produced machine prints and automated dropshipping factories</p>
+          </div>
+
+          <div class="comp-features-list">
+            <div class="comp-feature-row">
+              <div class="comp-status-icon fail"><i class="fa-solid fa-xmark"></i></div>
+              <div class="comp-feature-text">
+                <h4>Forced Rushed Upload at Checkout</h4>
+                <p>High cart abandonment; forced to upload before payment without preparation.</p>
+              </div>
+            </div>
+
+            <div class="comp-feature-row">
+              <div class="comp-status-icon fail"><i class="fa-solid fa-xmark"></i></div>
+              <div class="comp-feature-text">
+                <h4>No WhatsApp Preview (Mystery Box)</h4>
+                <p>No preview given. You have no idea what it looks like until it arrives in the mail.</p>
+              </div>
+            </div>
+
+            <div class="comp-feature-row">
+              <div class="comp-status-icon fail"><i class="fa-solid fa-xmark"></i></div>
+              <div class="comp-feature-text">
+                <h4>Paid Revisions or No Changes</h4>
+                <p>Strict "Final Sale, No Changes" policy or $25–$40 fee for minor adjustment.</p>
+              </div>
+            </div>
+
+            <div class="comp-feature-row">
+              <div class="comp-status-icon fail"><i class="fa-solid fa-xmark"></i></div>
+              <div class="comp-feature-text">
+                <h4>Hollow Fragile Plastic (Visible Print Lines)</h4>
+                <p>Rough plastic layer lines, easily breaks on impact, colors fade rapidly in sunlight.</p>
+              </div>
+            </div>
+
+            <div class="comp-feature-row">
+              <div class="comp-status-icon fail"><i class="fa-solid fa-xmark"></i></div>
+              <div class="comp-feature-text">
+                <h4>Generic Brown Box & Bubble Wrap</h4>
+                <p>Cheap plastic base, no gift presentation, uninspiring unboxing experience.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: INTERACTIVE WHATSAPP PROOF SIMULATOR -->
+  <section class="whatsapp-experience-section">
+    <div class="container">
+      <div class="wa-sim-wrapper">
+        <div class="wa-sim-content reveal-on-scroll delay-1">
+          <div class="section-eyebrow">TRANSPARENT ARTISANRY</div>
+          <h2>Experience the WhatsApp Preview Flow</h2>
+          <p>Never worry about what your statue will look like. We communicate directly with you like a personal concierge, sending progress photos and perfecting every detail.</p>
+
+          <div class="wa-bullet-points">
+            <div class="wa-bullet">
+              <div class="icon-circle"><i class="fa-solid fa-check"></i></div>
+              <div>
+                <h4>Direct WhatsApp Line with Master Sculptor</h4>
+                <p>Send additional reference angles, request specific expressions or clothing colors with ease.</p>
+              </div>
+            </div>
+
+            <div class="wa-bullet">
+              <div class="icon-circle"><i class="fa-solid fa-check"></i></div>
+              <div>
+                <h4>Zero Surprise Guarantee</h4>
+                <p>We do not cast, paint, or ship your figurine until you explicitly give your final approval checkmark.</p>
+              </div>
+            </div>
+
+            <div class="wa-bullet">
+              <div class="icon-circle"><i class="fa-solid fa-check"></i></div>
+              <div>
+                <h4>Unlimited Modifications</h4>
+                <p>Ask for adjustments to hair, eyes, smile, or outfit without any additional fees.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SMARTPHONE INTERACTIVE SIMULATOR FRAME -->
+        <div class="phone-mockup-frame reveal-on-scroll delay-2">
+          <div class="phone-screen">
+            <div class="phone-top-bar">
+              <div class="wa-avatar"><i class="fa-solid fa-brush"></i></div>
+              <div class="wa-header-info">
+                <h4>Tarelcraft Artisan Studio</h4>
+                <span>Online • Direct Master Sculptor</span>
+              </div>
+            </div>
+
+            <div class="phone-chat-body" id="phone-chat-body">
+              <div class="chat-bubble incoming">
+                <strong>Tarelcraft Master Sculptor:</strong><br>
+                Hi Emily! 👋 Here is your 3D clay preview for order #45982. We sculpted the smile and facial structure based on your reference photo.
+                <div class="proof-img-card">
+                  <img src="assets/images/whatsapp-proof.jpg" alt="WhatsApp Clay Preview Proof">
+                </div>
+                <div class="chat-time">14:32</div>
+              </div>
+
+              <div class="chat-bubble incoming">
+                How does this expression look to you? Tap below to approve or let us know if you would like any revisions!
+                <div class="chat-time">14:33</div>
+              </div>
+
+              <div class="typing-bubble" id="typing-bubble">
+                <div class="typing-dots">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="phone-actions-interactive">
+              <button class="sim-btn sim-edit-btn" id="sim-edit-btn">
+                <i class="fa-solid fa-arrows-rotate"></i> Request Revision
+              </button>
+              <button class="sim-btn sim-approve-sculpt" id="sim-approve-btn">
+                <i class="fa-solid fa-check-double"></i> Approve Proof
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: FREQUENTLY ASKED QUESTIONS -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-head reveal-on-scroll">
+        <div class="section-eyebrow">FREQUENTLY ASKED QUESTIONS</div>
+        <h2 class="section-title">Everything You Need to Know</h2>
+        <p class="section-subtitle">Clear answers to our most common customer questions regarding ordering, photo uploads, and preview approvals.</p>
+      </div>
+
+      <div class="faq-accordion-list reveal-on-scroll delay-1">
+        <!-- FAQ 1 -->
+        <div class="faq-card open">
+          <button class="faq-question-btn">
+            <span>Do I really not need to upload my photos right now during ordering?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer-body">
+            <strong>Yes, exactly!</strong> We know finding the perfect photo can take time. You can complete your order now to secure our limited 50% discount. Right after checkout, you will receive a confirmation with a direct WhatsApp link and upload portal where you can upload your photos whenever you are ready.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-card">
+          <button class="faq-question-btn">
+            <span>How does the WhatsApp preview before production work?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer-body">
+            Once you provide your photos, our master sculptor crafts the preliminary 3D clay model. We then message you high-resolution photos and a 360° video directly on WhatsApp so you can review the likeness, smile, hair, and posture before we cast and paint the statue.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-card">
+          <button class="faq-question-btn">
+            <span>What if I want changes made to the preview? Are revisions really unlimited?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer-body">
+            <strong>Yes, 100% unlimited and free!</strong> If you want the hair slightly shorter, the smile tweaked, or the eye color adjusted, you simply tell us directly on WhatsApp. We modify the clay sculpt and send updated preview photos until you are completely delighted with the result.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-card">
+          <button class="faq-question-btn">
+            <span>How long does the sculpting and shipping process take?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer-body">
+            Because each figurine is sculpted 100% by hand, the clay sculpting and WhatsApp proofing typically takes 4–7 business days. Once you approve your proof, casting, curing, hand-painting, and insured express delivery takes approximately 6–10 business days worldwide.
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-card">
+          <button class="faq-question-btn">
+            <span>What kind of photos work best for the sculpture?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer-body">
+            A clear front-facing portrait showing a natural smile is ideal! If you also have side-profile photos or specific outfit pictures, you can send those on WhatsApp as well. Our artists will guide you if any additional angles are helpful.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STICKY MOBILE BOTTOM BUY BAR -->
+  <div class="mobile-sticky-bar">
+    <div class="mobile-sticky-inner">
+      <div class="mobile-price-preview">
+        <h4 id="sticky-price-val">CHF 49.90</h4>
+        <span>Upload Photos After Checkout</span>
+      </div>
+      <button class="mobile-cta-btn">
+        <i class="fa-solid fa-bag-shopping"></i> ORDER NOW
+      </button>
+    </div>
+  </div>
+
+  <!-- LIVE RECENT ORDER SOCIAL PROOF POPUP -->
+  <div class="live-social-proof" id="live-social-proof">
+    <img src="assets/images/hero-bobblehead.jpg" alt="Recent buyer statue" class="proof-avatar">
+    <div class="live-social-proof-text">
+      <div id="social-proof-desc"><strong>Lukas M.</strong> from Zurich ordered <strong>Couple MINI ME</strong></div>
+      <span class="time" id="social-proof-time">4 minutes ago • Verified Buyer</span>
+    </div>
+  </div>
+
+  <!-- REAL PLAYABLE VIDEO LIGHTBOX MODAL -->
+  <div class="video-modal-overlay" id="video-modal-overlay">
+    <div class="video-modal-box">
+      <div class="video-player-container">
+        <!-- Genuine HTML5 Playable Video Element -->
+        <video id="active-video-player" class="video-main-element" playsinline loop preload="auto">
+          <source src="assets/videos/unboxing-1.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+        
+        <!-- Video Controls & Header Overlay -->
+        <div class="video-controls-overlay">
+          <div class="video-top-bar">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="reel-badge" style="background: rgba(0,0,0,0.75); border-color: rgba(255,255,255,0.3);">
+                <i class="fa-solid fa-circle" style="color:#EF4444; font-size: 0.6rem;"></i> Live Video Playback
+              </span>
+            </div>
+            
+            <div style="display: flex; gap: 8px;">
+              <!-- Sound Toggle Button -->
+              <button class="video-close-btn" id="video-sound-toggle-btn" title="Toggle Sound">
+                <i class="fa-solid fa-volume-high" id="video-sound-icon"></i>
+              </button>
+              <!-- Close Button -->
+              <button class="video-close-btn" id="video-close-btn" title="Close Video">✕</button>
+            </div>
+          </div>
+
+          <div class="video-bottom-panel">
+            <!-- Video Progress Bar Scrubber -->
+            <div class="video-progress-bar-wrap" id="video-progress-bar">
+              <div class="video-progress-fill" id="video-progress-fill"></div>
+            </div>
+
+            <div class="video-action-row">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <button class="video-toggle-play-btn" id="video-toggle-btn" title="Play / Pause">
+                  <i class="fa-solid fa-pause" id="video-icon-state"></i>
+                </button>
+                <div>
+                  <h4 id="modal-video-title" style="font-size: 0.95rem; font-weight: 800; color: #FFF;">Emily R. • Zurich</h4>
+                  <p id="modal-video-desc" style="font-size: 0.76rem; color: #E5E7EB; line-height: 1.3;">"Unboxing my Mini Me anniversary statue!"</p>
+                </div>
+              </div>
+
+              <button class="reel-like-btn" id="modal-like-btn" title="Like Reel" style="width: 44px; height: 44px;">
+                <i class="fa-solid fa-heart"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE MODAL FOR PHOTO UPLOAD EXPLAINER -->
+  <div class="interactive-modal-overlay" id="interactive-modal">
+    <div class="interactive-modal-box">
+      <button class="modal-close-btn" id="modal-close-btn">✕</button>
+      <div style="text-align: center; margin-bottom: 20px;">
+        <div style="font-size: 2.5rem; margin-bottom: 8px;">📸</div>
+        <h3 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800;">Upload Photos Stress-Free</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 6px;">How our seamless post-checkout process works:</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 16px; font-size: 0.88rem;">
+        <div style="display: flex; gap: 12px; align-items: flex-start;">
+          <div style="background: #E0E7FF; color: #3730A3; font-weight: 800; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
+          <div>
+            <strong>Step 1: Place Your Order Today</strong><br>
+            Lock in the 2-for-1 discount without searching through your photo gallery right now.
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: flex-start;">
+          <div style="background: #DCFCE7; color: #166534; font-weight: 800; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</div>
+          <div>
+            <strong>Step 2: Instant WhatsApp Message & Upload Link</strong><br>
+            Immediately after checkout, you get a WhatsApp message and a simple web link to upload when convenient.
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: flex-start;">
+          <div style="background: #FEF3C7; color: #92400E; font-weight: 800; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</div>
+          <div>
+            <strong>Step 3: WhatsApp Preview & Unlimited Revisions</strong><br>
+            We sculpt your clay proof and send it to you on WhatsApp for 100% approval before shipping!
+          </div>
+        </div>
+      </div>
+
+      <button class="buy-button-main" style="margin-top: 24px;" onclick="document.getElementById('interactive-modal').style.display='none'">
+        <span>Got It! Continue to Order</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-notice" id="toast-notice">
+    <i class="fa-solid fa-circle-check" style="font-size: 1.2rem; color: #10B981;"></i>
+    <span id="toast-msg">Added to Cart!</span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand">
+          <h3>TARELCRAFT</h3>
+          <p>Handcrafting bespoke memory statues and personalized bobbleheads with unmatched artistic precision and personal concierge care.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Customer Care</h4>
+          <ul>
+            <li><a href="#">WhatsApp Direct Support</a></li>
+            <li><a href="#">Track Your Figurine</a></li>
+            <li><a href="#">Shipping & Delivery</a></li>
+            <li><a href="#">Unlimited Revisions Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>About Our Craft</h4>
+          <ul>
+            <li><a href="#">Master Clay Sculpting</a></li>
+            <li><a href="#">Materials & Safety</a></li>
+            <li><a href="#">Corporate & Bulk Gifts</a></li>
+            <li><a href="#">Verified Reviews</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>100% Peace of Mind</h4>
+          <p style="font-size: 0.84rem; line-height: 1.5; margin-bottom: 12px;">Every piece is previewed and approved on WhatsApp with unlimited revisions before shipment.</p>
+          <div style="color: #FBBF24; font-size: 1rem;">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Tarelcraft Shop. All rights reserved. Handcrafted with passion.</div>
+        <div>Protected by 256-Bit SSL Encrypted Checkout</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Javascript -->
+  <script src="js/app.js"></script>
+</body>
+</html>
