@@ -1,17 +1,29 @@
 /* ==========================================================================
    TARELCRAFT INTERACTIVE PRODUCT PAGE SCRIPT
-   Enhanced with Dark/Light Theme Switcher, Real Playable HTML5 Video & Dynamic Figures
+   Enhanced with Reactive StoreEngine Sync, Dark/Light Theme & Dynamic Figures
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // State
-  const state = {
-    theme: localStorage.getItem('tarelcraft-theme') || 'light',
-    currency: 'CHF',
-    rates: { CHF: 1.0, EUR: 1.05, USD: 1.15 },
-    symbols: { CHF: 'CHF', EUR: '€', USD: '$' },
+  // Ensure StoreEngine is loaded
+  const storeData = window.StoreEngine ? window.StoreEngine.get() : (window.DEFAULT_STORE_DATA || {});
+  const primaryProduct = (storeData.products && storeData.products[0]) ? storeData.products[0] : {
+    id: 'mini-me',
+    title: "Handcrafted Custom 'MINI ME' Figurine & Bobblehead",
+    subtitle: 'Turn any photo into a detailed, museum-quality personalized figurine.',
     basePrice: 49.90,
     comparePrice: 99.80,
+    rating: 4.9,
+    reviewsCount: 1480
+  };
+
+  // Local State
+  const state = {
+    theme: localStorage.getItem('tarelcraft-theme') || 'light',
+    currency: storeData.settings?.currency || 'CHF',
+    rates: storeData.settings?.rates || { CHF: 1.0, EUR: 1.05, USD: 1.15 },
+    symbols: storeData.settings?.symbols || { CHF: 'CHF', EUR: '€', USD: '$' },
+    basePrice: primaryProduct.basePrice || 49.90,
+    comparePrice: primaryProduct.comparePrice || 99.80,
     figureType: 'single',
     height: '18cm',
     headStyle: 'bobblehead',
@@ -29,38 +41,24 @@ document.addEventListener('DOMContentLoaded', () => {
     family: 'assets/images/family-figure.jpg'
   };
 
-  // Authentic Tarelcraft HD Playable Video Reels
-  const reelsData = [
-    {
-      video: 'assets/videos/unboxing-1.mp4',
-      cdnVideo: 'https://tarelcraft.com/cdn/shop/videos/c/vp/60f6bbcf350f44228c57ce5410424d05/60f6bbcf350f44228c57ce5410424d05.HD-1080p-7.2Mbps-50901326.mp4?v=0',
-      poster: 'assets/images/unboxing-1.jpg',
-      title: 'Emily R. • Zurich (Verified Buyer)',
-      desc: '"The WhatsApp preview was so reassuring! Resemblance blew me away! 😭✨"'
-    },
-    {
-      video: 'assets/videos/unboxing-2.mp4',
-      cdnVideo: 'https://tarelcraft.com/cdn/shop/videos/c/vp/ea4909b6b23b4e46875a3cc0b2c6970a/ea4909b6b23b4e46875a3cc0b2c6970a.HD-1080p-7.2Mbps-83368704.mp4?v=0',
-      poster: 'assets/images/unboxing-2.jpg',
-      title: 'Liam & Sarah • Bern (Verified Couple)',
-      desc: '"Uploaded photos on WhatsApp after order. Best anniversary keepsake ever!"'
-    },
-    {
-      video: 'assets/videos/unboxing-3.mp4',
-      cdnVideo: 'https://tarelcraft.com/cdn/shop/videos/c/vp/ea8367eefbb84d70925e3c9160f73a6a/ea8367eefbb84d70925e3c9160f73a6a.HD-1080p-7.2Mbps-86226255.mp4?v=0',
-      poster: 'assets/images/unboxing-3.jpg',
-      title: 'Sarah for Dad Arthur • Geneva (Retirement)',
-      desc: '"Dad cried tears of joy! Artist made 2 hair tweaks on WhatsApp for free."'
-    }
-  ];
-
-  // Pricing Matrix
-  const priceModifiers = {
+  // Price Modifiers from Primary Product Variants
+  let priceModifiers = {
     figureType: { single: 0, couple: 30, pet: 15, family: 60 },
     height: { '18cm': 0, '20cm': 10, '22cm': 20 },
     headStyle: { bobblehead: 10, fixed: 0 },
     baseTheme: { walnut: 0, acrylic: 5, heart: 5, soccer: 5 }
   };
+
+  function updatePriceModifiersFromProduct(prod) {
+    if (prod && prod.variants && prod.variants.figureTypes) {
+      prod.variants.figureTypes.forEach(f => {
+        priceModifiers.figureType[f.id] = parseFloat(f.priceModifier) || 0;
+        if (f.image) figureImages[f.id] = f.image;
+      });
+    }
+  }
+
+  updatePriceModifiersFromProduct(primaryProduct);
 
   // DOM Elements
   const htmlRoot = document.documentElement;
@@ -94,7 +92,184 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalLikeBtn = document.getElementById('modal-like-btn');
 
   // ==========================================================================
-  // 1. THEME SWITCHER (LIGHT / DARK MODE)
+  // 1. DYNAMIC STORE DATA BINDING (SYNCS WITH ADMIN)
+  // ==========================================================================
+  function applyStorefrontData(data) {
+    if (!data) return;
+    const prod = data.products ? data.products[0] : null;
+
+    // 1. Announcement Bar
+    const announceBar = document.querySelector('.announcement-bar');
+    if (announceBar && data.announcement) {
+      announceBar.innerHTML = `
+        <span><span class="badge-pill"><i class="fa-solid fa-sparkles"></i> ${data.announcement.badge || 'LIMITED DEAL'}</span> ${data.announcement.text}</span>
+        <a href="${data.announcement.ctaLink || '#how-it-works'}">${data.announcement.ctaText || 'Learn How It Works →'}</a>
+      `;
+    }
+
+    // 2. Product Meta Info
+    if (prod) {
+      state.basePrice = parseFloat(prod.basePrice) || 49.90;
+      state.comparePrice = parseFloat(prod.comparePrice) || 99.80;
+
+      const titleEl = document.querySelector('.product-title');
+      const subtitleEl = document.querySelector('.product-subtitle');
+      if (titleEl) titleEl.textContent = prod.title;
+      if (subtitleEl) subtitleEl.textContent = prod.subtitle;
+
+      updatePriceModifiersFromProduct(prod);
+      calculateTotal();
+    }
+
+    // 3. Dynamic Video Reels
+    if (data.reels && data.reels.length > 0) {
+      bindDynamicReels(data.reels);
+    }
+
+    // 4. Dynamic Customer Reviews
+    if (data.reviews && data.reviews.length > 0) {
+      bindDynamicReviews(data.reviews);
+    }
+
+    // 5. Dynamic FAQs
+    if (data.faqs && data.faqs.length > 0) {
+      bindDynamicFaqs(data.faqs);
+    }
+  }
+
+  // Bind Dynamic Reels
+  function bindDynamicReels(reels) {
+    const container = document.querySelector('.unboxing-reels-grid');
+    if (!container) return;
+
+    container.innerHTML = '';
+    reels.forEach((reel, idx) => {
+      const card = document.createElement('div');
+      card.className = `unboxing-reel-card reveal-on-scroll delay-${(idx % 3) + 1} is-visible`;
+      card.setAttribute('data-reel-index', idx);
+      card.innerHTML = `
+        <video class="reel-preview-video" poster="${reel.poster || 'assets/images/unboxing-1.jpg'}" loop muted playsinline preload="metadata">
+          <source src="${reel.video}" type="video/mp4">
+        </video>
+        <img src="${reel.poster || 'assets/images/unboxing-1.jpg'}" alt="${reel.title}" class="reel-fallback-poster">
+        <div class="reel-play-btn"><i class="fa-solid fa-play"></i></div>
+        <div class="reel-overlay">
+          <div class="reel-top-tags">
+            <span class="reel-tag"><i class="fa-solid fa-circle-check"></i> ${reel.tag || 'Verified Buyer'}</span>
+            <button class="reel-like-btn" aria-label="Like Video"><i class="fa-solid fa-heart"></i></button>
+          </div>
+          <div class="reel-bottom-info">
+            <div class="reel-customer-name">
+              <span>${reel.title}</span>
+              <i class="fa-solid fa-circle-check verified-check" title="Verified Buyer"></i>
+            </div>
+            <p class="reel-quote">${reel.desc}</p>
+            <div class="reel-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+    // Re-bind reel clicks
+    container.querySelectorAll('.unboxing-reel-card').forEach((card, idx) => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.reel-like-btn')) return;
+        openVideoModal(idx);
+      });
+    });
+  }
+
+  // Bind Dynamic Reviews
+  function bindDynamicReviews(reviews) {
+    const container = document.querySelector('.reviews-masonry-grid');
+    if (!container) return;
+
+    container.innerHTML = '';
+    reviews.forEach((rev, idx) => {
+      const card = document.createElement('div');
+      card.className = `review-card reveal-on-scroll delay-${(idx % 3) + 1} is-visible`;
+      const starsHtml = '<i class="fa-solid fa-star"></i>'.repeat(rev.rating || 5);
+      const initials = rev.name ? rev.name.split(' ').map(n => n[0]).join('').substring(0, 2) : 'TC';
+
+      card.innerHTML = `
+        <div class="review-card-top">
+          <div class="reviewer-avatar">${initials}</div>
+          <div class="reviewer-info">
+            <h4>${rev.name}</h4>
+            <div class="reviewer-meta">
+              <span class="verified-pill"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span>
+              <span>•</span>
+              <span class="time-ago">${rev.date || 'Recent'}</span>
+            </div>
+          </div>
+          <div class="rating-stars">${starsHtml}</div>
+        </div>
+        <div class="review-figure-tag"><i class="fa-solid fa-tag"></i> Ordered: <strong>${rev.figureType || 'Custom Bobblehead'}</strong></div>
+        <h3 class="review-headline">"${rev.title}"</h3>
+        <p class="review-body-text">${rev.text}</p>
+        <div class="review-card-footer">
+          <div class="review-loc"><i class="fa-solid fa-location-dot"></i> ${rev.location || 'Switzerland'}</div>
+          <button class="review-helpful-btn"><i class="fa-regular fa-thumbs-up"></i> Helpful (${rev.likes || 12})</button>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  // Bind Dynamic FAQs
+  function bindDynamicFaqs(faqs) {
+    const container = document.querySelector('.faq-accordion-list');
+    if (!container) return;
+
+    container.innerHTML = '';
+    faqs.forEach((faq, idx) => {
+      const card = document.createElement('div');
+      card.className = `faq-card reveal-on-scroll delay-${(idx % 3) + 1} is-visible ${idx === 0 ? 'open' : ''}`;
+      card.innerHTML = `
+        <button class="faq-question-btn">
+          <span class="faq-q-text"><i class="fa-regular fa-circle-question faq-icon"></i> ${faq.question}</span>
+          <span class="faq-toggle-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer-pane">
+          <div class="faq-answer-inner">
+            <p>${faq.answer}</p>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+    // Re-bind FAQ Accordions
+    container.querySelectorAll('.faq-card').forEach(card => {
+      const btn = card.querySelector('.faq-question-btn');
+      if (btn) {
+        btn.addEventListener('click', () => {
+          const isOpen = card.classList.contains('open');
+          container.querySelectorAll('.faq-card').forEach(c => c.classList.remove('open'));
+          if (!isOpen) {
+            card.classList.add('open');
+          }
+        });
+      }
+    });
+  }
+
+  // Initial apply
+  applyStorefrontData(storeData);
+
+  // Subscribe to real-time updates from StoreEngine / other tabs
+  if (window.StoreEngine) {
+    window.StoreEngine.subscribe((updated) => {
+      applyStorefrontData(updated);
+      showToast('⚡ Live Storefront updated in real-time from Admin!');
+    });
+  }
+
+  // ==========================================================================
+  // 2. THEME SWITCHER (LIGHT / DARK MODE)
   // ==========================================================================
   function applyTheme(theme) {
     state.theme = theme;
@@ -126,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // 2. CONFETTI CANVAS ENGINE
+  // 3. CONFETTI CANVAS ENGINE
   // ==========================================================================
   const confettiCanvas = document.getElementById('confetti-canvas');
   const ctx = confettiCanvas ? confettiCanvas.getContext('2d') : null;
@@ -192,60 +367,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // 3. REAL HTML5 VIDEO PLAYER (UNBOXING REELS)
+  // 4. REAL HTML5 VIDEO PLAYER (UNBOXING REELS)
   // ==========================================================================
-  const reelCards = document.querySelectorAll('.unboxing-reel-card');
-
-  // Preview video on hover on desktop
-  reelCards.forEach((card, index) => {
-    const videoElem = card.querySelector('video.reel-preview-video');
-    if (videoElem) {
-      card.addEventListener('mouseenter', () => {
-        videoElem.play().catch(() => {});
-      });
-      card.addEventListener('mouseleave', () => {
-        videoElem.pause();
-      });
-    }
-
-    card.addEventListener('click', () => {
-      openVideoModal(index);
-    });
-
-    const likeBtn = card.querySelector('.reel-like-btn');
-    if (likeBtn) {
-      likeBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        likeBtn.classList.toggle('liked');
-        if (likeBtn.classList.contains('liked')) {
-          triggerConfetti();
-          showToast('❤️ Added to favorites!');
-        }
-      });
-    }
-  });
-
   function openVideoModal(index) {
-    state.activeReelIndex = index;
-    const reel = reelsData[index];
-    if (!reel || !activeVideoPlayer) return;
+    const reels = window.StoreEngine ? window.StoreEngine.getReels() : [];
+    const reel = reels[index] || reels[0];
+    if (!reel) return;
 
-    activeVideoPlayer.src = reel.video;
-    activeVideoPlayer.poster = reel.poster;
-    activeVideoPlayer.currentTime = 0;
+    state.activeReelIndex = index;
+    if (activeVideoPlayer) {
+      activeVideoPlayer.src = reel.video;
+      activeVideoPlayer.poster = reel.poster || '';
+      activeVideoPlayer.load();
+      activeVideoPlayer.play().catch(() => {});
+    }
 
     if (modalVideoTitle) modalVideoTitle.textContent = reel.title;
     if (modalVideoDesc) modalVideoDesc.textContent = reel.desc;
-    if (modalLikeBtn) modalLikeBtn.classList.remove('liked');
-
-    if (videoModalOverlay) {
-      videoModalOverlay.style.display = 'flex';
-      activeVideoPlayer.play().catch(() => {
-        activeVideoPlayer.src = reel.cdnVideo;
-        activeVideoPlayer.play().catch(() => {});
-      });
-      if (videoIconState) videoIconState.className = 'fa-solid fa-pause';
-    }
+    if (videoModalOverlay) videoModalOverlay.style.display = 'flex';
   }
 
   function closeVideoModal() {
@@ -258,17 +397,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (activeVideoPlayer) {
-    // Timeupdate for progress fill
     activeVideoPlayer.addEventListener('timeupdate', () => {
-      if (activeVideoPlayer.duration) {
+      if (activeVideoPlayer.duration && videoProgressFill) {
         const percent = (activeVideoPlayer.currentTime / activeVideoPlayer.duration) * 100;
-        if (videoProgressFill) {
-          videoProgressFill.style.width = `${percent}%`;
-        }
+        videoProgressFill.style.width = `${percent}%`;
       }
     });
 
-    // Play / Pause event listeners
     activeVideoPlayer.addEventListener('play', () => {
       if (videoIconState) videoIconState.className = 'fa-solid fa-pause';
     });
@@ -278,7 +413,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Toggle Play / Pause Button
   if (videoToggleBtn && activeVideoPlayer) {
     videoToggleBtn.addEventListener('click', () => {
       if (activeVideoPlayer.paused) {
@@ -289,7 +423,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Toggle Sound Button
   if (videoSoundToggleBtn && activeVideoPlayer) {
     videoSoundToggleBtn.addEventListener('click', () => {
       activeVideoPlayer.muted = !activeVideoPlayer.muted;
@@ -301,17 +434,6 @@ document.addEventListener('DOMContentLoaded', () => {
           videoSoundIcon.className = 'fa-solid fa-volume-high';
           showToast('🔊 Sound Enabled');
         }
-      }
-    });
-  }
-
-  // Seek on progress bar click
-  if (videoProgressBar && activeVideoPlayer) {
-    videoProgressBar.addEventListener('click', (e) => {
-      const rect = videoProgressBar.getBoundingClientRect();
-      const clickPos = (e.clientX - rect.left) / rect.width;
-      if (activeVideoPlayer.duration) {
-        activeVideoPlayer.currentTime = clickPos * activeVideoPlayer.duration;
       }
     });
   }
@@ -338,7 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================================================
-  // 4. FIGURE SELECTION & DYNAMIC IMAGE SWITCHER (FAMILY, PET, COUPLE, SINGLE)
+  // 5. FIGURE SELECTION & IMAGE SWITCHER
   // ==========================================================================
   const figureCards = document.querySelectorAll('.figure-card');
   const thumbnails = document.querySelectorAll('.thumb-item');
@@ -355,7 +477,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 160);
     }
 
-    // Sync Thumbnails active state
     thumbnails.forEach(thumb => {
       if (thumb.getAttribute('data-type') === figureKey) {
         thumb.classList.add('active');
@@ -375,17 +496,8 @@ document.addEventListener('DOMContentLoaded', () => {
         figureTypeSelected.textContent = card.querySelector('.v-title').textContent;
       }
 
-      // Dynamically switch hero image based on option
       updateProductImage(state.figureType);
       calculateTotal();
-
-      if (state.figureType === 'family') {
-        showToast('👨‍👩‍👧‍👦 Family / Group Figurine selected (+ CHF 60.00)');
-      } else if (state.figureType === 'pet') {
-        showToast('🐾 Person + Pet Custom Figurine selected (+ CHF 15.00)');
-      } else if (state.figureType === 'couple') {
-        showToast('💑 Couple Custom Figurine selected (+ CHF 30.00)');
-      }
     });
   });
 
@@ -406,7 +518,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 160);
       }
 
-      // Sync with figure selector if applicable
       if (thumbType) {
         figureCards.forEach(c => {
           if (c.getAttribute('data-figure') === thumbType) {
@@ -418,28 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================================================
-  // 5. INTERACTIVE COMPARISON TABS (QUALITY MATTERS SECTION)
-  // ==========================================================================
-  const compTabs = document.querySelectorAll('.comp-tab-btn');
-  const compCards = document.querySelectorAll('.creative-comp-card');
-
-  compTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      compTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      compCards.forEach(card => {
-        card.style.transform = 'scale(0.98)';
-        setTimeout(() => {
-          card.style.transform = 'scale(1)';
-        }, 150);
-      });
-      showToast(`Showing comparison filter: ${tab.textContent}`);
-    });
-  });
-
-  // ==========================================================================
-  // 6. BOBBLEHEAD WOBBLE ON CLICK (SIMPLE & CLEAN)
+  // 6. BOBBLEHEAD WOBBLE ON CLICK
   // ==========================================================================
   function triggerBobbleAnimation() {
     if (!mainImageViewport) return;
@@ -464,8 +554,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 7. DYNAMIC PRICING & CURRENCY CONVERSION
   // ==========================================================================
   function calculateTotal() {
-    let base = 49.90;
-    let compareBase = 99.80;
+    let base = state.basePrice || 49.90;
+    let compareBase = state.comparePrice || 99.80;
 
     base += priceModifiers.figureType[state.figureType] || 0;
     base += priceModifiers.height[state.height] || 0;
@@ -479,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rate = state.rates[state.currency] || 1;
     const finalPrice = (base * rate).toFixed(2);
     const finalCompare = (compareBase * rate).toFixed(2);
-    const symbol = state.symbols[state.currency];
+    const symbol = state.symbols[state.currency] || 'CHF';
 
     const formattedPrice = state.currency === 'EUR' || state.currency === 'USD' 
       ? `${symbol}${finalPrice}` 
@@ -634,21 +724,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // FAQ Accordion
-  const faqCards = document.querySelectorAll('.faq-card');
-  faqCards.forEach(card => {
-    const btn = card.querySelector('.faq-question-btn');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        const isOpen = card.classList.contains('open');
-        faqCards.forEach(c => c.classList.remove('open'));
-        if (!isOpen) {
-          card.classList.add('open');
-        }
-      });
-    }
-  });
-
   // Modal Triggers
   const modalOverlay = document.getElementById('interactive-modal');
   const modalClose = document.getElementById('modal-close-btn');
@@ -682,7 +757,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3500);
   }
 
-  // Buy Buttons with Confetti & Cart Counter Bump
+  // Buy Buttons: Add to Cart & Record Store Order in StoreEngine
   const buyBtns = document.querySelectorAll('.buy-button-main, .mobile-cta-btn');
   buyBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -694,8 +769,40 @@ document.addEventListener('DOMContentLoaded', () => {
         void cartCountEl.offsetWidth;
         cartCountEl.classList.add('bump');
       }
+
+      // Calculate order total
+      let base = state.basePrice || 49.90;
+      base += priceModifiers.figureType[state.figureType] || 0;
+      base += priceModifiers.height[state.height] || 0;
+      base += priceModifiers.headStyle[state.headStyle] || 0;
+      base += priceModifiers.baseTheme[state.baseTheme] || 0;
+
+      // Save real simulated order to StoreEngine
+      if (window.StoreEngine) {
+        const figureTitle = (state.figureType.charAt(0).toUpperCase() + state.figureType.slice(1));
+        const headTitle = (state.headStyle.charAt(0).toUpperCase() + state.headStyle.slice(1));
+        const baseTitle = (state.baseTheme.charAt(0).toUpperCase() + state.baseTheme.slice(1));
+        const configDesc = `${figureTitle} • ${state.height} • ${headTitle} • ${baseTitle} Base`;
+
+        window.StoreEngine.addOrder({
+          customer: 'Online Guest Buyer',
+          email: 'guest.' + Date.now().toString().slice(-4) + '@tarelcraft.ch',
+          phone: '+41 79 ' + Math.floor(100 + Math.random() * 900) + ' ' + Math.floor(10 + Math.random() * 90) + ' ' + Math.floor(10 + Math.random() * 90),
+          items: [
+            { title: primaryProduct.title || "Bespoke 'MINI ME' Figurine", variant: configDesc, qty: 1, price: base }
+          ],
+          total: base,
+          currency: state.currency,
+          status: 'Unfulfilled',
+          paymentStatus: 'Paid',
+          whatsappStatus: 'Awaiting Photo Upload (Post-Checkout)',
+          notes: state.engravingText ? `Engraving: "${state.engravingText}"` : 'No custom engraving',
+          shippingAddress: 'Bahnhofstrasse 1, 8001 Zurich, Switzerland'
+        });
+      }
+
       triggerConfetti();
-      showToast('🎁 Added to Order! Remember: No photos needed now—upload anytime after checkout!');
+      showToast('🎁 Order placed! Stored in Shopify Admin & Concierge WhatsApp queue ready.');
     });
   });
 

@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en" data-admin-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarelcraft Admin | Shopify Polaris Control Center</title>
+  <meta name="description" content="Shopify Polaris-powered Admin Dashboard to manage Tarelcraft products, pricing, landing page blocks, video reels, reviews, orders, and analytics.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Admin Polaris Stylesheet -->
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- ==========================================================================
+       1. GLOBAL TOPBAR (SHOPIFY POLARIS STYLE)
+       ========================================================================== -->
+  <header class="admin-topbar">
+    <div class="topbar-left">
+      <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle Navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <a href="#dashboard" class="topbar-brand">
+        <div class="brand-shopify-badge"><i class="fa-solid fa-gem"></i></div>
+        <div class="brand-info">
+          <h1>TARELCRAFT</h1>
+          <span><span class="status-dot"></span> Online Store • Live</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Global Search with Ctrl+K shortcut -->
+    <div class="topbar-search-wrap" id="topbar-search-trigger">
+      <i class="fa-solid fa-magnifying-glass search-icon-left"></i>
+      <input type="text" class="topbar-search-input" placeholder="Search products, orders, settings... (Ctrl + K)" readonly>
+      <span class="search-shortcut-badge">Ctrl K</span>
+    </div>
+
+    <div class="topbar-right">
+      <!-- Live Storefront View -->
+      <a href="index.html" target="_blank" class="btn-storefront-preview" title="Open Live Storefront">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        <span>View Store</span>
+      </a>
+
+      <!-- Admin Theme Toggle -->
+      <button class="topbar-icon-btn" id="admin-theme-toggle" title="Toggle Admin Dark/Light Theme">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+
+      <!-- Notifications -->
+      <button class="topbar-icon-btn" id="admin-notif-btn" title="Store Notifications">
+        <i class="fa-solid fa-bell"></i>
+        <span class="notif-pill"></span>
+      </button>
+
+      <!-- User Profile -->
+      <button class="user-profile-btn" id="user-profile-btn" title="Admin Profile">
+        <div class="user-avatar">TC</div>
+        <span style="font-size: 0.82rem; font-weight: 600;">Store Owner</span>
+        <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; color: #a6acb2;"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       2. MAIN LAYOUT: SIDEBAR + CONTENT AREA
+       ========================================================================== -->
+  <div class="admin-wrapper">
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="sidebar-top">
+        <ul class="sidebar-nav-list">
+          <li class="nav-section-title">Overview</li>
+          <li>
+            <button class="nav-item-btn active" data-view="dashboard">
+              <i class="fa-solid fa-house"></i>
+              <span>Dashboard</span>
+            </button>
+          </li>
+
+          <li class="nav-section-title">Catalog & Storefront</li>
+          <li>
+            <button class="nav-item-btn" data-view="products">
+              <i class="fa-solid fa-tags"></i>
+              <span>Products</span>
+              <span class="nav-badge-count" id="sidebar-products-count">1</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-view="customizer">
+              <i class="fa-solid fa-paint-roller"></i>
+              <span>Page Customizer</span>
+              <span class="p-badge p-badge-info" style="font-size: 0.65rem; margin-left: auto;">Live Sync</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-view="orders">
+              <i class="fa-solid fa-box-open"></i>
+              <span>Orders</span>
+              <span class="nav-badge-count" id="sidebar-orders-count">4</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-view="customers">
+              <i class="fa-solid fa-users"></i>
+              <span>Customers</span>
+            </button>
+          </li>
+
+          <li class="nav-section-title">Sales & Marketing</li>
+          <li>
+            <button class="nav-item-btn" data-view="analytics">
+              <i class="fa-solid fa-chart-line"></i>
+              <span>Analytics</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-view="discounts">
+              <i class="fa-solid fa-ticket"></i>
+              <span>Discounts</span>
+            </button>
+          </li>
+
+          <li class="nav-section-title">Configuration</li>
+          <li>
+            <button class="nav-item-btn" data-view="settings">
+              <i class="fa-solid fa-gear"></i>
+              <span>Store Settings</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-footer-box">
+        <div class="quick-sync-status">
+          <span>Storage Engine:</span>
+          <span><i class="fa-solid fa-circle-check"></i> Connected</span>
+        </div>
+        <button class="p-btn p-btn-sm" id="quick-reset-defaults-btn" style="width: 100%; font-size: 0.76rem;">
+          <i class="fa-solid fa-arrow-rotate-left"></i> Reset Demo Data
+        </button>
+      </div>
+    </aside>
+
+    <!-- CONTENT AREA -->
+    <main class="admin-content">
+
+      <!-- ====================================================================
+           VIEW 1: DASHBOARD OVERVIEW
+           ==================================================================== -->
+      <section class="view-section active" id="view-dashboard">
+        <div class="page-header">
+          <div class="page-title-group">
+            <h2>Store Dashboard</h2>
+            <p>Real-time analytics, revenue performance, and catalog overview.</p>
+          </div>
+          <div class="page-actions-group">
+            <button class="p-btn" id="dash-quick-customizer-btn">
+              <i class="fa-solid fa-palette"></i> Customize Landing Page
+            </button>
+            <button class="p-btn p-btn-primary" id="dash-quick-new-product-btn">
+              <i class="fa-solid fa-plus"></i> Add Product
+            </button>
+          </div>
+        </div>
+
+        <!-- Metrics Cards -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-label">
+              <span>Today's Revenue</span>
+              <i class="fa-solid fa-wallet text-emerald-600"></i>
+            </div>
+            <div class="metric-val" id="metric-today-revenue">CHF 1,248.50</div>
+            <div class="metric-trend trend-up">
+              <i class="fa-solid fa-arrow-trend-up"></i> +18.4% vs yesterday
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label">
+              <span>Orders Placed</span>
+              <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+            <div class="metric-val" id="metric-today-orders">16</div>
+            <div class="metric-trend trend-up">
+              <i class="fa-solid fa-arrow-trend-up"></i> +4 orders from WhatsApp
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label">
+              <span>Conversion Rate</span>
+              <i class="fa-solid fa-filter-circle-dollar"></i>
+            </div>
+            <div class="metric-val" id="metric-conversion-rate">4.82%</div>
+            <div class="metric-trend trend-up">
+              <i class="fa-solid fa-arrow-trend-up"></i> +0.6% this week
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label">
+              <span>Live Store Visitors</span>
+              <i class="fa-solid fa-users-viewfinder"></i>
+            </div>
+            <div class="metric-val" id="metric-live-visitors">41</div>
+            <div class="metric-trend trend-up">
+              <span class="status-dot" style="display:inline-block; width:8px; height:8px; background:#10b981; border-radius:50%;"></span> Active right now
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart Grid -->
+        <div class="chart-card-grid">
+          <div class="p-card">
+            <div class="p-card-header">
+              <div>
+                <h3>Total Sales & Orders Trend (Last 14 Days)</h3>
+                <p>Daily volume in Swiss Francs (CHF) with real-time conversion insights.</p>
+              </div>
+              <span class="p-badge p-badge-success">Live Dynamic</span>
+            </div>
+            <div class="canvas-container">
+              <canvas id="sales-trend-canvas" class="admin-chart-canvas"></canvas>
+            </div>
+          </div>
+
+          <div class="p-card">
+            <div class="p-card-header">
+              <div>
+                <h3>Top Selling Variants</h3>
+                <p>Popular figure selections</p>
+              </div>
+            </div>
+            <div class="variants-share-list" style="display: flex; flex-direction: column; gap: 14px;">
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; margin-bottom: 4px;">
+                  <span>Couple Figure (20cm)</span>
+                  <span>46%</span>
+                </div>
+                <div style="height: 6px; background: var(--p-border-subdued); border-radius: 4px; overflow: hidden;">
+                  <div style="width: 46%; height: 100%; background: #008060;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; margin-bottom: 4px;">
+                  <span>Single Person (18cm Bobblehead)</span>
+                  <span>32%</span>
+                </div>
+                <div style="height: 6px; background: var(--p-border-subdued); border-radius: 4px; overflow: hidden;">
+                  <div style="width: 32%; height: 100%; background: #5c6ac4;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; margin-bottom: 4px;">
+                  <span>With Pet Edition</span>
+                  <span>14%</span>
+                </div>
+                <div style="height: 6px; background: var(--p-border-subdued); border-radius: 4px; overflow: hidden;">
+                  <div style="width: 14%; height: 100%; background: #f59e0b;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; margin-bottom: 4px;">
+                  <span>Family Group Pack</span>
+                  <span>8%</span>
+                </div>
+                <div style="height: 6px; background: var(--p-border-subdued); border-radius: 4px; overflow: hidden;">
+                  <div style="width: 8%; height: 100%; background: #10b981;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Orders Card -->
+        <div class="p-card">
+          <div class="p-card-header">
+            <div>
+              <h3>Recent Incoming Orders</h3>
+              <p>Latest purchases and WhatsApp approval status</p>
+            </div>
+            <button class="p-btn p-btn-sm" id="dash-view-all-orders-btn">View All Orders →</button>
+          </div>
+          <div class="p-table-container">
+            <table class="p-table">
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Customer</th>
+                  <th>Item Config</th>
+                  <th>Total</th>
+                  <th>Fulfillment</th>
+                  <th>WhatsApp Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="dash-recent-orders-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           VIEW 2: PRODUCTS CATALOG & PRODUCT CRUD
+           ==================================================================== -->
+      <section class="view-section" id="view-products">
+        <div class="page-header">
+          <div class="page-title-group">
+            <h2>Products Management</h2>
+            <p>Manage product catalog, base pricing, variant modifiers, and media assets.</p>
+          </div>
+          <div class="page-actions-group">
+            <button class="p-btn" id="prod-export-csv-btn">
+              <i class="fa-solid fa-file-export"></i> Export JSON
+            </button>
+            <button class="p-btn p-btn-primary" id="prod-add-new-btn">
+              <i class="fa-solid fa-plus"></i> Add New Product
+            </button>
+          </div>
+        </div>
+
+        <!-- Products Table Toolbar -->
+        <div class="table-toolbar">
+          <div class="table-filter-group">
+            <input type="text" class="table-search-input" id="products-search-input" placeholder="Filter products by title, SKU, or tag...">
+            <select class="p-select" id="products-status-filter" style="width: 140px; height: 32px; font-size: 0.82rem;">
+              <option value="all">All Statuses</option>
+              <option value="active">Active</option>
+              <option value="draft">Draft</option>
+            </select>
+          </div>
+          <span style="font-size: 0.8rem; color: var(--p-text-subdued);" id="products-count-badge">Showing 1 product</span>
+        </div>
+
+        <!-- Products Data Table -->
+        <div class="p-table-container">
+          <table class="p-table">
+            <thead>
+              <tr>
+                <th style="width: 40px;"><input type="checkbox" id="select-all-prods"></th>
+                <th>Product</th>
+                <th>Status</th>
+                <th>Inventory</th>
+                <th>Category</th>
+                <th>Base Price</th>
+                <th>Compare Price</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="products-list-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- PRODUCT EDIT DRAWER / FORM -->
+        <div class="p-card" id="product-editor-card" style="margin-top: 32px; display: none;">
+          <div class="p-card-header">
+            <div>
+              <h3 id="editor-heading-title">Edit Product: Handcrafted Custom 'MINI ME'</h3>
+              <p>Configure product details, pricing, variants, and SEO meta tags.</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="p-btn" id="editor-cancel-btn">Cancel</button>
+              <button class="p-btn p-btn-primary" id="editor-save-btn">
+                <i class="fa-solid fa-floppy-disk"></i> Save Product
+              </button>
+            </div>
+          </div>
+
+          <form id="product-edit-form">
+            <input type="hidden" id="edit-prod-id" value="">
+
+            <div class="editor-layout-grid">
+              <!-- Left Column: Details, Media, Pricing, Variants -->
+              <div class="editor-left-col">
+                <!-- Basic Info Card -->
+                <div class="p-card" style="margin-bottom: 20px;">
+                  <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 14px;">Product Information</h4>
+                  <div class="form-group">
+                    <label for="edit-prod-title">Product Title *</label>
+                    <input type="text" id="edit-prod-title" class="p-input" required placeholder="e.g. Handcrafted Custom 'MINI ME' Figurine">
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-prod-subtitle">Subtitle / Marketing Hook</label>
+                    <input type="text" id="edit-prod-subtitle" class="p-input" placeholder="e.g. Turn any photo into a detailed personalized figurine.">
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-prod-handle">URL Handle / Slug</label>
+                    <input type="text" id="edit-prod-handle" class="p-input" placeholder="e.g. bespoke-mini-me-bobblehead">
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-prod-desc">Product Description & Craftsmanship Details</label>
+                    <textarea id="edit-prod-desc" class="p-textarea" placeholder="Detailed product story, clay material specifications..."></textarea>
+                  </div>
+                </div>
+
+                <!-- Media Manager Card -->
+                <div class="p-card" style="margin-bottom: 20px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <h4 style="font-size: 0.95rem; font-weight: 700;">Media Gallery Assets</h4>
+                    <button type="button" class="p-btn p-btn-sm" id="btn-add-image-url">
+                      <i class="fa-solid fa-plus"></i> Add Image URL
+                    </button>
+                  </div>
+                  <p style="font-size: 0.78rem; color: var(--p-text-subdued); margin-bottom: 12px;">
+                    Images represent figure types and gallery views on the storefront.
+                  </p>
+                  <div class="media-upload-grid" id="editor-media-grid">
+                    <!-- Dynamically populated images -->
+                  </div>
+                </div>
+
+                <!-- Pricing & Profit Matrix -->
+                <div class="p-card" style="margin-bottom: 20px;">
+                  <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 14px;">Pricing & Profit Margin</h4>
+                  <div class="form-row-3">
+                    <div class="form-group">
+                      <label for="edit-prod-price">Base Price (<span class="currency-label-span">CHF</span>) *</label>
+                      <div class="input-prefix-wrap">
+                        <span class="input-prefix" id="prefix-price-curr">CHF</span>
+                        <input type="number" step="0.01" id="edit-prod-price" class="p-input" required value="49.90">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="edit-prod-compare-price">Compare-at Price (Strikethrough)</label>
+                      <div class="input-prefix-wrap">
+                        <span class="input-prefix" id="prefix-compare-curr">CHF</span>
+                        <input type="number" step="0.01" id="edit-prod-compare-price" class="p-input" value="99.80">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="edit-prod-cost">Cost per Item (Atelier Craft)</label>
+                      <div class="input-prefix-wrap">
+                        <span class="input-prefix">CHF</span>
+                        <input type="number" step="0.01" id="edit-prod-cost" class="p-input" value="18.50">
+                      </div>
+                    </div>
+                  </div>
+                  <div style="padding: 10px 14px; background: var(--p-surface-subdued); border-radius: var(--p-radius-md); display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600;">
+                    <span>Calculated Margin: <strong id="calc-margin-val" style="color: var(--p-primary);">62.9%</strong></span>
+                    <span>Calculated Profit: <strong id="calc-profit-val" style="color: var(--p-primary);">CHF 31.40</strong> per unit</span>
+                  </div>
+                </div>
+
+                <!-- Variants Matrix Editor -->
+                <div class="p-card" style="margin-bottom: 20px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                    <h4 style="font-size: 0.95rem; font-weight: 700;">Figure Types & Price Surcharges</h4>
+                    <button type="button" class="p-btn p-btn-sm" id="btn-add-figure-variant">
+                      <i class="fa-solid fa-plus"></i> Add Figure Type
+                    </button>
+                  </div>
+                  <div class="variants-manager-list" id="editor-figure-variants-list">
+                    <!-- Dynamically populated figure variants -->
+                  </div>
+                </div>
+
+                <!-- Google SERP Snippet Preview -->
+                <div class="p-card">
+                  <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 6px;">Search Engine Listing Preview (SEO)</h4>
+                  <p style="font-size: 0.78rem; color: var(--p-text-subdued); margin-bottom: 12px;">How this product appears in Google Search results.</p>
+                  <div class="serp-preview-box">
+                    <div class="serp-url">https://tarelcraft.com/products/<span id="serp-slug-preview">bespoke-mini-me-bobblehead</span></div>
+                    <div class="serp-title" id="serp-title-preview">Bespoke 'MINI ME' Custom Bobblehead & Figurine | Tarelcraft</div>
+                    <div class="serp-desc" id="serp-desc-preview">Handcrafted personalized Mini Me bobbleheads and figurines made from your photos. Free WhatsApp preview before production, unlimited revisions...</div>
+                  </div>
+                  <div class="form-group" style="margin-top: 14px;">
+                    <label for="edit-seo-title">SEO Page Title</label>
+                    <input type="text" id="edit-seo-title" class="p-input">
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-seo-desc">SEO Meta Description</label>
+                    <textarea id="edit-seo-desc" class="p-textarea" style="min-height: 60px;"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Column: Status, Inventory, Organization -->
+              <div class="editor-right-col">
+                <!-- Status Card -->
+                <div class="p-card" style="margin-bottom: 20px;">
+                  <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 12px;">Product Status</h4>
+                  <div class="form-group">
+                    <select id="edit-prod-status" class="p-select">
+                      <option value="active">🟢 Active (Visible on Storefront)</option>
+                      <option value="draft">🟡 Draft (Hidden)</option>
+                      <option value="archived">🔴 Archived</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="margin-bottom: 0;">
+                    <label class="p-switch">
+                      <span>Featured on Homepage</span>
+                      <input type="checkbox" id="edit-prod-featured" checked>
+                      <span class="p-switch-slider"></span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Inventory Card -->
+                <div class="p-card" style="margin-bottom: 20px;">
+                  <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 12px;">Inventory & Stock Tracking</h4>
+                  <div class="form-group">
+                    <label for="edit-prod-sku">SKU (Stock Keeping Unit)</label>
+                    <input type="text" id="edit-prod-sku" class="p-input" value="TC-MINI-001">
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-prod-barcode">Barcode (ISBN, UPC, GTIN)</label>
+                    <input type="text" id="edit-prod-barcode" class="p-input" value="7640123456789">
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-prod-qty">Available Atelier Stock</label>
+                    <input type="number" id="edit-prod-qty" class="p-input" value="84">
+                  </div>
+                  <div class="form-group" style="margin-bottom: 0;">
+                    <label class="p-switch">
+                      <span>Track Quantity</span>
+                      <input type="checkbox" id="edit-prod-track-qty" checked>
+                      <span class="p-switch-slider"></span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Organization Card -->
+                <div class="p-card">
+                  <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 12px;">Product Organization</h4>
+                  <div class="form-group">
+                    <label for="edit-prod-category">Product Category</label>
+                    <input type="text" id="edit-prod-category" class="p-input" value="Custom Bobbleheads">
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-prod-vendor">Artisan Vendor</label>
+                    <input type="text" id="edit-prod-vendor" class="p-input" value="Tarelcraft Atelier Zurich">
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-prod-rating">Customer Star Rating (Displayed)</label>
+                    <input type="number" step="0.1" max="5" min="1" id="edit-prod-rating" class="p-input" value="4.9">
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-prod-reviews-count">Verified Reviews Count</label>
+                    <input type="number" id="edit-prod-reviews-count" class="p-input" value="1480">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           VIEW 3: PAGE CUSTOMIZER (LIVE STORE BLOCKS)
+           ==================================================================== -->
+      <section class="view-section" id="view-customizer">
+        <div class="page-header">
+          <div class="page-title-group">
+            <h2>Product Page Visual Customizer</h2>
+            <p>Directly edit all landing page blocks, announcements, WhatsApp perks, UGC reels, and customer testimonials.</p>
+          </div>
+          <div class="page-actions-group">
+            <a href="index.html" target="_blank" class="p-btn">
+              <i class="fa-solid fa-eye"></i> Preview Live Store
+            </a>
+            <button class="p-btn p-btn-primary" id="customizer-save-all-btn">
+              <i class="fa-solid fa-floppy-disk"></i> Save Customizer Changes
+            </button>
+          </div>
+        </div>
+
+        <div class="customizer-accordion">
+
+          <!-- Block 1: Announcement Bar -->
+          <div class="customizer-panel expanded">
+            <div class="customizer-panel-header">
+              <span><i class="fa-solid fa-bullhorn" style="color: #008060; margin-right: 8px;"></i> 1. Top Announcement Bar</span>
+              <i class="fa-solid fa-chevron-down panel-chevron"></i>
+            </div>
+            <div class="customizer-panel-body">
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="cust-announce-badge">Badge Label</label>
+                  <input type="text" id="cust-announce-badge" class="p-input" value="LIMITED DEAL">
+                </div>
+                <div class="form-group">
+                  <label for="cust-announce-cta">Call-to-Action Link Text</label>
+                  <input type="text" id="cust-announce-cta" class="p-input" value="Learn How It Works →">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="cust-announce-text">Announcement Message Text</label>
+                <input type="text" id="cust-announce-text" class="p-input" value="2-For-1 Offer Active + 100% Free WhatsApp Preview & Unlimited Revisions Included!">
+              </div>
+            </div>
+          </div>
+
+          <!-- Block 2: Authentic UGC Video Reels -->
+          <div class="customizer-panel expanded">
+            <div class="customizer-panel-header">
+              <span><i class="fa-solid fa-video" style="color: #f59e0b; margin-right: 8px;"></i> 2. UGC Playable Customer Video Reels</span>
+              <i class="fa-solid fa-chevron-down panel-chevron"></i>
+            </div>
+            <div class="customizer-panel-body">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                <p style="font-size: 0.8rem; color: var(--p-text-subdued);">Customer unboxing reels with real video playback.</p>
+                <button type="button" class="p-btn p-btn-sm" id="btn-add-reel-modal">
+                  <i class="fa-solid fa-plus"></i> Add Video Reel
+                </button>
+              </div>
+              <div id="customizer-reels-list">
+                <!-- Dynamically populated video reels -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Block 3: Customer Reviews & Testimonials -->
+          <div class="customizer-panel expanded">
+            <div class="customizer-panel-header">
+              <span><i class="fa-solid fa-star" style="color: #f59e0b; margin-right: 8px;"></i> 3. Customer Testimonials & Reviews</span>
+              <i class="fa-solid fa-chevron-down panel-chevron"></i>
+            </div>
+            <div class="customizer-panel-body">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                <p style="font-size: 0.8rem; color: var(--p-text-subdued);">Manage verified buyer ratings and quote testimonials.</p>
+                <button type="button" class="p-btn p-btn-sm" id="btn-add-review-modal">
+                  <i class="fa-solid fa-plus"></i> Add Customer Review
+                </button>
+              </div>
+              <div id="customizer-reviews-list">
+                <!-- Dynamically populated customer reviews -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Block 4: Frequently Asked Questions (FAQs) -->
+          <div class="customizer-panel expanded">
+            <div class="customizer-panel-header">
+              <span><i class="fa-solid fa-circle-question" style="color: #3b82f6; margin-right: 8px;"></i> 4. FAQs Accordion Items</span>
+              <i class="fa-solid fa-chevron-down panel-chevron"></i>
+            </div>
+            <div class="customizer-panel-body">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                <p style="font-size: 0.8rem; color: var(--p-text-subdued);">Questions regarding WhatsApp proof, revisions, and shipping times.</p>
+                <button type="button" class="p-btn p-btn-sm" id="btn-add-faq-modal">
+                  <i class="fa-solid fa-plus"></i> Add FAQ
+                </button>
+              </div>
+              <div id="customizer-faqs-list">
+                <!-- Dynamically populated FAQs -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           VIEW 4: ORDERS MANAGER
+           ==================================================================== -->
+      <section class="view-section" id="view-orders">
+        <div class="page-header">
+          <div class="page-title-group">
+            <h2>Orders & WhatsApp Fulfillment</h2>
+            <p>Track incoming purchases, WhatsApp proof status, and customer shipping notes.</p>
+          </div>
+          <div class="page-actions-group">
+            <button class="p-btn p-btn-primary" id="btn-simulate-order">
+              <i class="fa-solid fa-cart-plus"></i> Simulate New Order
+            </button>
+          </div>
+        </div>
+
+        <div class="p-card">
+          <div class="table-toolbar">
+            <div class="table-filter-group">
+              <input type="text" class="table-search-input" id="orders-search-input" placeholder="Search orders by ID or customer...">
+              <select class="p-select" id="orders-status-filter" style="width: 140px; height: 32px; font-size: 0.82rem;">
+                <option value="all">All Orders</option>
+                <option value="Unfulfilled">Unfulfilled</option>
+                <option value="Fulfilled">Fulfilled</option>
+              </select>
+            </div>
+            <span style="font-size: 0.8rem; color: var(--p-text-subdued);" id="orders-count-label">4 orders</span>
+          </div>
+
+          <div class="p-table-container">
+            <table class="p-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Date</th>
+                  <th>Customer</th>
+                  <th>Total</th>
+                  <th>Payment</th>
+                  <th>Fulfillment</th>
+                  <th>WhatsApp Proof Status</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="orders-list-tbody">
+                <!-- Dynamically populated orders -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           VIEW 5: CUSTOMERS CRM
+           ==================================================================== -->
+      <section class="view-section" id="view-customers">
+        <div class="page-header">
+          <div class="page-title-group">
+            <h2>Customer Directory</h2>
+            <p>Manage customer profiles, order history, and contact details.</p>
+          </div>
+        </div>
+
+        <div class="p-card">
+          <div class="p-table-container">
+            <table class="p-table">
+              <thead>
+                <tr>
+                  <th>Customer Name</th>
+                  <th>Email</th>
+                  <th>WhatsApp / Phone</th>
+                  <th>Location</th>
+                  <th>Orders</th>
+                  <th>Total Spent</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="customers-list-tbody">
+                <!-- Dynamically populated customers -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           VIEW 6: ANALYTICS
+           ==================================================================== -->
+      <section class="view-section" id="view-analytics">
+        <div class="page-header">
+          <div class="page-title-group">
+            <h2>Analytics & Sales Reports</h2>
+            <p>Conversion metrics, average order value, and traffic telemetry.</p>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-label">Monthly Gross Volume</div>
+            <div class="metric-val">CHF 34,290.00</div>
+            <div class="metric-trend trend-up">+22.4% vs last month</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Average Order Value (AOV)</div>
+            <div class="metric-val">CHF 78.03</div>
+            <div class="metric-trend trend-up">+5.1% (Upsell boosts)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Returning Customer Rate</div>
+            <div class="metric-val">28.4%</div>
+            <div class="metric-trend trend-up">High gift re-orders</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">WhatsApp Approval Rate</div>
+            <div class="metric-val">99.2%</div>
+            <div class="metric-trend trend-up">Zero customer disputes</div>
+          </div>
+        </div>
+
+        <div class="p-card" style="margin-top: 24px;">
+          <div class="p-card-header">
+            <h3>Revenue Growth Telemetry</h3>
+          </div>
+          <div class="canvas-container" style="height: 280px;">
+            <canvas id="analytics-full-canvas" class="admin-chart-canvas"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           VIEW 7: DISCOUNTS & PROMOTIONS
+           ==================================================================== -->
+      <section class="view-section" id="view-discounts">
+        <div class="page-header">
+          <div class="page-title-group">
+            <h2>Discounts & Promotional Codes</h2>
+            <p>Manage coupon vouchers, automatic 2-For-1 deals, and free shipping promos.</p>
+          </div>
+          <div class="page-actions-group">
+            <button class="p-btn p-btn-primary" id="btn-create-discount">
+              <i class="fa-solid fa-plus"></i> Create Discount Code
+            </button>
+          </div>
+        </div>
+
+        <div class="p-card">
+          <div class="p-table-container">
+            <table class="p-table">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Title & Description</th>
+                  <th>Type</th>
+                  <th>Value</th>
+                  <th>Status</th>
+                  <th>Total Uses</th>
+                </tr>
+              </thead>
+              <tbody id="discounts-list-tbody">
+                <!-- Dynamically populated discounts -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           VIEW 8: STORE SETTINGS & BACKUP
+           ==================================================================== -->
+      <section class="view-section" id="view-settings">
+        <div class="page-header">
+          <div class="page-title-group">
+            <h2>Store Settings & Localization</h2>
+            <p>Currency exchange rates, WhatsApp concierge number, and JSON database backup.</p>
+          </div>
+          <div class="page-actions-group">
+            <button class="p-btn p-btn-primary" id="settings-save-btn">
+              <i class="fa-solid fa-floppy-disk"></i> Save Settings
+            </button>
+          </div>
+        </div>
+
+        <div class="editor-layout-grid">
+          <div class="editor-left-col">
+            <div class="p-card">
+              <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 14px;">Store Identity & WhatsApp Concierge</h4>
+              <div class="form-group">
+                <label for="set-store-name">Store Name</label>
+                <input type="text" id="set-store-name" class="p-input" value="TARELCRAFT">
+              </div>
+              <div class="form-group">
+                <label for="set-store-tagline">Store Tagline</label>
+                <input type="text" id="set-store-tagline" class="p-input" value="Bespoke Handmade Artisan Figurines & Bobbleheads">
+              </div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="set-whatsapp-num">WhatsApp Support Number</label>
+                  <input type="text" id="set-whatsapp-num" class="p-input" value="+41 79 123 45 67">
+                </div>
+                <div class="form-group">
+                  <label for="set-support-email">Customer Care Email</label>
+                  <input type="email" id="set-support-email" class="p-input" value="concierge@tarelcraft.com">
+                </div>
+              </div>
+            </div>
+
+            <!-- Currency & Conversion Rates -->
+            <div class="p-card">
+              <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 14px;">Currencies & Exchange Rates</h4>
+              <div class="form-group">
+                <label for="set-default-currency">Default Store Currency</label>
+                <select id="set-default-currency" class="p-select">
+                  <option value="CHF">CHF - Swiss Franc (Fr.)</option>
+                  <option value="EUR">EUR - Euro (€)</option>
+                  <option value="USD">USD - US Dollar ($)</option>
+                </select>
+              </div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="set-rate-eur">EUR Exchange Rate (1 CHF = X EUR)</label>
+                  <input type="number" step="0.01" id="set-rate-eur" class="p-input" value="1.05">
+                </div>
+                <div class="form-group">
+                  <label for="set-rate-usd">USD Exchange Rate (1 CHF = X USD)</label>
+                  <input type="number" step="0.01" id="set-rate-usd" class="p-input" value="1.15">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="editor-right-col">
+            <!-- Data Backup & Reset -->
+            <div class="p-card">
+              <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 12px;">Database Backup & Migration</h4>
+              <p style="font-size: 0.78rem; color: var(--p-text-subdued); margin-bottom: 14px;">
+                Export all store products, variants, reviews, and reels to a JSON file or restore from a previous backup.
+              </p>
+              <button class="p-btn" id="btn-export-backup-json" style="width: 100%; margin-bottom: 10px;">
+                <i class="fa-solid fa-download"></i> Export Full Store JSON
+              </button>
+
+              <label class="p-btn" style="width: 100%; margin-bottom: 10px; cursor: pointer; text-align: center;">
+                <i class="fa-solid fa-upload"></i> Import Store JSON
+                <input type="file" id="file-import-json" accept=".json" style="display: none;">
+              </label>
+
+              <hr style="border: 0; border-top: 1px solid var(--p-border-subdued); margin: 16px 0;">
+
+              <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--p-critical); margin-bottom: 8px;">Danger Zone</h4>
+              <p style="font-size: 0.76rem; color: var(--p-text-subdued); margin-bottom: 12px;">
+                Reset all modifications and restore factory demo data.
+              </p>
+              <button class="p-btn p-btn-danger" id="btn-factory-reset" style="width: 100%;">
+                <i class="fa-solid fa-trash-can"></i> Factory Reset Store Data
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==========================================================================
+       MODALS: REEL, REVIEW, FAQ, ORDER DETAILS, COMMAND PALETTE
+       ========================================================================== -->
+  
+  <!-- Add/Edit Video Reel Modal -->
+  <div class="admin-modal-backdrop" id="modal-reel-backdrop">
+    <div class="admin-modal">
+      <div class="modal-header">
+        <h3 id="modal-reel-title">Add UGC Video Reel</h3>
+        <button class="modal-close-btn" data-close-modal="modal-reel-backdrop">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-reel-edit">
+          <input type="hidden" id="reel-edit-id" value="">
+          <div class="form-group">
+            <label for="reel-buyer-name">Buyer Name & Location *</label>
+            <input type="text" id="reel-buyer-name" class="p-input" placeholder="e.g. Marc & Elena • Zurich" required>
+          </div>
+          <div class="form-group">
+            <label for="reel-tag-label">Event Tag / Occasion</label>
+            <input type="text" id="reel-tag-label" class="p-input" placeholder="e.g. Verified Buyer / Anniversary">
+          </div>
+          <div class="form-group">
+            <label for="reel-quote">Customer Quote / Reaction *</label>
+            <textarea id="reel-quote" class="p-textarea" placeholder="Customer emotion quote..." required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="reel-video-url">Video MP4 File URL *</label>
+            <input type="text" id="reel-video-url" class="p-input" placeholder="assets/videos/unboxing-1.mp4" required>
+          </div>
+          <div class="form-group">
+            <label for="reel-poster-url">Video Poster Image Thumbnail URL</label>
+            <input type="text" id="reel-poster-url" class="p-input" placeholder="assets/images/unboxing-1.jpg">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="p-btn" data-close-modal="modal-reel-backdrop">Cancel</button>
+        <button class="p-btn p-btn-primary" id="btn-save-reel">Save Reel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Review Modal -->
+  <div class="admin-modal-backdrop" id="modal-review-backdrop">
+    <div class="admin-modal">
+      <div class="modal-header">
+        <h3 id="modal-review-title">Add Customer Review</h3>
+        <button class="modal-close-btn" data-close-modal="modal-review-backdrop">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-review-edit">
+          <input type="hidden" id="review-edit-id" value="">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="rev-author-name">Customer Name *</label>
+              <input type="text" id="rev-author-name" class="p-input" required placeholder="e.g. Elena S.">
+            </div>
+            <div class="form-group">
+              <label for="rev-location">Location</label>
+              <input type="text" id="rev-location" class="p-input" placeholder="Zurich, Switzerland">
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="rev-rating">Star Rating (1-5)</label>
+              <select id="rev-rating" class="p-select">
+                <option value="5">⭐⭐⭐⭐⭐ (5 Stars)</option>
+                <option value="4">⭐⭐⭐⭐ (4 Stars)</option>
+                <option value="3">⭐⭐⭐ (3 Stars)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="rev-figure-type">Ordered Variant</label>
+              <input type="text" id="rev-figure-type" class="p-input" placeholder="Couple 20cm Bobblehead">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="rev-headline">Review Headline *</label>
+            <input type="text" id="rev-headline" class="p-input" required placeholder="e.g. Best gift I ever purchased!">
+          </div>
+          <div class="form-group">
+            <label for="rev-text">Detailed Review Text *</label>
+            <textarea id="rev-text" class="p-textarea" required placeholder="Tell the customer's story..."></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="p-btn" data-close-modal="modal-review-backdrop">Cancel</button>
+        <button class="p-btn p-btn-primary" id="btn-save-review">Save Review</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit FAQ Modal -->
+  <div class="admin-modal-backdrop" id="modal-faq-backdrop">
+    <div class="admin-modal">
+      <div class="modal-header">
+        <h3 id="modal-faq-title">Add FAQ Question</h3>
+        <button class="modal-close-btn" data-close-modal="modal-faq-backdrop">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-faq-edit">
+          <input type="hidden" id="faq-edit-id" value="">
+          <div class="form-group">
+            <label for="faq-question">Question *</label>
+            <input type="text" id="faq-question" class="p-input" required placeholder="e.g. How does the WhatsApp 3D preview work?">
+          </div>
+          <div class="form-group">
+            <label for="faq-answer">Answer *</label>
+            <textarea id="faq-answer" class="p-textarea" style="min-height: 120px;" required placeholder="Detailed clear answer..."></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="p-btn" data-close-modal="modal-faq-backdrop">Cancel</button>
+        <button class="p-btn p-btn-primary" id="btn-save-faq">Save FAQ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Details Modal -->
+  <div class="admin-modal-backdrop" id="modal-order-details">
+    <div class="admin-modal" style="max-width: 650px;">
+      <div class="modal-header">
+        <h3 id="modal-order-title">Order TC-9481 Details</h3>
+        <button class="modal-close-btn" data-close-modal="modal-order-details">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-order-body">
+        <!-- Dynamically rendered order info -->
+      </div>
+      <div class="modal-footer">
+        <button class="p-btn" data-close-modal="modal-order-details">Close</button>
+        <button class="p-btn p-btn-primary" id="btn-order-fulfill-toggle">Toggle Fulfillment Status</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Command Palette (Ctrl+K) -->
+  <div class="command-palette-backdrop" id="command-palette-backdrop">
+    <div class="command-palette-box">
+      <div class="command-input-row">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="command-palette-input" placeholder="Type a view or action... (e.g. Products, Customizer, Settings)">
+        <span class="search-shortcut-badge">ESC to close</span>
+      </div>
+      <ul class="command-results-list" id="command-results-list">
+        <li class="command-result-item" data-action="view-dashboard">
+          <span><i class="fa-solid fa-house" style="margin-right: 8px;"></i> Go to Dashboard</span>
+          <span class="p-badge p-badge-neutral">Navigation</span>
+        </li>
+        <li class="command-result-item" data-action="view-products">
+          <span><i class="fa-solid fa-tags" style="margin-right: 8px;"></i> Manage Products & Pricing</span>
+          <span class="p-badge p-badge-neutral">Catalog</span>
+        </li>
+        <li class="command-result-item" data-action="view-customizer">
+          <span><i class="fa-solid fa-paint-roller" style="margin-right: 8px;"></i> Live Page Customizer</span>
+          <span class="p-badge p-badge-info">Editor</span>
+        </li>
+        <li class="command-result-item" data-action="view-orders">
+          <span><i class="fa-solid fa-box-open" style="margin-right: 8px;"></i> View Orders & WhatsApp Proof</span>
+          <span class="p-badge p-badge-neutral">Orders</span>
+        </li>
+        <li class="command-result-item" data-action="view-settings">
+          <span><i class="fa-solid fa-gear" style="margin-right: 8px;"></i> Store Settings & Currency</span>
+          <span class="p-badge p-badge-neutral">Config</span>
+        </li>
+        <li class="command-result-item" data-action="open-storefront">
+          <span><i class="fa-solid fa-arrow-up-right-from-square" style="margin-right: 8px;"></i> Open Live Storefront</span>
+          <span class="p-badge p-badge-success">External</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Toast Alerts Container -->
+  <div class="admin-toast-container" id="admin-toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/store-data.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

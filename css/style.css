@@ -2478,3 +2478,98 @@ a {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   ADMIN ACCESS SHORTCUTS ON STOREFRONT
+   ========================================================================== */
+.header-admin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.header-admin-btn i {
+  color: #008060;
+  font-size: 0.9rem;
+}
+
+.header-admin-btn:hover {
+  background: #008060;
+  color: #FFF;
+  border-color: #008060;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 128, 96, 0.3);
+}
+
+.header-admin-btn:hover i {
+  color: #FFF;
+}
+
+.floating-admin-btn {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 999;
+  background: #1a1a1a;
+  color: #FFF;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-full);
+  padding: 8px 16px 8px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transition: var(--transition-bounce);
+  backdrop-filter: blur(8px);
+}
+
+.floating-admin-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  background: #008060;
+  border-color: #008060;
+  box-shadow: 0 10px 28px rgba(0, 128, 96, 0.4);
+  color: #FFF;
+}
+
+.admin-icon-bubble {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  background: #008060;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  color: #FFF;
+}
+
+.floating-admin-btn:hover .admin-icon-bubble {
+  background: #FFF;
+  color: #008060;
+}
+
+.live-dot-pulse {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  background: #10B981;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #10B981;
+  animation: pulseDot 1.5s infinite;
+}
+
