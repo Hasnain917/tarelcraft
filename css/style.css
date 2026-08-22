@@ -2070,15 +2070,18 @@ a {
 }
 
 /* ==========================================================================
-   SECTION 5: FAQ ACCORDION
-   ========================================================================= */
+   SECTION 5: FAQ ACCORDION (ENHANCED LUXURY UI)
+   ========================================================================== */
 .faq-section {
-  padding: 80px 0;
+  padding: 90px 0;
   background: var(--bg-card);
+  position: relative;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .faq-accordion-list {
-  max-width: 800px;
+  max-width: 860px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -2087,20 +2090,35 @@ a {
 
 .faq-card {
   background: var(--bg-main);
-  border: 1px solid var(--border-color);
+  border: 1.5px solid var(--border-color);
   border-radius: var(--radius-md);
   overflow: hidden;
-  transition: var(--transition-smooth);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
 }
 
 .faq-card:hover {
   border-color: var(--accent-gold);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .faq-card.open {
   border-color: var(--accent-gold);
-  box-shadow: var(--shadow-sm);
+  background: var(--bg-card);
+  box-shadow: 0 8px 30px rgba(201, 151, 66, 0.12);
+}
+
+[data-theme="dark"] .faq-card {
+  background: #13161C;
+  border-color: #232834;
+}
+
+[data-theme="dark"] .faq-card:hover,
+[data-theme="dark"] .faq-card.open {
+  border-color: var(--accent-gold);
+  background: #171B23;
+  box-shadow: 0 8px 30px rgba(201, 151, 66, 0.18);
 }
 
 .faq-question-btn {
@@ -2109,36 +2127,129 @@ a {
   background: transparent;
   border: none;
   text-align: left;
-  font-size: 1rem;
+  font-size: 1.02rem;
   font-weight: 700;
   color: var(--text-main);
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  gap: 16px;
+  transition: color 0.2s ease;
+}
+
+.faq-card.open .faq-question-btn {
+  color: var(--primary);
+}
+
+[data-theme="dark"] .faq-card.open .faq-question-btn {
+  color: var(--accent-gold);
+}
+
+.faq-q-text {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  line-height: 1.4;
+}
+
+.faq-icon {
+  color: var(--accent-gold);
+  font-size: 1.15rem;
+  flex-shrink: 0;
 }
 
 .faq-toggle-icon {
-  font-size: 1.2rem;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--bg-alt);
+  border-radius: 50%;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .faq-card.open .faq-toggle-icon {
   transform: rotate(45deg);
-  color: var(--accent-gold);
+  background: var(--accent-gold);
+  color: #FFFFFF;
 }
 
+[data-theme="dark"] .faq-toggle-icon {
+  background: #232834;
+  color: #94A3B8;
+}
+
+[data-theme="dark"] .faq-card.open .faq-toggle-icon {
+  background: var(--accent-gold);
+  color: #000000;
+}
+
+/* Smooth Accordion Body (Supports both pane and body classes) */
+.faq-answer-pane,
 .faq-answer-body {
-  padding: 0 24px 20px;
-  font-size: 0.9rem;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, padding 0.3s ease;
+  padding: 0 24px;
+  font-size: 0.92rem;
   color: var(--text-muted);
-  line-height: 1.6;
-  display: none;
-  animation: modalFadeUp 0.3s ease;
+  line-height: 1.68;
 }
 
+.faq-card.open .faq-answer-pane,
 .faq-card.open .faq-answer-body {
-  display: block;
+  max-height: 600px;
+  opacity: 1;
+  padding: 0 24px 22px;
+}
+
+.faq-answer-inner {
+  padding-top: 4px;
+}
+
+.faq-answer-inner p,
+.faq-answer-body p {
+  margin: 0 0 10px 0;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.68;
+}
+
+.faq-answer-inner p:last-child,
+.faq-answer-body p:last-child {
+  margin-bottom: 0;
+}
+
+[data-theme="dark"] .faq-answer-inner p,
+[data-theme="dark"] .faq-answer-body {
+  color: #CBD5E1;
+}
+
+@media (max-width: 768px) {
+  .faq-section {
+    padding: 60px 0;
+  }
+  .faq-question-btn {
+    padding: 16px 18px;
+    font-size: 0.94rem;
+    gap: 12px;
+  }
+  .faq-card.open .faq-answer-pane,
+  .faq-card.open .faq-answer-body {
+    padding: 0 18px 18px;
+  }
+  .faq-toggle-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 0.95rem;
+  }
 }
 
 /* ==========================================================================

@@ -1,0 +1,1411 @@
+{% comment %}
+  ==========================================================================
+  TARELCRAFT SHOPIFY 2.0 BALANCED PROFESSIONAL SECTION (WITH WHATSAPP CONCIERGE & CHAT SIMULATOR)
+  Paste into: Shopify Admin -> Themes -> Edit code -> Sections -> tarelcraft-product.liquid
+  ==========================================================================
+{% endcomment %}
+
+<!-- Load FontAwesome 6 for Clean Professional Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<div class="tc-shopify-section-root" style="background-color: {{ section.settings.bg_color | default: '#f8fafc' }};">
+  <div class="tc-shopify-container">
+
+    {% for block in section.blocks %}
+      {% case block.type %}
+
+        {% comment %} =========================================================
+             WIDGET 1: ANNOUNCEMENT BANNER
+             ========================================================= {% endcomment %}
+        {% when 'announcement' %}
+          <div class="tc-banner-wrap" {{ block.shopify_attributes }}>
+            <div class="tc-banner-inner">
+              <span class="tc-banner-pill"><i class="fa-brands fa-whatsapp"></i> {{ block.settings.badge_text }}</span>
+              <span class="tc-banner-text">{{ block.settings.message_text }}</span>
+              <a href="{{ block.settings.cta_link | default: '#how-it-works' }}" class="tc-banner-link">{{ block.settings.cta_label }} &rarr;</a>
+            </div>
+          </div>
+
+        {% comment %} =========================================================
+             WIDGET 2: PRODUCT HERO & BALANCED BUY BOX
+             ========================================================= {% endcomment %}
+        {% when 'product_hero' %}
+          {% assign current_variant = product.selected_or_first_available_variant %}
+          {% assign hero_title = block.settings.product_title %}
+          {% if hero_title == blank and product.title != blank %}
+            {% assign hero_title = product.title %}
+          {% elsif hero_title == blank %}
+            {% assign hero_title = "Handcrafted Custom 'MINI ME' Figurine & Bobblehead" %}
+          {% endif %}
+
+          {% assign hero_subtitle = block.settings.product_subtitle %}
+          {% if hero_subtitle == blank and product.description != blank %}
+            {% assign hero_subtitle = product.description | truncatewords: 25 %}
+          {% elsif hero_subtitle == blank %}
+            {% assign hero_subtitle = "Turn any photo into a detailed personalized keepsake. Sculpted with high-detail polymer clay." %}
+          {% endif %}
+
+          {% assign primary_img = current_variant.image | default: current_variant.featured_image | default: product.featured_image %}
+          {% if primary_img == blank %}
+            {% assign primary_img_url = 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1000&q=80' %}
+          {% else %}
+            {% assign primary_img_url = primary_img | image_url: width: 1000 %}
+          {% endif %}
+
+          <div class="tc-card-box tc-hero-card" {{ block.shopify_attributes }}>
+            <div class="tc-hero-grid">
+
+              <!-- Left Column: Gallery -->
+              <div class="tc-gallery-side">
+                <div class="tc-main-image-wrap">
+                  <span class="tc-handcrafted-tag"><i class="fa-solid fa-hand-sparkles"></i> Handcrafted Artisan Clay</span>
+                  <img id="tc-active-hero-img" src="{{ primary_img_url }}" alt="{{ hero_title }}">
+                </div>
+
+                <!-- Variant Thumbnails -->
+                <div class="tc-thumbs-grid">
+                  {% if product.variants.size > 0 %}
+                    {% for variant in product.variants %}
+                      {% assign v_img = variant.image | default: variant.featured_image | default: product.featured_image %}
+                      {% if v_img == blank %}
+                        {% assign v_img_url = 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80' %}
+                      {% else %}
+                        {% assign v_img_url = v_img | image_url: width: 1000 %}
+                      {% endif %}
+                      <div class="tc-thumb-box {% if forloop.first %}active{% endif %}"
+                           data-variant-id="{{ variant.id }}"
+                           data-variant-title="{{ variant.title | escape }}"
+                           data-img="{{ v_img_url }}">
+                        <img src="{{ v_img | image_url: width: 180 | default: v_img_url }}" alt="{{ variant.title | escape }}">
+                        <span>{{ variant.title }}</span>
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    <div class="tc-thumb-box active" data-variant-title="Single Person" data-img="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80">
+                      <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=180&q=80" alt="Single Person">
+                      <span>Single Person</span>
+                    </div>
+                    <div class="tc-thumb-box" data-variant-title="With Pet" data-img="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=800&q=80">
+                      <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=180&q=80" alt="With Pet">
+                      <span>With Pet</span>
+                    </div>
+                    <div class="tc-thumb-box" data-variant-title="Couple" data-img="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80">
+                      <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=180&q=80" alt="Couple">
+                      <span>Couple</span>
+                    </div>
+                    <div class="tc-thumb-box" data-variant-title="Family Group" data-img="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=800&q=80">
+                      <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=180&q=80" alt="Family Group">
+                      <span>Family Group</span>
+                    </div>
+                  {% endif %}
+                </div>
+
+                <!-- WhatsApp & Guarantee Mini Perks -->
+                <div class="tc-gallery-perks">
+                  <div class="tc-g-perk"><i class="fa-brands fa-whatsapp text-emerald"></i> <span>WhatsApp 360° Proof</span></div>
+                  <div class="tc-g-perk"><i class="fa-solid fa-rotate-left text-blue"></i> <span>Free Clay Revisions</span></div>
+                </div>
+              </div>
+
+              <!-- Right Column: Details & Options -->
+              <div class="tc-info-side">
+                <div class="tc-stars-row">
+                  <span class="tc-stars">★★★★★</span>
+                  <span class="tc-stars-text"><strong>4.9 / 5.0</strong> &bull; 1,480+ Reviews</span>
+                </div>
+
+                <h1 class="tc-product-title">{{ hero_title }}</h1>
+                <p class="tc-product-subtitle">{{ hero_subtitle }}</p>
+
+                <!-- Pricing Display -->
+                <div class="tc-price-box">
+                  <span class="tc-price-main" id="tc-live-price">
+                    {% if current_variant.price %}
+                      {{ current_variant.price | money }}
+                    {% else %}
+                      {{ block.settings.currency }} {{ block.settings.base_price }}
+                    {% endif %}
+                  </span>
+                  <span class="tc-price-comp" id="tc-live-compare">
+                    {% if current_variant.compare_at_price %}
+                      {{ current_variant.compare_at_price | money }}
+                    {% else %}
+                      {{ block.settings.currency }} {{ block.settings.compare_price }}
+                    {% endif %}
+                  </span>
+                  <span class="tc-discount-pill">50% OFF</span>
+                </div>
+
+                <!-- WhatsApp Photo Assurance Banner -->
+                <div class="tc-whatsapp-inline-notice">
+                  <div class="tc-wa-notice-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                  <div class="tc-wa-notice-text">
+                    <strong>Zero Stress Checkout:</strong>
+                    <span>No photos required now! Send anytime via our dedicated WhatsApp concierge after placing your order.</span>
+                  </div>
+                </div>
+
+                <form method="post" action="/cart/add" id="tc-shopify-buy-form">
+                  <input type="hidden" name="id" id="tc-selected-variant-id" value="{{ current_variant.id | default: product.variants.first.id }}">
+
+                  <!-- Option 1: Figures (Shopify Variations) -->
+                  <div class="tc-option-group">
+                    <div class="tc-opt-head">
+                      <span class="tc-opt-title">Figure Type</span>
+                      <span class="tc-opt-selected" id="tc-val-figure">{{ current_variant.title | default: 'Single Person' }}</span>
+                    </div>
+                    <div class="tc-selector-grid cols-4">
+                      {% if product.variants.size > 0 %}
+                        {% for variant in product.variants %}
+                          {% assign v_img = variant.image | default: variant.featured_image | default: product.featured_image %}
+                          {% if v_img == blank %}
+                            {% assign v_img_url = 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80' %}
+                          {% else %}
+                            {% assign v_img_url = v_img | image_url: width: 1000 %}
+                          {% endif %}
+                          <button type="button" class="tc-variant-card {% if forloop.first %}active{% endif %}"
+                                  data-variant-id="{{ variant.id }}"
+                                  data-variant-title="{{ variant.title | escape }}"
+                                  data-variant-price="{{ variant.price | money }}"
+                                  data-variant-compare="{{ variant.compare_at_price | money }}"
+                                  data-img="{{ v_img_url }}">
+                            <strong>{{ variant.title }}</strong>
+                            <span>{{ variant.price | money }}</span>
+                          </button>
+                        {% endfor %}
+                      {% else %}
+                        <button type="button" class="tc-variant-card active" data-variant-title="Single Person" data-variant-price="$59.88" data-img="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80">
+                          <strong>Single Person</strong>
+                          <span>$59.88</span>
+                        </button>
+                        <button type="button" class="tc-variant-card" data-variant-title="With Pet" data-variant-price="$59.88" data-img="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=800&q=80">
+                          <strong>With Pet</strong>
+                          <span>$59.88</span>
+                        </button>
+                        <button type="button" class="tc-variant-card" data-variant-title="Couple" data-variant-price="$59.88" data-img="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80">
+                          <strong>Couple</strong>
+                          <span>$59.88</span>
+                        </button>
+                        <button type="button" class="tc-variant-card" data-variant-title="Family Group" data-variant-price="$59.88" data-img="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=800&q=80">
+                          <strong>Family Group</strong>
+                          <span>$59.88</span>
+                        </button>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <!-- Option 2: Head Style -->
+                  <div class="tc-option-group">
+                    <div class="tc-opt-head">
+                      <span class="tc-opt-title">Head Style</span>
+                      <span class="tc-opt-selected" id="tc-val-head">Fun Bobblehead</span>
+                    </div>
+                    <div class="tc-selector-grid cols-2">
+                      <button type="button" class="tc-variant-card active" data-head="bobblehead">
+                        <strong>Fun Bobblehead</strong>
+                        <span>Spring Head Motion</span>
+                      </button>
+                      <button type="button" class="tc-variant-card" data-head="fixed">
+                        <strong>Fixed Figurine</strong>
+                        <span>Solid Sculpted Statue</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Option 3: Height -->
+                  <div class="tc-option-group">
+                    <div class="tc-opt-head">
+                      <span class="tc-opt-title">Statue Height</span>
+                      <span class="tc-opt-selected" id="tc-val-height">18 cm (Standard)</span>
+                    </div>
+                    <div class="tc-selector-grid cols-3">
+                      <button type="button" class="tc-variant-card active" data-height="18cm">
+                        <strong>18 cm</strong>
+                        <span>Standard</span>
+                      </button>
+                      <button type="button" class="tc-variant-card" data-height="20cm">
+                        <strong>20 cm</strong>
+                        <span>Detailed</span>
+                      </button>
+                      <button type="button" class="tc-variant-card" data-height="22cm">
+                        <strong>22 cm</strong>
+                        <span>Large</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Option 4: Engraving -->
+                  <div class="tc-option-group">
+                    <div class="tc-opt-head">
+                      <span class="tc-opt-title">Free Base Engraving (Optional)</span>
+                      <span style="font-size:0.8rem; color:#059669; font-weight:600;">100% Free</span>
+                    </div>
+                    <input type="text" name="properties[Engraving]" id="tc-engrave-input-field" class="tc-form-input" placeholder="e.g. 'Best Dad Ever • 2026' or Family Name" maxlength="30">
+                  </div>
+
+                  <!-- Action Buttons -->
+                  <div class="tc-action-block">
+                    <button type="submit" class="tc-main-buy-button" id="tc-buy-now-trigger">
+                      <i class="fa-solid fa-bag-shopping"></i> {{ block.settings.btn_text | default: 'Customize & Order Now' }}
+                    </button>
+                    <p class="tc-buy-subtext"><i class="fa-brands fa-whatsapp text-emerald"></i> No photos required now &bull; Submit anytime after checkout</p>
+                    
+                    <div class="tc-trust-bar">
+                      <span><i class="fa-solid fa-truck-fast"></i> Express Delivery</span>
+                      <span><i class="fa-solid fa-box-open"></i> Gift Box Included</span>
+                      <span><i class="fa-solid fa-shield-check"></i> Quality Guarantee</span>
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+
+            </div>
+          </div>
+
+        {% comment %} =========================================================
+             WIDGET 3: 3-STEP WHATSAPP ORDER PROCESS
+             ========================================================= {% endcomment %}
+        {% when 'whatsapp_guarantee' %}
+          <div class="tc-card-box tc-steps-section" id="how-it-works" {{ block.shopify_attributes }}>
+            <div class="tc-section-header">
+              <span class="tc-badge-eyebrow"><i class="fa-brands fa-whatsapp"></i> STRESS-FREE PROCESS</span>
+              <h2 class="tc-section-title">{{ block.settings.heading }}</h2>
+              <p class="tc-section-desc">{{ block.settings.subheading }}</p>
+            </div>
+
+            <div class="tc-steps-columns">
+              <div class="tc-step-card">
+                <div class="tc-step-num">1</div>
+                <h3>1. Select Options & Order</h3>
+                <p>Choose your figure type and checkout. <strong>No photo rush:</strong> You don't need photos during payment!</p>
+                <div class="tc-step-badge-tag"><i class="fa-solid fa-check text-emerald"></i> Zero Photo Stress</div>
+              </div>
+              <div class="tc-step-card tc-step-highlight">
+                <div class="tc-step-num" style="background:#059669;">2</div>
+                <h3>2. WhatsApp Photo Concierge</h3>
+                <p>You receive an instant dedicated WhatsApp link. Send your favorite photos whenever you are ready at your pace.</p>
+                <div class="tc-step-badge-tag"><i class="fa-brands fa-whatsapp text-emerald"></i> Dedicated WhatsApp Chat</div>
+              </div>
+              <div class="tc-step-card">
+                <div class="tc-step-num">3</div>
+                <h3>3. 360° Preview & Revisions</h3>
+                <p>Inspect clay model photos on WhatsApp. Request <strong>100% Free Revisions</strong> until you approve before kiln baking.</p>
+                <div class="tc-step-badge-tag"><i class="fa-solid fa-rotate-left text-blue"></i> Unlimited Revisions</div>
+              </div>
+            </div>
+          </div>
+
+        {% comment %} =========================================================
+             WIDGET 4: WHATSAPP 3D PREVIEW CHAT SIMULATOR MOCKUP
+             ========================================================= {% endcomment %}
+        {% when 'whatsapp_chat' %}
+          <div class="tc-card-box tc-wa-chat-widget" {{ block.shopify_attributes }}>
+            <div class="tc-section-header">
+              <span class="tc-badge-eyebrow"><i class="fa-brands fa-whatsapp"></i> LIVE EXPERIENCE</span>
+              <h2 class="tc-section-title">{{ block.settings.heading | default: 'See How WhatsApp Approval Works' }}</h2>
+              <p class="tc-section-desc">Here is a real preview of how our master sculptor collaborates with you directly on WhatsApp.</p>
+            </div>
+
+            <div class="tc-wa-phone-container">
+              <div class="tc-wa-phone-mockup">
+                <!-- WhatsApp Top Header -->
+                <div class="tc-wa-chat-header">
+                  <div class="tc-wa-chat-avatar">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Sculptor">
+                    <span class="tc-wa-online-dot"></span>
+                  </div>
+                  <div class="tc-wa-chat-info">
+                    <strong>Tarelcraft Master Sculptor <i class="fa-solid fa-circle-check text-emerald" style="font-size:0.75rem;"></i></strong>
+                    <span>Online &bull; WhatsApp 3D Preview Concierge</span>
+                  </div>
+                </div>
+
+                <!-- WhatsApp Chat Messages Body -->
+                <div class="tc-wa-chat-body">
+                  <div class="tc-wa-date-pill">Today &bull; Order #TC-8942</div>
+
+                  <!-- Msg 1 (Sculptor) -->
+                  <div class="tc-wa-bubble tc-wa-incoming">
+                    <p>Hello Sarah! 👋 Here are the 360° photos of your clay figurine before kiln baking. How does the resemblance and haircut look?</p>
+                    <div class="tc-wa-msg-photos">
+                      <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80" alt="Clay Preview 1">
+                      <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=400&q=80" alt="Clay Preview 2">
+                    </div>
+                    <span class="tc-wa-time">10:14 AM</span>
+                  </div>
+
+                  <!-- Msg 2 (Customer) -->
+                  <div class="tc-wa-bubble tc-wa-outgoing">
+                    <p>Wow it looks amazing!! 😍 Could we make my husband's smile just a tiny bit wider?</p>
+                    <span class="tc-wa-time">10:18 AM <i class="fa-solid fa-check-double text-blue"></i></span>
+                  </div>
+
+                  <!-- Msg 3 (Sculptor) -->
+                  <div class="tc-wa-bubble tc-wa-incoming">
+                    <p>Adjusted with pleasure! Here is the updated smile. Baking in the kiln now for final painting! ✨</p>
+                    <span class="tc-wa-time">11:05 AM</span>
+                  </div>
+
+                  <!-- Msg 4 (Customer) -->
+                  <div class="tc-wa-bubble tc-wa-outgoing">
+                    <p>100% PERFECT! You guys are true artists! Thank you so much! 🎉</p>
+                    <span class="tc-wa-time">11:08 AM <i class="fa-solid fa-check-double text-blue"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {% comment %} =========================================================
+             WIDGET 5: REAL UGC VIDEO REELS (CLEAN BOX LAYOUT)
+             ========================================================= {% endcomment %}
+        {% when 'video_reels' %}
+          <div class="tc-card-box tc-reels-section" {{ block.shopify_attributes }}>
+            <div class="tc-section-header">
+              <span class="tc-badge-eyebrow">REAL CUSTOMER MOMENTS</span>
+              <h2 class="tc-section-title">{{ block.settings.heading | default: 'Real Unboxing Moments' }}</h2>
+              <p class="tc-section-desc">Watch genuine customer reactions opening their custom figurines.</p>
+            </div>
+
+            <div class="tc-reels-box-grid">
+              
+              <!-- Video Reel Box 1 -->
+              <div class="tc-reel-box-card">
+                <div class="tc-reel-box-media">
+                  <video class="tc-reel-video" playsinline loop preload="metadata" poster="https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=600&q=80">
+                    <source src="https://tarelcraft.com/cdn/shop/videos/c/vp/60f6bbcf350f44228c57ce5410424d05/60f6bbcf350f44228c57ce5410424d05.HD-1080p-7.2Mbps-50901326.mp4?v=0" type="video/mp4">
+                  </video>
+                  <button type="button" class="tc-video-play-btn" aria-label="Play video"><i class="fa-solid fa-play"></i></button>
+                  <span class="tc-reel-badge"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span>
+                </div>
+                <div class="tc-reel-box-info">
+                  <div class="tc-reel-box-stars">★★★★★</div>
+                  <h4 class="tc-reel-box-name">Emily R. &bull; Zurich</h4>
+                  <p class="tc-reel-box-text">"WhatsApp preview was so reassuring! Resemblance blew me away!"</p>
+                </div>
+              </div>
+
+              <!-- Video Reel Box 2 -->
+              <div class="tc-reel-box-card">
+                <div class="tc-reel-box-media">
+                  <video class="tc-reel-video" playsinline loop preload="metadata" poster="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=600&q=80">
+                    <source src="https://tarelcraft.com/cdn/shop/videos/c/vp/ea4909b6b23b4e46875a3cc0b2c6970a/ea4909b6b23b4e46875a3cc0b2c6970a.HD-1080p-7.2Mbps-83368704.mp4?v=0" type="video/mp4">
+                  </video>
+                  <button type="button" class="tc-video-play-btn" aria-label="Play video"><i class="fa-solid fa-play"></i></button>
+                  <span class="tc-reel-badge"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span>
+                </div>
+                <div class="tc-reel-box-info">
+                  <div class="tc-reel-box-stars">★★★★★</div>
+                  <h4 class="tc-reel-box-name">Liam & Sarah &bull; Bern</h4>
+                  <p class="tc-reel-box-text">"Uploaded photos after order. Best anniversary gift ever!"</p>
+                </div>
+              </div>
+
+              <!-- Video Reel Box 3 -->
+              <div class="tc-reel-box-card">
+                <div class="tc-reel-box-media">
+                  <video class="tc-reel-video" playsinline loop preload="metadata" poster="https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=600&q=80">
+                    <source src="https://tarelcraft.com/cdn/shop/videos/c/vp/ea8367eefbb84d70925e3c9160f73a6a/ea8367eefbb84d70925e3c9160f73a6a.HD-1080p-7.2Mbps-86226255.mp4?v=0" type="video/mp4">
+                  </video>
+                  <button type="button" class="tc-video-play-btn" aria-label="Play video"><i class="fa-solid fa-play"></i></button>
+                  <span class="tc-reel-badge"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span>
+                </div>
+                <div class="tc-reel-box-info">
+                  <div class="tc-reel-box-stars">★★★★★</div>
+                  <h4 class="tc-reel-box-name">Sarah for Dad &bull; Geneva</h4>
+                  <p class="tc-reel-box-text">"Dad cried tears of joy! Artist adjusted hair on WhatsApp."</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        {% comment %} =========================================================
+             WIDGET 6: REVIEWS
+             ========================================================= {% endcomment %}
+        {% when 'reviews' %}
+          <div class="tc-card-box tc-reviews-section" {{ block.shopify_attributes }}>
+            <div class="tc-section-header">
+              <span class="tc-badge-eyebrow">TESTIMONIALS</span>
+              <h2 class="tc-section-title">{{ block.settings.heading }}</h2>
+            </div>
+
+            <div class="tc-reviews-columns">
+              <div class="tc-review-box">
+                <div class="tc-rev-header">
+                  <div class="tc-rev-initials">MS</div>
+                  <div>
+                    <strong>Marc & Elena S.</strong>
+                    <span class="tc-rev-city">Zurich &bull; Verified</span>
+                  </div>
+                  <div class="tc-rev-stars">★★★★★</div>
+                </div>
+                <p class="tc-rev-quote">"The sculptor captured our exact dimples and smile from our vacation photo! 100% peace of mind on WhatsApp."</p>
+              </div>
+              <div class="tc-review-box">
+                <div class="tc-rev-header">
+                  <div class="tc-rev-initials">PB</div>
+                  <div>
+                    <strong>Pascal B.</strong>
+                    <span class="tc-rev-city">Geneva &bull; Verified</span>
+                  </div>
+                  <div class="tc-rev-stars">★★★★★</div>
+                </div>
+                <p class="tc-rev-quote">"Ordered during commute and sent photos on WhatsApp. Master sculptor replied within 48h with HD photos."</p>
+              </div>
+              <div class="tc-review-box">
+                <div class="tc-rev-header">
+                  <div class="tc-rev-initials">CM</div>
+                  <div>
+                    <strong>Corinne M.</strong>
+                    <span class="tc-rev-city">Lucerne &bull; Verified</span>
+                  </div>
+                  <div class="tc-rev-stars">★★★★★</div>
+                </div>
+                <p class="tc-rev-quote">"My dog's fur and bandana are identical! Changed ears on WhatsApp in 12h with zero extra fees."</p>
+              </div>
+            </div>
+          </div>
+
+        {% comment %} =========================================================
+             WIDGET 7: FAQS
+             ========================================================= {% endcomment %}
+        {% when 'faqs' %}
+          <div class="tc-card-box tc-faqs-section" {{ block.shopify_attributes }}>
+            <div class="tc-section-header">
+              <span class="tc-badge-eyebrow">HELP & FAQ</span>
+              <h2 class="tc-section-title">{{ block.settings.heading }}</h2>
+            </div>
+
+            <div class="tc-faqs-wrap">
+              <details class="tc-faq-item" open>
+                <summary>How and when do I send my photos for the figurine?</summary>
+                <p>You do not need to upload photos during checkout! Once your order is placed, you immediately receive a confirmation with your dedicated WhatsApp concierge link to send photos whenever you are ready.</p>
+              </details>
+              <details class="tc-faq-item">
+                <summary>How does the WhatsApp 3D preview and approval work?</summary>
+                <p>Within 3-5 days after we receive your photos, our master sculptor creates the raw clay prototype and sends high-resolution 360° photos on WhatsApp for your inspection.</p>
+              </details>
+              <details class="tc-faq-item">
+                <summary>Are revisions truly 100% unlimited and free?</summary>
+                <p>Yes, absolutely! If you want hair, cheek contours, or posture modified, just tell us on WhatsApp. We adjust the model until you are completely satisfied before baking.</p>
+              </details>
+            </div>
+          </div>
+
+      {% endcase %}
+    {% endfor %}
+
+  </div>
+
+  <!-- FLOATING WHATSAPP BUTTON (OPTIONAL) -->
+  {% if section.settings.show_floating_whatsapp %}
+    <a href="https://wa.me/{{ section.settings.whatsapp_number | default: '41791234567' }}?text=Hello%2C%20I%20have%20a%20question%20about%20ordering%20a%20custom%20Mini%20Me%20figurine" target="_blank" rel="noopener" class="tc-floating-wa-btn" aria-label="Chat on WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+      <span class="tc-floating-wa-label">WhatsApp Concierge</span>
+    </a>
+  {% endif %}
+
+</div>
+
+{% comment %} =========================================================
+     CSS STYLESHEET
+     ========================================================= {% endcomment %}
+<style>
+  .tc-shopify-section-root {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+    padding: 30px 8% 60px 8%;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+  }
+  @media (max-width: 768px) {
+    .tc-shopify-section-root {
+      padding: 20px 4% 50px 4%;
+    }
+  }
+  .tc-shopify-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    box-sizing: border-box;
+  }
+
+  .text-emerald { color: #059669; }
+  .text-blue { color: #2563eb; }
+
+  /* Announcement */
+  .tc-banner-wrap {
+    background: #0f172a;
+    color: #f8fafc;
+    border-radius: 8px;
+    padding: 12px 18px;
+  }
+  .tc-banner-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.86rem;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .tc-banner-pill {
+    background: #059669;
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .tc-banner-link {
+    color: #34d399;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .tc-banner-link:hover { text-decoration: underline; }
+
+  /* Card Box Container */
+  .tc-card-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  /* Product Hero */
+  .tc-hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 36px;
+  }
+  @media (max-width: 860px) {
+    .tc-hero-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Gallery */
+  .tc-main-image-wrap {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    aspect-ratio: 1;
+  }
+  .tc-main-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .tc-handcrafted-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(15, 23, 42, 0.82);
+    color: #ffffff;
+    font-size: 0.74rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    backdrop-filter: blur(4px);
+    z-index: 2;
+  }
+  .tc-thumbs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .tc-thumb-box {
+    border: 1.5px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 4px;
+    cursor: pointer;
+    text-align: center;
+    background: #f8fafc;
+    transition: all 0.15s ease;
+  }
+  .tc-thumb-box.active {
+    border-color: #0f172a;
+    background: #ffffff;
+  }
+  .tc-thumb-box img {
+    width: 100%;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 2px;
+  }
+  .tc-thumb-box span {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #475569;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tc-gallery-perks {
+    display: flex;
+    justify-content: space-around;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 14px;
+    font-size: 0.78rem;
+    color: #475569;
+  }
+  .tc-g-perk { display: flex; align-items: center; gap: 6px; font-weight: 600; }
+
+  /* Info Side */
+  .tc-stars-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .tc-stars { color: #f59e0b; font-size: 0.9rem; }
+  .tc-stars-text { font-size: 0.82rem; color: #64748b; }
+  .tc-product-title {
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .tc-product-subtitle {
+    font-size: 0.88rem;
+    color: #64748b;
+    margin-bottom: 14px;
+  }
+
+  /* Price Box */
+  .tc-price-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .tc-price-main {
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  .tc-price-comp {
+    font-size: 1.1rem;
+    text-decoration: line-through;
+    color: #94a3b8;
+  }
+  .tc-discount-pill {
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 0.74rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  /* WhatsApp Inline Assurance Box */
+  .tc-whatsapp-inline-notice {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .tc-wa-notice-icon {
+    width: 32px;
+    height: 32px;
+    background: #059669;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .tc-wa-notice-text strong {
+    display: block;
+    font-size: 0.82rem;
+    color: #065f46;
+  }
+  .tc-wa-notice-text span {
+    font-size: 0.76rem;
+    color: #047857;
+    line-height: 1.35;
+    display: block;
+  }
+
+  /* Option Groups */
+  .tc-option-group {
+    margin-bottom: 14px;
+  }
+  .tc-opt-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.84rem;
+    margin-bottom: 6px;
+  }
+  .tc-opt-title { font-weight: 700; color: #1e293b; }
+  .tc-opt-selected { font-weight: 600; color: #059669; }
+
+  .tc-selector-grid {
+    display: grid;
+    gap: 6px;
+  }
+  .tc-selector-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .tc-selector-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .tc-selector-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 600px) {
+    .tc-selector-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .tc-variant-card {
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 8px 6px;
+    text-align: center;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.12s ease;
+  }
+  .tc-variant-card:hover { border-color: #64748b; }
+  .tc-variant-card.active {
+    border-color: #0f172a;
+    background: #f8fafc;
+    box-shadow: 0 0 0 1px #0f172a;
+  }
+  .tc-variant-card strong {
+    display: block;
+    font-size: 0.82rem;
+    color: #0f172a;
+  }
+  .tc-variant-card span {
+    font-size: 0.72rem;
+    color: #64748b;
+    margin-top: 2px;
+    display: block;
+  }
+
+  .tc-form-input {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.86rem;
+    font-family: inherit;
+    box-sizing: border-box;
+  }
+
+  /* Action CTA */
+  .tc-action-block {
+    margin-top: 18px;
+  }
+  .tc-main-buy-button {
+    width: 100%;
+    background: #0f172a;
+    color: #ffffff;
+    border: none;
+    padding: 14px 20px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .tc-main-buy-button:hover {
+    background: #1e293b;
+  }
+  .tc-buy-subtext {
+    text-align: center;
+    font-size: 0.76rem;
+    color: #64748b;
+    margin-top: 6px;
+  }
+  .tc-trust-bar {
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #f1f5f9;
+  }
+
+  /* Shared Section Headers */
+  .tc-section-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .tc-badge-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #059669;
+    letter-spacing: 0.06em;
+  }
+  .tc-section-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 4px;
+  }
+  .tc-section-desc {
+    font-size: 0.84rem;
+    color: #64748b;
+    margin-top: 2px;
+  }
+
+  /* Steps Layout */
+  .tc-steps-columns,
+  .tc-reviews-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 768px) {
+    .tc-steps-columns,
+    .tc-reviews-columns {
+      grid-template-columns: 1fr;
+    }
+  }
+  .tc-step-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+  .tc-step-card.tc-step-highlight {
+    border-color: #059669;
+    background: #f0fdf4;
+  }
+  .tc-step-num {
+    width: 24px;
+    height: 24px;
+    background: #0f172a;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 24px;
+    margin-bottom: 8px;
+  }
+  .tc-step-card h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 4px; }
+  .tc-step-card p { font-size: 0.8rem; color: #475569; margin-bottom: 10px; }
+  .tc-step-badge-tag {
+    margin-top: auto;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #059669;
+  }
+
+  /* WHATSAPP CHAT SIMULATOR MOCKUP */
+  .tc-wa-phone-container {
+    max-width: 520px;
+    margin: 0 auto;
+    border: 1px solid #cbd5e1;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    background: #efeae2;
+  }
+  .tc-wa-chat-header {
+    background: #075e54;
+    color: #ffffff;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .tc-wa-chat-avatar {
+    position: relative;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .tc-wa-chat-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .tc-wa-online-dot {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+    background: #25d366;
+    border-radius: 50%;
+    border: 1.5px solid #075e54;
+  }
+  .tc-wa-chat-info strong {
+    display: block;
+    font-size: 0.88rem;
+  }
+  .tc-wa-chat-info span {
+    font-size: 0.72rem;
+    opacity: 0.85;
+    display: block;
+  }
+  .tc-wa-chat-body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #e5ddd5;
+  }
+  .tc-wa-date-pill {
+    align-self: center;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #54656f;
+    padding: 3px 10px;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+  .tc-wa-bubble {
+    max-width: 80%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    line-height: 1.35;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+  .tc-wa-bubble p { margin: 0 0 4px 0; }
+  .tc-wa-incoming {
+    align-self: flex-start;
+    background: #ffffff;
+    color: #111b21;
+    border-top-left-radius: 0;
+  }
+  .tc-wa-outgoing {
+    align-self: flex-end;
+    background: #d9fdd3;
+    color: #111b21;
+    border-top-right-radius: 0;
+  }
+  .tc-wa-msg-photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    margin: 6px 0;
+  }
+  .tc-wa-msg-photos img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  .tc-wa-time {
+    font-size: 0.65rem;
+    color: #667781;
+    display: block;
+    text-align: right;
+    margin-top: 2px;
+  }
+
+  /* VIDEO REELS BOX LAYOUT */
+  .tc-reels-box-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 768px) {
+    .tc-reels-box-grid {
+      grid-template-columns: 1fr;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+  }
+  .tc-reel-box-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .tc-reel-box-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+  .tc-reel-box-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: #000000;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .tc-reel-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .tc-video-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.92);
+    color: #0f172a;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .tc-reel-box-media.playing .tc-video-play-btn {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  .tc-reel-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(15, 23, 42, 0.82);
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+    z-index: 2;
+  }
+  .tc-reel-box-info {
+    padding: 12px 14px;
+    background: #ffffff;
+  }
+  .tc-reel-box-stars {
+    color: #f59e0b;
+    font-size: 0.8rem;
+    margin-bottom: 3px;
+  }
+  .tc-reel-box-name {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 3px;
+  }
+  .tc-reel-box-text {
+    font-size: 0.78rem;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  /* Reviews */
+  .tc-review-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .tc-rev-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .tc-rev-initials {
+    width: 28px;
+    height: 28px;
+    background: #0f172a;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tc-rev-city { font-size: 0.7rem; color: #64748b; display: block; }
+  .tc-rev-stars { color: #f59e0b; margin-left: auto; font-size: 0.8rem; }
+  .tc-rev-quote { font-size: 0.78rem; color: #334155; line-height: 1.4; }
+
+  /* FAQs */
+  .tc-faqs-wrap { display: flex; flex-direction: column; gap: 8px; }
+  .tc-faq-item {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 12px 14px;
+    background: #fff;
+  }
+  .tc-faq-item summary {
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #0f172a;
+  }
+  .tc-faq-item p {
+    font-size: 0.82rem;
+    color: #475569;
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  /* FLOATING WHATSAPP BUTTON */
+  .tc-floating-wa-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #25d366;
+    color: #ffffff;
+    padding: 12px 18px;
+    border-radius: 99px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 18px rgba(37, 211, 102, 0.4);
+    z-index: 999;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .tc-floating-wa-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(37, 211, 102, 0.55);
+  }
+  .tc-floating-wa-btn i { font-size: 1.25rem; }
+</style>
+
+{% comment %} =========================================================
+     JAVASCRIPT LOGIC
+     ========================================================= {% endcomment %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const mainImg = document.getElementById('tc-active-hero-img');
+    const priceEl = document.getElementById('tc-live-price');
+    const compareEl = document.getElementById('tc-live-compare');
+    const figureLabel = document.getElementById('tc-val-figure');
+    const headLabel = document.getElementById('tc-val-head');
+    const heightLabel = document.getElementById('tc-val-height');
+    const variantInput = document.getElementById('tc-selected-variant-id');
+
+    // Variant Selectors Sync
+    const variantCards = document.querySelectorAll('.tc-variant-card[data-variant-title]');
+    const thumbBoxes = document.querySelectorAll('.tc-thumb-box[data-variant-title]');
+
+    function selectVariant(title, imgUrl, vId, price, compare) {
+      variantCards.forEach(c => c.classList.toggle('active', c.getAttribute('data-variant-title') === title));
+      thumbBoxes.forEach(t => t.classList.toggle('active', t.getAttribute('data-variant-title') === title));
+
+      if (mainImg && imgUrl) mainImg.src = imgUrl;
+      if (figureLabel) figureLabel.textContent = title;
+      if (variantInput && vId) variantInput.value = vId;
+      if (priceEl && price) priceEl.textContent = price;
+      if (compareEl && compare) compareEl.textContent = compare;
+    }
+
+    variantCards.forEach(card => {
+      card.addEventListener('click', function() {
+        const title = this.getAttribute('data-variant-title');
+        const img = this.getAttribute('data-img');
+        const vId = this.getAttribute('data-variant-id');
+        const price = this.getAttribute('data-variant-price');
+        const compare = this.getAttribute('data-variant-compare');
+        selectVariant(title, img, vId, price, compare);
+      });
+    });
+
+    thumbBoxes.forEach(thumb => {
+      thumb.addEventListener('click', function() {
+        const title = this.getAttribute('data-variant-title');
+        const img = this.getAttribute('data-img');
+        const vId = this.getAttribute('data-variant-id');
+        const matchingCard = document.querySelector(`.tc-variant-card[data-variant-title="${title}"]`);
+        const price = matchingCard ? matchingCard.getAttribute('data-variant-price') : null;
+        const compare = matchingCard ? matchingCard.getAttribute('data-variant-compare') : null;
+        selectVariant(title, img, vId, price, compare);
+      });
+    });
+
+    // Head Style
+    const headCards = document.querySelectorAll('.tc-variant-card[data-head]');
+    headCards.forEach(card => {
+      card.addEventListener('click', function() {
+        headCards.forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        if (headLabel) headLabel.textContent = this.querySelector('strong').textContent;
+      });
+    });
+
+    // Height
+    const heightCards = document.querySelectorAll('.tc-variant-card[data-height]');
+    heightCards.forEach(card => {
+      card.addEventListener('click', function() {
+        heightCards.forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        if (heightLabel) heightLabel.textContent = this.querySelector('strong').textContent;
+      });
+    });
+
+    // Video Reels Play/Pause Click Handler
+    const videoMedias = document.querySelectorAll('.tc-reel-box-media');
+    videoMedias.forEach(container => {
+      const video = container.querySelector('.tc-reel-video');
+      if (video) {
+        container.addEventListener('click', function() {
+          if (video.paused) {
+            document.querySelectorAll('.tc-reel-video').forEach(v => {
+              if (v !== video) {
+                v.pause();
+                v.closest('.tc-reel-box-media').classList.remove('playing');
+              }
+            });
+            video.play();
+            container.classList.add('playing');
+          } else {
+            video.pause();
+            container.classList.remove('playing');
+          }
+        });
+      }
+    });
+
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Tarelcraft Showcase",
+  "tag": "section",
+  "class": "section-tarelcraft-product",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f8fafc"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_floating_whatsapp",
+      "label": "Show Floating WhatsApp Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_number",
+      "label": "WhatsApp Number (with country code)",
+      "default": "41791234567"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement Bar",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "badge_text", "label": "Badge Text", "default": "WHATSAPP PROMO" },
+        { "type": "text", "id": "message_text", "label": "Message", "default": "100% Free WhatsApp 3D Preview & Unlimited Revisions Included with Every Order." },
+        { "type": "text", "id": "cta_label", "label": "Link Text", "default": "Learn how it works" },
+        { "type": "url", "id": "cta_link", "label": "Link URL" }
+      ]
+    },
+    {
+      "type": "product_hero",
+      "name": "Product Hero",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "product_title", "label": "Product Title", "default": "Handcrafted Custom 'MINI ME' Figurine" },
+        { "type": "text", "id": "product_subtitle", "label": "Subtitle", "default": "Turn any photo into a detailed personalized keepsake." },
+        { "type": "text", "id": "currency", "label": "Currency Symbol", "default": "$" },
+        { "type": "text", "id": "base_price", "label": "Base Price", "default": "59.88" },
+        { "type": "text", "id": "compare_price", "label": "Compare-at Price", "default": "119.76" },
+        { "type": "text", "id": "btn_text", "label": "Button Text", "default": "Customize & Order Now" }
+      ]
+    },
+    {
+      "type": "whatsapp_guarantee",
+      "name": "3-Step Guarantee",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "How Ordering Your MINI ME Works" },
+        { "type": "text", "id": "subheading", "label": "Subheading", "default": "We removed the stress of uploading photos during checkout." }
+      ]
+    },
+    {
+      "type": "whatsapp_chat",
+      "name": "WhatsApp Chat Preview",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "See How WhatsApp Approval Works" }
+      ]
+    },
+    {
+      "type": "video_reels",
+      "name": "Customer Reels",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Real Customer Moments" }
+      ]
+    },
+    {
+      "type": "reviews",
+      "name": "Customer Reviews",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Customer Reviews" }
+      ]
+    },
+    {
+      "type": "faqs",
+      "name": "FAQs Accordion",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently Asked Questions" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tarelcraft Product Showcase",
+      "blocks": [
+        { "type": "announcement" },
+        { "type": "product_hero" },
+        { "type": "whatsapp_guarantee" },
+        { "type": "whatsapp_chat" },
+        { "type": "video_reels" },
+        { "type": "reviews" },
+        { "type": "faqs" }
+      ]
+    }
+  ]
+}
+{% endschema %}
