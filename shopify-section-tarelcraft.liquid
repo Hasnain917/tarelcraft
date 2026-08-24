@@ -58,46 +58,7 @@
               <!-- Left Column: Gallery -->
               <div class="tc-gallery-side">
                 <div class="tc-main-image-wrap">
-                  <span class="tc-handcrafted-tag"><i class="fa-solid fa-hand-sparkles"></i> Handcrafted Artisan Clay</span>
                   <img id="tc-active-hero-img" src="{{ primary_img_url }}" alt="{{ hero_title }}">
-                </div>
-
-                <!-- Variant Thumbnails -->
-                <div class="tc-thumbs-grid">
-                  {% if product.variants.size > 0 %}
-                    {% for variant in product.variants %}
-                      {% assign v_img = variant.image | default: variant.featured_image | default: product.featured_image %}
-                      {% if v_img == blank %}
-                        {% assign v_img_url = 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80' %}
-                      {% else %}
-                        {% assign v_img_url = v_img | image_url: width: 1000 %}
-                      {% endif %}
-                      <div class="tc-thumb-box {% if forloop.first %}active{% endif %}"
-                           data-variant-id="{{ variant.id }}"
-                           data-variant-title="{{ variant.title | escape }}"
-                           data-img="{{ v_img_url }}">
-                        <img src="{{ v_img | image_url: width: 180 | default: v_img_url }}" alt="{{ variant.title | escape }}">
-                        <span>{{ variant.title }}</span>
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    <div class="tc-thumb-box active" data-variant-title="Single Person" data-img="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80">
-                      <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=180&q=80" alt="Single Person">
-                      <span>Single Person</span>
-                    </div>
-                    <div class="tc-thumb-box" data-variant-title="With Pet" data-img="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=800&q=80">
-                      <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=180&q=80" alt="With Pet">
-                      <span>With Pet</span>
-                    </div>
-                    <div class="tc-thumb-box" data-variant-title="Couple" data-img="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80">
-                      <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=180&q=80" alt="Couple">
-                      <span>Couple</span>
-                    </div>
-                    <div class="tc-thumb-box" data-variant-title="Family Group" data-img="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=800&q=80">
-                      <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=180&q=80" alt="Family Group">
-                      <span>Family Group</span>
-                    </div>
-                  {% endif %}
                 </div>
 
                 <!-- WhatsApp & Guarantee Mini Perks -->
