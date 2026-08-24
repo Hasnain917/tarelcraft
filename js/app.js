@@ -91,6 +91,81 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalVideoDesc = document.getElementById('modal-video-desc');
   const modalLikeBtn = document.getElementById('modal-like-btn');
 
+  // Configurator & Modal Total Elements
+  const configTotalEl = document.getElementById('configurator-total-price');
+  const modalTotalEl = document.getElementById('modal-total-price');
+  const headSelected = document.getElementById('selected-head-val');
+  const baseSelected = document.getElementById('selected-base-val');
+
+  function calculateTotal() {
+    let base = state.basePrice || 49.90;
+    let compareBase = state.comparePrice || 99.80;
+
+    base += priceModifiers.figureType[state.figureType] || 0;
+    base += priceModifiers.height[state.height] || 0;
+    base += priceModifiers.headStyle[state.headStyle] || 0;
+    base += priceModifiers.baseTheme[state.baseTheme] || 0;
+
+    compareBase += (priceModifiers.figureType[state.figureType] || 0) * 2;
+    compareBase += (priceModifiers.height[state.height] || 0) * 2;
+    compareBase += (priceModifiers.headStyle[state.headStyle] || 0) * 2;
+
+    const rate = state.rates[state.currency] || 1;
+    const finalPrice = (base * rate).toFixed(2);
+    const finalCompare = (compareBase * rate).toFixed(2);
+    const symbol = state.symbols[state.currency] || '$';
+
+    const formattedPrice = `${state.currency} ${finalPrice}`;
+    const formattedCompare = `${state.currency} ${finalCompare}`;
+
+    // Update main page price displays
+    if (currentPriceEl) {
+      currentPriceEl.textContent = formattedPrice;
+      currentPriceEl.classList.remove('price-updated');
+      void currentPriceEl.offsetWidth;
+      currentPriceEl.classList.add('price-updated');
+    }
+    if (comparePriceEl) comparePriceEl.textContent = formattedCompare;
+    if (stickyPriceEl) stickyPriceEl.textContent = formattedPrice;
+    if (configTotalEl) configTotalEl.textContent = formattedPrice;
+    if (modalTotalEl) modalTotalEl.textContent = formattedPrice;
+
+    // Dynamically format modifier tags across UI
+    function fmtMod(amt) {
+      const val = Math.round(amt * rate);
+      return val > 0 ? `+ ${symbol}${val}` : 'Included';
+    }
+
+    // Size modifiers
+    document.querySelectorAll('#size-price-20, .modal-size-price-20').forEach(el => {
+      el.textContent = fmtMod(priceModifiers.height['20cm'] || 12);
+    });
+    document.querySelectorAll('#size-price-22, .modal-size-price-22').forEach(el => {
+      el.textContent = fmtMod(priceModifiers.height['22cm'] || 24);
+    });
+
+    // Head modifiers
+    document.querySelectorAll('#head-price-bobble, .modal-head-price-bobble').forEach(el => {
+      el.textContent = fmtMod(priceModifiers.headStyle['bobblehead'] || 12);
+    });
+
+    // Figure modifiers
+    const modCouple = document.getElementById('price-mod-couple');
+    const modPet = document.getElementById('price-mod-pet');
+    const modFam = document.getElementById('price-mod-family');
+    if (modCouple) modCouple.textContent = fmtMod(priceModifiers.figureType['couple'] || 30);
+    if (modPet) modPet.textContent = fmtMod(priceModifiers.figureType['pet'] || 15);
+    if (modFam) modFam.textContent = fmtMod(priceModifiers.figureType['family'] || 60);
+
+    // Base modifiers
+    const bAcrylic = document.getElementById('base-price-acrylic');
+    const bHeart = document.getElementById('base-price-heart');
+    const bSoccer = document.getElementById('base-price-soccer');
+    if (bAcrylic) bAcrylic.textContent = fmtMod(priceModifiers.baseTheme['acrylic'] || 5);
+    if (bHeart) bHeart.textContent = fmtMod(priceModifiers.baseTheme['heart'] || 5);
+    if (bSoccer) bSoccer.textContent = fmtMod(priceModifiers.baseTheme['soccer'] || 5);
+  }
+
   // ==========================================================================
   // 1. DYNAMIC STORE DATA BINDING (SYNCS WITH ADMIN)
   // ==========================================================================
@@ -565,80 +640,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
   // 7. DYNAMIC PRICING & CURRENCY CONVERSION (WITH MOCKUP LABELS)
   // ==========================================================================
-  const configTotalEl = document.getElementById('configurator-total-price');
-  const modalTotalEl = document.getElementById('modal-total-price');
-  const headSelected = document.getElementById('selected-head-val');
-  const baseSelected = document.getElementById('selected-base-val');
-
-  function calculateTotal() {
-    let base = state.basePrice || 49.90;
-    let compareBase = state.comparePrice || 99.80;
-
-    base += priceModifiers.figureType[state.figureType] || 0;
-    base += priceModifiers.height[state.height] || 0;
-    base += priceModifiers.headStyle[state.headStyle] || 0;
-    base += priceModifiers.baseTheme[state.baseTheme] || 0;
-
-    compareBase += (priceModifiers.figureType[state.figureType] || 0) * 2;
-    compareBase += (priceModifiers.height[state.height] || 0) * 2;
-    compareBase += (priceModifiers.headStyle[state.headStyle] || 0) * 2;
-
-    const rate = state.rates[state.currency] || 1;
-    const finalPrice = (base * rate).toFixed(2);
-    const finalCompare = (compareBase * rate).toFixed(2);
-    const symbol = state.symbols[state.currency] || '$';
-
-    const formattedPrice = `${state.currency} ${finalPrice}`;
-    const formattedCompare = `${state.currency} ${finalCompare}`;
-
-    // Update main page price displays
-    if (currentPriceEl) {
-      currentPriceEl.textContent = formattedPrice;
-      currentPriceEl.classList.remove('price-updated');
-      void currentPriceEl.offsetWidth;
-      currentPriceEl.classList.add('price-updated');
-    }
-    if (comparePriceEl) comparePriceEl.textContent = formattedCompare;
-    if (stickyPriceEl) stickyPriceEl.textContent = formattedPrice;
-    if (configTotalEl) configTotalEl.textContent = formattedPrice;
-    if (modalTotalEl) modalTotalEl.textContent = formattedPrice;
-
-    // Dynamically format modifier tags across UI
-    function fmtMod(amt) {
-      const val = Math.round(amt * rate);
-      return val > 0 ? `+ ${symbol}${val}` : 'Included';
-    }
-
-    // Size modifiers
-    document.querySelectorAll('#size-price-20, .modal-size-price-20').forEach(el => {
-      el.textContent = fmtMod(priceModifiers.height['20cm'] || 12);
-    });
-    document.querySelectorAll('#size-price-22, .modal-size-price-22').forEach(el => {
-      el.textContent = fmtMod(priceModifiers.height['22cm'] || 24);
-    });
-
-    // Head modifiers
-    document.querySelectorAll('#head-price-bobble, .modal-head-price-bobble').forEach(el => {
-      el.textContent = fmtMod(priceModifiers.headStyle['bobblehead'] || 12);
-    });
-
-    // Figure modifiers
-    const modCouple = document.getElementById('price-mod-couple');
-    const modPet = document.getElementById('price-mod-pet');
-    const modFam = document.getElementById('price-mod-family');
-    if (modCouple) modCouple.textContent = fmtMod(priceModifiers.figureType['couple'] || 30);
-    if (modPet) modPet.textContent = fmtMod(priceModifiers.figureType['pet'] || 15);
-    if (modFam) modFam.textContent = fmtMod(priceModifiers.figureType['family'] || 60);
-
-    // Base modifiers
-    const bAcrylic = document.getElementById('base-price-acrylic');
-    const bHeart = document.getElementById('base-price-heart');
-    const bSoccer = document.getElementById('base-price-soccer');
-    if (bAcrylic) bAcrylic.textContent = fmtMod(priceModifiers.baseTheme['acrylic'] || 5);
-    if (bHeart) bHeart.textContent = fmtMod(priceModifiers.baseTheme['heart'] || 5);
-    if (bSoccer) bSoccer.textContent = fmtMod(priceModifiers.baseTheme['soccer'] || 5);
-  }
-
   if (currencySelector) {
     currencySelector.addEventListener('change', (e) => {
       state.currency = e.target.value;
