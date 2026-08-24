@@ -15,18 +15,6 @@
       {% case block.type %}
 
         {% comment %} =========================================================
-             WIDGET 1: ANNOUNCEMENT BANNER
-             ========================================================= {% endcomment %}
-        {% when 'announcement' %}
-          <div class="tc-banner-wrap" {{ block.shopify_attributes }}>
-            <div class="tc-banner-inner">
-              <span class="tc-banner-pill"><i class="fa-brands fa-whatsapp"></i> {{ block.settings.badge_text }}</span>
-              <span class="tc-banner-text">{{ block.settings.message_text }}</span>
-              <a href="{{ block.settings.cta_link | default: '#how-it-works' }}" class="tc-banner-link">{{ block.settings.cta_label }} &rarr;</a>
-            </div>
-          </div>
-
-        {% comment %} =========================================================
              WIDGET 2: PRODUCT HERO & BALANCED BUY BOX
              ========================================================= {% endcomment %}
         {% when 'product_hero' %}
@@ -1309,17 +1297,6 @@
   ],
   "blocks": [
     {
-      "type": "announcement",
-      "name": "Announcement Bar",
-      "limit": 1,
-      "settings": [
-        { "type": "text", "id": "badge_text", "label": "Badge Text", "default": "WHATSAPP PROMO" },
-        { "type": "text", "id": "message_text", "label": "Message", "default": "100% Free WhatsApp 3D Preview & Unlimited Revisions Included with Every Order." },
-        { "type": "text", "id": "cta_label", "label": "Link Text", "default": "Learn how it works" },
-        { "type": "url", "id": "cta_link", "label": "Link URL" }
-      ]
-    },
-    {
       "type": "product_hero",
       "name": "Product Hero",
       "limit": 1,
@@ -1370,7 +1347,6 @@
     {
       "name": "Tarelcraft Product Showcase",
       "blocks": [
-        { "type": "announcement" },
         { "type": "product_hero" },
         { "type": "whatsapp_guarantee" },
         { "type": "whatsapp_chat" },
