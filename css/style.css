@@ -413,6 +413,13 @@ a {
   margin: 0 6px;
 }
 
+/* Hidden requested sections */
+.creative-comparison-section,
+.whatsapp-experience-section,
+.faq-section {
+  display: none !important;
+}
+
 /* ==========================================================================
    MAIN PRODUCT LAYOUT
    ========================================================================== */
