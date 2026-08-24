@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%">
+  <defs>
+    <linearGradient id="headSkinFix" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E2B190"/>
+      <stop offset="100%" stop-color="#C58E68"/>
+    </linearGradient>
+    <linearGradient id="headHairFix" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#231B15"/>
+      <stop offset="100%" stop-color="#140E0A"/>
+    </linearGradient>
+    <filter id="headShadowFix" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <g transform="translate(80, 80) scale(1.1) translate(-100, -98)" filter="url(#headShadowFix)">
+    <!-- Neck -->
+    <rect x="94" y="148" width="12" height="18" fill="#B87D56" rx="3"/>
+    
+    <!-- Ears -->
+    <ellipse cx="63" cy="113" rx="6.5" ry="9.5" fill="#C58E68"/>
+    <ellipse cx="137" cy="113" rx="6.5" ry="9.5" fill="#C58E68"/>
+    <!-- Earring -->
+    <circle cx="61" cy="118" r="2" fill="#E5E7EB"/>
+
+    <!-- Braided Hair Silhouette -->
+    <path d="M65 110 C63 65 79 47 100 47 C121 47 137 65 135 110 C135 126 133 133 129 138 C125 123 125 83 100 83 C75 83 75 123 71 138 C67 133 65 126 65 110 Z" fill="url(#headHairFix)"/>
+
+    <!-- Face Shape -->
+    <path d="M69 98 C69 72 131 72 131 98 C131 130 123 152 100 152 C77 152 69 130 69 98 Z" fill="url(#headSkinFix)"/>
+
+    <!-- Cornrows -->
+    <path d="M81 55 Q87 76 85 90" stroke="#100A06" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <path d="M94 49 Q96 72 96 90" stroke="#100A06" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <path d="M106 49 Q104 72 104 90" stroke="#100A06" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <path d="M119 55 Q113 76 115 90" stroke="#100A06" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+
+    <!-- Eyebrows -->
+    <path d="M77 94 Q86 89 93 93" stroke="#1E140D" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+    <path d="M107 93 Q114 89 123 94" stroke="#1E140D" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+
+    <!-- Eyes (Slight smile) -->
+    <ellipse cx="85" cy="104" rx="4.5" ry="3.5" fill="#1C140E"/>
+    <circle cx="86.5" cy="103" r="1.2" fill="#FFF"/>
+    <ellipse cx="115" cy="104" rx="4.5" ry="3.5" fill="#1C140E"/>
+    <circle cx="116.5" cy="103" r="1.2" fill="#FFF"/>
+
+    <!-- Nose -->
+    <path d="M98 104 Q100 116 97 119 Q100 121 103 119 Q102 116 102 104" fill="#B0754E"/>
+
+    <!-- Mustache & Goatee -->
+    <path d="M89 124 Q100 126 111 124 Q100 129 89 124 Z" fill="#1C140E"/>
+    <path d="M95 140 Q100 146 105 140 Q100 150 95 140 Z" fill="#1C140E"/>
+
+    <!-- Calm Smile -->
+    <path d="M86 128 Q100 138 114 128" stroke="#1C140E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

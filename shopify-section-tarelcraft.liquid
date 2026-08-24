@@ -136,12 +136,12 @@
                   <span class="tc-discount-pill">50% OFF</span>
                 </div>
 
-                <!-- WhatsApp Photo Assurance Banner -->
-                <div class="tc-whatsapp-inline-notice">
-                  <div class="tc-wa-notice-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                <!-- 60-Second Photo Assurance Banner -->
+                <div class="tc-whatsapp-inline-notice" style="background:#FFFDF7; border:1.5px solid #F1D4A7; border-radius:14px; padding:14px 16px;">
+                  <div class="tc-wa-notice-icon" style="background:rgba(201,151,66,0.15); color:#B47318;"><i class="fa-solid fa-bolt-lightning"></i></div>
                   <div class="tc-wa-notice-text">
-                    <strong>Zero Stress Checkout:</strong>
-                    <span>No photos required now! Send anytime via our dedicated WhatsApp concierge after placing your order.</span>
+                    <strong style="color:#121417; text-transform:uppercase;">Create Your Mini Me In <span style="color:#B47318;">60 Seconds</span>:</strong>
+                    <span>Upload photos after checkout — we'll send you the link.</span>
                   </div>
                 </div>
 
@@ -151,7 +151,7 @@
                   <!-- Option 1: Figures (Shopify Variations) -->
                   <div class="tc-option-group">
                     <div class="tc-opt-head">
-                      <span class="tc-opt-title">Figure Type</span>
+                      <span class="tc-opt-title">1. Figure Type</span>
                       <span class="tc-opt-selected" id="tc-val-figure">{{ current_variant.title | default: 'Single Person' }}</span>
                     </div>
                     <div class="tc-selector-grid cols-4">
@@ -176,60 +176,85 @@
                       {% else %}
                         <button type="button" class="tc-variant-card active" data-variant-title="Single Person" data-variant-price="$59.88" data-img="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80">
                           <strong>Single Person</strong>
-                          <span>$59.88</span>
+                          <span>Included</span>
                         </button>
-                        <button type="button" class="tc-variant-card" data-variant-title="With Pet" data-variant-price="$59.88" data-img="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=800&q=80">
-                          <strong>With Pet</strong>
-                          <span>$59.88</span>
-                        </button>
-                        <button type="button" class="tc-variant-card" data-variant-title="Couple" data-variant-price="$59.88" data-img="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80">
+                        <button type="button" class="tc-variant-card" data-variant-title="Couple" data-variant-price="$89.88" data-img="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80">
                           <strong>Couple</strong>
-                          <span>$59.88</span>
+                          <span>+ $30</span>
                         </button>
-                        <button type="button" class="tc-variant-card" data-variant-title="Family Group" data-variant-price="$59.88" data-img="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=800&q=80">
-                          <strong>Family Group</strong>
-                          <span>$59.88</span>
+                        <button type="button" class="tc-variant-card" data-variant-title="With Pet" data-variant-price="$74.88" data-img="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=800&q=80">
+                          <strong>With Pet</strong>
+                          <span>+ $15</span>
+                        </button>
+                        <button type="button" class="tc-variant-card" data-variant-title="Family Group" data-variant-price="$119.88" data-img="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=800&q=80">
+                          <strong>Family</strong>
+                          <span>+ $60</span>
                         </button>
                       {% endif %}
                     </div>
                   </div>
 
-                  <!-- Option 2: Head Style -->
+                  <!-- Option 2: Visual Size Selection -->
                   <div class="tc-option-group">
                     <div class="tc-opt-head">
-                      <span class="tc-opt-title">Head Style</span>
-                      <span class="tc-opt-selected" id="tc-val-head">Fun Bobblehead</span>
+                      <span class="tc-opt-title">Size</span>
+                      <span class="tc-opt-selected" id="tc-val-height">18cm (Included)</span>
                     </div>
-                    <div class="tc-selector-grid cols-2">
-                      <button type="button" class="tc-variant-card active" data-head="bobblehead">
-                        <strong>Fun Bobblehead</strong>
-                        <span>Spring Head Motion</span>
+                    <div class="visual-size-grid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;">
+                      <button type="button" class="visual-size-card active" data-height="18cm">
+                        <div class="card-check-badge"><i class="fa-solid fa-check"></i></div>
+                        <div class="size-graphic-wrapper"><img src="https://tarelcraft.vercel.app/assets/images/variant-size-18cm.svg" alt="18cm" style="height:90px;"></div>
+                        <div class="size-card-info">
+                          <h4 class="size-title">18cm</h4>
+                          <span class="size-price-tag included" style="color:#B47318; font-weight:700; font-size:0.8rem;">Included</span>
+                        </div>
                       </button>
-                      <button type="button" class="tc-variant-card" data-head="fixed">
-                        <strong>Fixed Figurine</strong>
-                        <span>Solid Sculpted Statue</span>
+                      <button type="button" class="visual-size-card" data-height="20cm">
+                        <span class="floating-pill-badge popular-badge">POPULAR</span>
+                        <div class="card-check-badge"><i class="fa-solid fa-check"></i></div>
+                        <div class="size-graphic-wrapper"><img src="https://tarelcraft.vercel.app/assets/images/variant-size-20cm.svg" alt="20cm" style="height:100px;"></div>
+                        <div class="size-card-info">
+                          <h4 class="size-title">20cm</h4>
+                          <span class="size-price-tag extra" style="color:#5F6773; font-weight:700; font-size:0.8rem;">+ $12</span>
+                        </div>
+                      </button>
+                      <button type="button" class="visual-size-card" data-height="22cm">
+                        <div class="card-check-badge"><i class="fa-solid fa-check"></i></div>
+                        <div class="size-graphic-wrapper"><img src="https://tarelcraft.vercel.app/assets/images/variant-size-22cm.svg" alt="22cm" style="height:108px;"></div>
+                        <div class="size-card-info">
+                          <h4 class="size-title">22cm</h4>
+                          <span class="size-price-tag extra" style="color:#5F6773; font-weight:700; font-size:0.8rem;">+ $24</span>
+                          <span class="size-subtag" style="color:#B47318; font-size:0.72rem; font-weight:700;">Most lifelike</span>
+                        </div>
                       </button>
                     </div>
                   </div>
 
-                  <!-- Option 3: Height -->
+                  <!-- Option 3: Visual Head Style -->
                   <div class="tc-option-group">
                     <div class="tc-opt-head">
-                      <span class="tc-opt-title">Statue Height</span>
-                      <span class="tc-opt-selected" id="tc-val-height">18 cm (Standard)</span>
+                      <span class="tc-opt-title">Head style</span>
+                      <span class="tc-opt-selected" id="tc-val-head">BobbleHead (+ $12)</span>
                     </div>
-                    <div class="tc-selector-grid cols-3">
-                      <button type="button" class="tc-variant-card active" data-height="18cm">
-                        <strong>18 cm</strong>
-                        <span>Standard</span>
+                    <div class="visual-head-grid" style="display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;">
+                      <button type="button" class="visual-head-card" data-head="fixed">
+                        <div class="card-check-badge"><i class="fa-solid fa-check"></i></div>
+                        <div class="head-graphic-wrapper"><img src="https://tarelcraft.vercel.app/assets/images/variant-head-fixed.svg" alt="Fixed Head" style="width:68px;"></div>
+                        <div class="head-card-info">
+                          <h4 class="head-title">Fixed Head</h4>
+                          <p class="head-desc" style="font-size:0.75rem; color:#5F6773;">Head stays fixed.</p>
+                          <span class="head-price-tag included" style="color:#B47318; font-weight:700; font-size:0.8rem;">Included</span>
+                        </div>
                       </button>
-                      <button type="button" class="tc-variant-card" data-height="20cm">
-                        <strong>20 cm</strong>
-                        <span>Detailed</span>
-                      </button>
-                      <button type="button" class="tc-variant-card" data-height="22cm">
-                        <strong>22 cm</strong>
-                        <span>Large</span>
+                      <button type="button" class="visual-head-card active" data-head="bobblehead">
+                        <span class="floating-pill-badge customer-favorite-badge"><i class="fa-solid fa-star"></i> CUSTOMER FAVORITE</span>
+                        <div class="card-check-badge"><i class="fa-solid fa-check"></i></div>
+                        <div class="head-graphic-wrapper is-wobbling"><img src="https://tarelcraft.vercel.app/assets/images/variant-head-bobble.svg" alt="BobbleHead" class="head-char-img bobble-anim" style="width:68px;"></div>
+                        <div class="head-card-info">
+                          <h4 class="head-title">BobbleHead</h4>
+                          <p class="head-desc" style="font-size:0.75rem; color:#5F6773;">Moves naturally when touched.</p>
+                          <span class="head-price-tag extra" style="color:#B47318; font-weight:700; font-size:0.8rem;">+ $12</span>
+                        </div>
                       </button>
                     </div>
                   </div>
@@ -241,6 +266,18 @@
                       <span style="font-size:0.8rem; color:#059669; font-weight:600;">100% Free</span>
                     </div>
                     <input type="text" name="properties[Engraving]" id="tc-engrave-input-field" class="tc-form-input" placeholder="e.g. 'Best Dad Ever • 2026' or Family Name" maxlength="30">
+                  </div>
+
+                  <!-- Trust Summary Badges -->
+                  <div class="config-trust-badges-row" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0 6px;">
+                    <div class="trust-badge-pill" style="background:#F0FDF4; border:1px solid #BBF7D0; color:#166534; padding:8px; border-radius:10px; font-size:0.72rem; font-weight:800; display:flex; align-items:center; justify-content:center; gap:6px;">
+                      <i class="fa-solid fa-circle-check" style="color:#10B981;"></i>
+                      <span>FREE WHATSAPP PREVIEW</span>
+                    </div>
+                    <div class="trust-badge-pill" style="background:#F0FDF4; border:1px solid #BBF7D0; color:#166534; padding:8px; border-radius:10px; font-size:0.72rem; font-weight:800; display:flex; align-items:center; justify-content:center; gap:6px;">
+                      <i class="fa-solid fa-circle-check" style="color:#10B981;"></i>
+                      <span>UNLIMITED REVISIONS</span>
+                    </div>
                   </div>
 
                   <!-- Action Buttons -->
@@ -798,6 +835,94 @@
     color: #64748b;
     margin-top: 2px;
     display: block;
+  }
+
+  /* Visual Size & Head Variation Cards */
+  .visual-size-card, .visual-head-card {
+    position: relative;
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 16px;
+    padding: 16px 8px 12px;
+    text-align: center;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 180px;
+    box-sizing: border-box;
+  }
+  .visual-size-card:hover, .visual-head-card:hover {
+    border-color: #d4a359;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+  .visual-size-card.active, .visual-head-card.active {
+    border: 2px solid #d4a359;
+    background: #fffdf9;
+    box-shadow: 0 6px 16px rgba(212, 163, 89, 0.18);
+  }
+  .card-check-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #c88e3e;
+    color: #ffffff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    box-shadow: 0 2px 4px rgba(200, 142, 62, 0.4);
+  }
+  .visual-size-card.active .card-check-badge,
+  .visual-head-card.active .card-check-badge {
+    display: flex;
+  }
+  .floating-pill-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.64rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 2px 10px;
+    border-radius: 99px;
+    z-index: 3;
+    white-space: nowrap;
+  }
+  .popular-badge {
+    background: #fcefd8;
+    color: #8c5312;
+    border: 1px solid #f6d69f;
+  }
+  .customer-favorite-badge {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #86efac;
+  }
+  .size-title, .head-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 2px 0;
+  }
+  .bobble-anim {
+    animation: tcSpringBobble 3.2s ease-in-out infinite;
+    transform-origin: center bottom;
+  }
+  @keyframes tcSpringBobble {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    15% { transform: rotate(-7deg) translateY(-3px); }
+    30% { transform: rotate(6deg) translateY(1px); }
+    45% { transform: rotate(-4deg); }
+    60% { transform: rotate(2deg); }
   }
 
   .tc-form-input {

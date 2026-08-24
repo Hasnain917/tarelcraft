@@ -62,13 +62,13 @@
             { id: 'family', name: 'Family/Group', subtitle: '3+ Figurines', priceModifier: 60.0, badge: 'Family Pack', image: 'assets/images/family-figure.jpg' }
           ],
           headStyles: [
-            { id: 'bobblehead', name: 'Fun Bobblehead (Spring Head)', desc: 'Spring-mounted head that wobbles and bobs delightfully on vibration or touch.', priceModifier: 10.0, icon: 'fa-face-laugh-beam' },
-            { id: 'fixed', name: 'Classic Fixed Figurine', desc: 'Sculpted solid seamless statue for a refined, museum-grade sculpture look.', priceModifier: 0.0, icon: 'fa-monument' }
+            { id: 'fixed', name: 'Fixed Head', desc: 'Head stays fixed.', priceModifier: 0.0, badge: '', icon: 'fa-monument' },
+            { id: 'bobblehead', name: 'BobbleHead', desc: 'Moves naturally when touched.', priceModifier: 12.0, badge: '★ CUSTOMER FAVORITE', icon: 'fa-face-laugh-beam' }
           ],
           heights: [
-            { id: '18cm', label: '18 cm (7.1")', subtitle: 'Classic Desk Size', priceModifier: 0, badge: '' },
-            { id: '20cm', label: '20 cm (7.9")', subtitle: 'Enhanced Details', priceModifier: 10.0, badge: 'Best Value' },
-            { id: '22cm', label: '22 cm (8.7")', subtitle: 'Premium Statement', priceModifier: 20.0, badge: '' }
+            { id: '18cm', label: '18cm', subtitle: 'Included', priceModifier: 0, badge: '' },
+            { id: '20cm', label: '20cm', subtitle: '+ $12', priceModifier: 12.0, badge: 'POPULAR' },
+            { id: '22cm', label: '22cm', subtitle: '+ $24', priceModifier: 24.0, badge: 'Most lifelike' }
           ],
           baseThemes: [
             { id: 'walnut', name: 'Walnut Wood', subtitle: 'Warm Natural', priceModifier: 0 },

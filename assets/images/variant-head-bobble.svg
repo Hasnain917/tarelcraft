@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%">
+  <defs>
+    <linearGradient id="headSkinBobble" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E2B190"/>
+      <stop offset="100%" stop-color="#C58E68"/>
+    </linearGradient>
+    <linearGradient id="headHairBobble" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#231B15"/>
+      <stop offset="100%" stop-color="#140E0A"/>
+    </linearGradient>
+    <filter id="headShadowBobble" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- Left Vibration / Wobble Motion Lines -->
+  <g stroke="#1C1E21" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.75">
+    <path d="M26 62 Q20 74 25 86"/>
+    <path d="M33 55 Q26 72 31 92"/>
+    <path d="M40 50 Q33 70 38 98"/>
+  </g>
+
+  <!-- Right Vibration / Wobble Motion Lines -->
+  <g stroke="#1C1E21" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.75">
+    <path d="M134 62 Q140 74 135 86"/>
+    <path d="M127 55 Q134 72 129 92"/>
+    <path d="M120 50 Q127 70 122 98"/>
+  </g>
+
+  <!-- Head & Hair with slight tilt & spring excitement -->
+  <g transform="translate(80, 80) rotate(2) scale(1.1) translate(-100, -98)" filter="url(#headShadowBobble)">
+    <!-- Spring hint at neck -->
+    <path d="M96 150 Q104 154 96 158 Q104 162 96 166" stroke="#9CA3AF" stroke-width="2.5" fill="none"/>
+    <rect x="94" y="148" width="12" height="12" fill="#B87D56" rx="3"/>
+
+    <!-- Ears -->
+    <ellipse cx="63" cy="113" rx="6.5" ry="9.5" fill="#C58E68"/>
+    <ellipse cx="137" cy="113" rx="6.5" ry="9.5" fill="#C58E68"/>
+    <circle cx="61" cy="118" r="2.2" fill="#E5E7EB"/>
+
+    <!-- Braided Hair -->
+    <path d="M65 110 C63 65 79 47 100 47 C121 47 137 65 135 110 C135 126 133 133 129 138 C125 123 125 83 100 83 C75 83 75 123 71 138 C67 133 65 126 65 110 Z" fill="url(#headHairBobble)"/>
+
+    <!-- Face -->
+    <path d="M69 98 C69 72 131 72 131 98 C131 130 123 152 100 152 C77 152 69 130 69 98 Z" fill="url(#headSkinBobble)"/>
+
+    <!-- Cornrows -->
+    <path d="M81 55 Q87 76 85 90" stroke="#100A06" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <path d="M94 49 Q96 72 96 90" stroke="#100A06" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <path d="M106 49 Q104 72 104 90" stroke="#100A06" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <path d="M119 55 Q113 76 115 90" stroke="#100A06" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+
+    <!-- Eyebrows (Dynamic Raised) -->
+    <path d="M77 92 Q86 86 94 92" stroke="#1E140D" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M106 92 Q114 86 123 92" stroke="#1E140D" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+    <!-- Eyes (Big Sparkling Smile) -->
+    <ellipse cx="85" cy="104" rx="4.8" ry="3.8" fill="#1C140E"/>
+    <circle cx="86.5" cy="103" r="1.4" fill="#FFF"/>
+    <ellipse cx="115" cy="104" rx="4.8" ry="3.8" fill="#1C140E"/>
+    <circle cx="116.5" cy="103" r="1.4" fill="#FFF"/>
+
+    <!-- Nose -->
+    <path d="M98 104 Q100 116 97 119 Q100 121 103 119 Q102 116 102 104" fill="#B0754E"/>
+
+    <!-- Mustache & Goatee -->
+    <path d="M89 124 Q100 126 111 124 Q100 129 89 124 Z" fill="#1C140E"/>
+    <path d="M95 140 Q100 146 105 140 Q100 150 95 140 Z" fill="#1C140E"/>
+
+    <!-- Big Open Grin with Teeth -->
+    <path d="M85 127 Q100 143 115 127 Z" fill="#751515"/>
+    <path d="M87 128 Q100 135 113 128 Q100 128 87 128 Z" fill="#FFFFFF"/>
+
+    <!-- Cheerful Cheek Blush -->
+    <ellipse cx="77" cy="114" rx="4.5" ry="2.5" fill="rgba(210,70,50,0.25)"/>
+    <ellipse cx="123" cy="114" rx="4.5" ry="2.5" fill="rgba(210,70,50,0.25)"/>
+  </g>
+</svg>

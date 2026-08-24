@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 320" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skin20" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E2B190"/>
+      <stop offset="100%" stop-color="#C58E68"/>
+    </linearGradient>
+    <linearGradient id="hair20" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#231B15"/>
+      <stop offset="100%" stop-color="#140E0A"/>
+    </linearGradient>
+    <linearGradient id="woodBase20" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C2844B"/>
+      <stop offset="50%" stop-color="#935728"/>
+      <stop offset="100%" stop-color="#643816"/>
+    </linearGradient>
+    <linearGradient id="woodTop20" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D2975E"/>
+      <stop offset="100%" stop-color="#A56734"/>
+    </linearGradient>
+    <linearGradient id="clothes20" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#32353B"/>
+      <stop offset="100%" stop-color="#1B1C20"/>
+    </linearGradient>
+    <filter id="dropShadow20" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3.5" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Scale slightly taller for 20cm -->
+  <g transform="translate(100, 290) scale(1.09) translate(-100, -280)">
+    <!-- Wooden Pedestal Base -->
+    <g id="base20">
+      <path d="M38 280 C38 296 162 296 162 280 L162 293 C162 309 38 309 38 293 Z" fill="url(#woodBase20)"/>
+      <ellipse cx="100" cy="280" rx="62" ry="13" fill="url(#woodTop20)" stroke="#7A441B" stroke-width="1"/>
+      <ellipse cx="100" cy="280" rx="44" ry="8" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+    </g>
+
+    <!-- Body (Black outfit) -->
+    <g id="body20" filter="url(#dropShadow20)">
+      <ellipse cx="86" cy="275" rx="10.5" ry="6" fill="#1C1D20"/>
+      <ellipse cx="114" cy="275" rx="10.5" ry="6" fill="#1C1D20"/>
+      <path d="M77 218 L79 274 L94 274 L97 230 L103 230 L106 274 L121 274 L123 218 Z" fill="#1E2024"/>
+      <path d="M71 168 C71 163 129 163 129 168 L127 222 C127 225 73 225 73 222 Z" fill="url(#clothes20)"/>
+      <path d="M71 168 L59 198 C57 204 65 208 69 203 L75 180 Z" fill="url(#clothes20)"/>
+      <path d="M129 168 L141 198 C143 204 135 208 131 203 L125 180 Z" fill="url(#clothes20)"/>
+      <circle cx="62" cy="206" r="6.8" fill="url(#skin20)"/>
+      <circle cx="138" cy="206" r="6.8" fill="url(#skin20)"/>
+    </g>
+
+    <!-- Head & Hair -->
+    <g id="head20" filter="url(#dropShadow20)">
+      <rect x="94" y="150" width="12" height="18" fill="#B87D56" rx="3"/>
+      <ellipse cx="63" cy="113" rx="6.5" ry="9.5" fill="#C58E68"/>
+      <ellipse cx="137" cy="113" rx="6.5" ry="9.5" fill="#C58E68"/>
+      <circle cx="61" cy="118" r="2.2" fill="#E5E7EB"/>
+
+      <path d="M65 110 C63 65 79 47 100 47 C121 47 137 65 135 110 C135 126 133 133 129 138 C125 123 125 83 100 83 C75 83 75 123 71 138 C67 133 65 126 65 110 Z" fill="url(#hair20)"/>
+
+      <path d="M69 98 C69 72 131 72 131 98 C131 130 123 152 100 152 C77 152 69 130 69 98 Z" fill="url(#skin20)"/>
+
+      <path d="M81 55 Q87 76 85 90" stroke="#100A06" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      <path d="M94 49 Q96 72 96 90" stroke="#100A06" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      <path d="M106 49 Q104 72 104 90" stroke="#100A06" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      <path d="M119 55 Q113 76 115 90" stroke="#100A06" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+
+      <path d="M77 94 Q86 89 93 93" stroke="#1E140D" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M107 93 Q114 89 123 94" stroke="#1E140D" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+      <ellipse cx="85" cy="104" rx="4.8" ry="3.7" fill="#1C140E"/>
+      <circle cx="86.5" cy="103" r="1.3" fill="#FFF"/>
+      <ellipse cx="115" cy="104" rx="4.8" ry="3.7" fill="#1C140E"/>
+      <circle cx="116.5" cy="103" r="1.3" fill="#FFF"/>
+
+      <path d="M98 104 Q100 116 97 119 Q100 121 103 119 Q102 116 102 104" fill="#B0754E"/>
+
+      <path d="M89 124 Q100 126 111 124 Q100 129 89 124 Z" fill="#1C140E"/>
+      <path d="M95 140 Q100 146 105 140 Q100 150 95 140 Z" fill="#1C140E"/>
+
+      <path d="M85 128 Q100 142 115 128 Z" fill="#751515"/>
+      <path d="M87 129 Q100 135 113 129 Q100 129 87 129 Z" fill="#FFFFFF"/>
+
+      <ellipse cx="77" cy="114" rx="4.5" ry="2.2" fill="rgba(200,80,60,0.18)"/>
+      <ellipse cx="123" cy="114" rx="4.5" ry="2.2" fill="rgba(200,80,60,0.18)"/>
+    </g>
+  </g>
+</svg>

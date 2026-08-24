@@ -225,118 +225,176 @@
             </div>
           </div>
 
-          <!-- PRODUCT CONFIGURATOR -->
-          <div class="configurator-block">
+          <!-- ==========================================================================
+               PRODUCT CONFIGURATOR - BESPOKE MINI ME VARIATION SELECTOR
+               ========================================================================== -->
+          <div class="configurator-block" id="mini-me-customizer">
+            
+            <!-- SECTION HEADER -->
+            <div class="configurator-head">
+              <h2 class="config-main-title">Customize your MINI ME</h2>
+              <p class="config-sub-title">Last step before checkout.</p>
+            </div>
 
-            <!-- OPTION 1: FIGURE TYPE (LIVE SWITCHER) -->
+            <!-- 60-SECOND STRESS-FREE BANNER -->
+            <div class="quick-create-banner">
+              <div class="banner-icon-bolt">
+                <i class="fa-solid fa-bolt-lightning"></i>
+              </div>
+              <div class="banner-content">
+                <h3>CREATE YOUR MINI ME IN <span>60 SECONDS</span></h3>
+                <p>Upload photos after checkout — we'll send you the link.</p>
+              </div>
+            </div>
+
+            <!-- OPTION: FIGURE TYPE -->
             <div class="option-group">
               <div class="option-header">
-                <span class="option-title">1. Select Figure Type</span>
+                <span class="option-title">1. Figure Type</span>
                 <span class="option-selected-val" id="selected-figure-val">Single Person</span>
               </div>
-              <div class="variant-grid cols-4">
-                <div class="variant-card figure-card active" data-figure="single">
-                  <span class="badge-popular">Popular</span>
-                  <span class="v-title">Single Person</span>
-                  <span class="v-sub">1 Figurine</span>
-                  <span class="v-price-extra">Included</span>
+              <div class="figure-pill-grid">
+                <div class="figure-pill-card active" data-figure="single">
+                  <span class="pill-title">Single Person</span>
+                  <span class="pill-sub">1 Figurine</span>
+                  <span class="pill-price">Included</span>
                 </div>
-                <div class="variant-card figure-card" data-figure="couple">
-                  <span class="v-title">Couple</span>
-                  <span class="v-sub">2 Figurines</span>
-                  <span class="v-price-extra">+ CHF 30.00</span>
+                <div class="figure-pill-card" data-figure="couple">
+                  <span class="pill-title">Couple</span>
+                  <span class="pill-sub">2 Figurines</span>
+                  <span class="pill-price" id="price-mod-couple">+ $30</span>
                 </div>
-                <div class="variant-card figure-card" data-figure="pet">
-                  <span class="v-title">With Pet</span>
-                  <span class="v-sub">Person + Pet</span>
-                  <span class="v-price-extra">+ CHF 15.00</span>
+                <div class="figure-pill-card" data-figure="pet">
+                  <span class="pill-title">With Pet</span>
+                  <span class="pill-sub">Person + Pet</span>
+                  <span class="pill-price" id="price-mod-pet">+ $15</span>
                 </div>
-                <div class="variant-card figure-card" data-figure="family">
-                  <span class="badge-popular" style="background:#10B981; color:#fff;">Family Pack</span>
-                  <span class="v-title">Family/Group</span>
-                  <span class="v-sub">3+ Figurines</span>
-                  <span class="v-price-extra">+ CHF 60.00</span>
+                <div class="figure-pill-card" data-figure="family">
+                  <span class="pill-badge">Family Pack</span>
+                  <span class="pill-title">Family / Group</span>
+                  <span class="pill-sub">3+ Figurines</span>
+                  <span class="pill-price" id="price-mod-family">+ $60</span>
                 </div>
               </div>
             </div>
 
-            <!-- OPTION 2: HEAD MOTION STYLE -->
+            <!-- OPTION: SIZE (3 VISUAL CARDS: 18cm, 20cm, 22cm) -->
             <div class="option-group">
               <div class="option-header">
-                <span class="option-title">2. Choose Head Motion Style</span>
-                <span class="option-selected-val">Interactive Bobblehead</span>
+                <span class="option-title">Size</span>
+                <span class="option-selected-val" id="selected-height-val">18cm (Included)</span>
               </div>
-              <div class="head-style-container">
-                <div class="head-style-card active" data-head="bobblehead">
-                  <div class="icon-demo"><i class="fa-solid fa-face-laugh-beam"></i></div>
-                  <div class="head-style-info">
-                    <h5>Fun Bobblehead (Spring Head)</h5>
-                    <p>Spring-mounted head that wobbles and bobs delightfully on vibration or touch.</p>
+              <div class="visual-size-grid">
+                <!-- 18cm Card -->
+                <div class="visual-size-card active" data-height="18cm">
+                  <div class="card-check-badge">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                  <div class="size-graphic-wrapper">
+                    <img src="assets/images/variant-size-18cm.svg" alt="18cm Mini Me Bobblehead" class="size-char-img size-18">
+                  </div>
+                  <div class="size-card-info">
+                    <h4 class="size-title">18cm</h4>
+                    <span class="size-price-tag included">Included</span>
                   </div>
                 </div>
 
-                <div class="head-style-card" data-head="fixed">
-                  <div class="icon-demo"><i class="fa-solid fa-monument"></i></div>
-                  <div class="head-style-info">
-                    <h5>Classic Fixed Figurine</h5>
-                    <p>Sculpted solid seamless statue for a refined, museum-grade sculpture look.</p>
+                <!-- 20cm Card -->
+                <div class="visual-size-card" data-height="20cm">
+                  <span class="floating-pill-badge popular-badge">POPULAR</span>
+                  <div class="card-check-badge">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                  <div class="size-graphic-wrapper">
+                    <img src="assets/images/variant-size-20cm.svg" alt="20cm Mini Me Bobblehead" class="size-char-img size-20">
+                  </div>
+                  <div class="size-card-info">
+                    <h4 class="size-title">20cm</h4>
+                    <span class="size-price-tag extra" id="size-price-20">+ $12</span>
+                  </div>
+                </div>
+
+                <!-- 22cm Card -->
+                <div class="visual-size-card" data-height="22cm">
+                  <div class="card-check-badge">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                  <div class="size-graphic-wrapper">
+                    <img src="assets/images/variant-size-22cm.svg" alt="22cm Mini Me Bobblehead" class="size-char-img size-22">
+                  </div>
+                  <div class="size-card-info">
+                    <h4 class="size-title">22cm</h4>
+                    <span class="size-price-tag extra" id="size-price-22">+ $24</span>
+                    <span class="size-subtag">Most lifelike</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- OPTION 3: STATUE HEIGHT -->
+            <!-- OPTION: HEAD STYLE (2 VISUAL CARDS: Fixed Head, BobbleHead) -->
             <div class="option-group">
               <div class="option-header">
-                <span class="option-title">3. Select Statue Height</span>
-                <span class="option-selected-val" id="selected-height-val">18 cm (Standard)</span>
+                <span class="option-title">Head style</span>
+                <span class="option-selected-val" id="selected-head-val">BobbleHead (+ $12)</span>
               </div>
-              <div class="variant-grid cols-3">
-                <div class="variant-card height-card active" data-height="18cm">
-                  <span class="v-title">18 cm (7.1")</span>
-                  <span class="v-sub">Classic Desk Size</span>
-                  <span class="v-price-extra">Included</span>
+              <div class="visual-head-grid">
+                <!-- Fixed Head Card -->
+                <div class="visual-head-card" data-head="fixed">
+                  <div class="card-check-badge">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                  <div class="head-graphic-wrapper">
+                    <img src="assets/images/variant-head-fixed.svg" alt="Fixed Head" class="head-char-img">
+                  </div>
+                  <div class="head-card-info">
+                    <h4 class="head-title">Fixed Head</h4>
+                    <p class="head-desc">Head stays fixed.</p>
+                    <span class="head-price-tag included">Included</span>
+                  </div>
                 </div>
-                <div class="variant-card height-card" data-height="20cm">
-                  <span class="badge-popular">Best Value</span>
-                  <span class="v-title">20 cm (7.9")</span>
-                  <span class="v-sub">Enhanced Details</span>
-                  <span class="v-price-extra">+ CHF 10.00</span>
-                </div>
-                <div class="variant-card height-card" data-height="22cm">
-                  <span class="v-title">22 cm (8.7")</span>
-                  <span class="v-sub">Premium Statement</span>
-                  <span class="v-price-extra">+ CHF 20.00</span>
+
+                <!-- BobbleHead Card -->
+                <div class="visual-head-card active" data-head="bobblehead">
+                  <span class="floating-pill-badge customer-favorite-badge">
+                    <i class="fa-solid fa-star"></i> CUSTOMER FAVORITE
+                  </span>
+                  <div class="card-check-badge">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                  <div class="head-graphic-wrapper is-wobbling">
+                    <img src="assets/images/variant-head-bobble.svg" alt="BobbleHead" class="head-char-img bobble-anim">
+                  </div>
+                  <div class="head-card-info">
+                    <h4 class="head-title">BobbleHead</h4>
+                    <p class="head-desc">Moves naturally when touched.</p>
+                    <span class="head-price-tag extra" id="head-price-bobble">+ $12</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- OPTION 4: BASE THEME & ENGRAVING -->
+            <!-- OPTION: BASE THEME & ENGRAVING -->
             <div class="option-group">
               <div class="option-header">
-                <span class="option-title">4. Stand Base Theme</span>
-                <span class="option-selected-val">Natural Walnut Base</span>
+                <span class="option-title">Stand Base Theme</span>
+                <span class="option-selected-val" id="selected-base-val">Natural Walnut Base</span>
               </div>
-              <div class="variant-grid cols-4">
-                <div class="variant-card base-card active" data-base="walnut">
-                  <span class="v-title">Walnut Wood</span>
-                  <span class="v-sub">Warm Natural</span>
-                  <span class="v-price-extra">Free</span>
+              <div class="base-pill-grid">
+                <div class="base-pill-card active" data-base="walnut">
+                  <span class="b-title">Walnut Wood</span>
+                  <span class="b-price">Free</span>
                 </div>
-                <div class="variant-card base-card" data-base="acrylic">
-                  <span class="v-title">Black Crystal</span>
-                  <span class="v-sub">Modern Gloss</span>
-                  <span class="v-price-extra">+ CHF 5.00</span>
+                <div class="base-pill-card" data-base="acrylic">
+                  <span class="b-title">Black Crystal</span>
+                  <span class="b-price" id="base-price-acrylic">+ $5</span>
                 </div>
-                <div class="variant-card base-card" data-base="heart">
-                  <span class="v-title">Romantic Heart</span>
-                  <span class="v-sub">Love Edition</span>
-                  <span class="v-price-extra">+ CHF 5.00</span>
+                <div class="base-pill-card" data-base="heart">
+                  <span class="b-title">Romantic Heart</span>
+                  <span class="b-price" id="base-price-heart">+ $5</span>
                 </div>
-                <div class="variant-card base-card" data-base="soccer">
-                  <span class="v-title">Sports / Soccer</span>
-                  <span class="v-sub">Pitch Field</span>
-                  <span class="v-price-extra">+ CHF 5.00</span>
+                <div class="base-pill-card" data-base="soccer">
+                  <span class="b-title">Sports Pitch</span>
+                  <span class="b-price" id="base-price-soccer">+ $5</span>
                 </div>
               </div>
             </div>
@@ -352,6 +410,25 @@
                 <div class="engraving-hint">
                   <span>Laser-engraved onto the metallic pedestal plate</span>
                   <span id="engraving-count">0/30 characters</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SUMMARY & TRUST BADGES FOOTER -->
+            <div class="config-summary-box">
+              <div class="config-total-row">
+                <span class="total-label">Total</span>
+                <span class="total-amount" id="configurator-total-price">USD 61.90</span>
+              </div>
+
+              <div class="config-trust-badges-row">
+                <div class="trust-badge-pill">
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>FREE WHATSAPP PREVIEW</span>
+                </div>
+                <div class="trust-badge-pill">
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>UNLIMITED REVISIONS</span>
                 </div>
               </div>
             </div>
@@ -930,9 +1007,151 @@
         </div>
       </div>
 
-      <button class="buy-button-main" style="margin-top: 24px;" onclick="document.getElementById('interactive-modal').style.display='none'">
-        <span>Got It! Continue to Order</span>
-      </button>
+  <!-- ==========================================================================
+       DEDICATED STEP DRAWER / MODAL: CUSTOMIZE YOUR MINI ME (MOCKUP COMPLIANT)
+       ========================================================================== -->
+  <div class="customizer-modal-overlay" id="customizer-step-modal">
+    <div class="customizer-modal-sheet">
+      <div class="customizer-sheet-header">
+        <div class="sheet-pill-handle"></div>
+        <button class="sheet-close-btn" id="customizer-close-btn" aria-label="Close Customizer">✕</button>
+      </div>
+
+      <div class="customizer-sheet-body">
+        <div class="configurator-head">
+          <h2 class="config-main-title">Customize your MINI ME</h2>
+          <p class="config-sub-title">Last step before checkout.</p>
+        </div>
+
+        <!-- 60-SECOND STRESS-FREE BANNER -->
+        <div class="quick-create-banner">
+          <div class="banner-icon-bolt">
+            <i class="fa-solid fa-bolt-lightning"></i>
+          </div>
+          <div class="banner-content">
+            <h3>CREATE YOUR MINI ME IN <span>60 SECONDS</span></h3>
+            <p>Upload photos after checkout — we'll send you the link.</p>
+          </div>
+        </div>
+
+        <!-- OPTION: SIZE (MODAL SYNCED) -->
+        <div class="option-group">
+          <div class="option-header">
+            <span class="option-title">Size</span>
+          </div>
+          <div class="visual-size-grid modal-size-grid">
+            <!-- 18cm Card -->
+            <div class="visual-size-card active" data-height="18cm">
+              <div class="card-check-badge">
+                <i class="fa-solid fa-check"></i>
+              </div>
+              <div class="size-graphic-wrapper">
+                <img src="assets/images/variant-size-18cm.svg" alt="18cm Mini Me" class="size-char-img size-18">
+              </div>
+              <div class="size-card-info">
+                <h4 class="size-title">18cm</h4>
+                <span class="size-price-tag included">Included</span>
+              </div>
+            </div>
+
+            <!-- 20cm Card -->
+            <div class="visual-size-card" data-height="20cm">
+              <span class="floating-pill-badge popular-badge">POPULAR</span>
+              <div class="card-check-badge">
+                <i class="fa-solid fa-check"></i>
+              </div>
+              <div class="size-graphic-wrapper">
+                <img src="assets/images/variant-size-20cm.svg" alt="20cm Mini Me" class="size-char-img size-20">
+              </div>
+              <div class="size-card-info">
+                <h4 class="size-title">20cm</h4>
+                <span class="size-price-tag extra modal-size-price-20">+ $12</span>
+              </div>
+            </div>
+
+            <!-- 22cm Card -->
+            <div class="visual-size-card" data-height="22cm">
+              <div class="card-check-badge">
+                <i class="fa-solid fa-check"></i>
+              </div>
+              <div class="size-graphic-wrapper">
+                <img src="assets/images/variant-size-22cm.svg" alt="22cm Mini Me" class="size-char-img size-22">
+              </div>
+              <div class="size-card-info">
+                <h4 class="size-title">22cm</h4>
+                <span class="size-price-tag extra modal-size-price-22">+ $24</span>
+                <span class="size-subtag">Most lifelike</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OPTION: HEAD STYLE (MODAL SYNCED) -->
+        <div class="option-group">
+          <div class="option-header">
+            <span class="option-title">Head style</span>
+          </div>
+          <div class="visual-head-grid modal-head-grid">
+            <!-- Fixed Head Card -->
+            <div class="visual-head-card" data-head="fixed">
+              <div class="card-check-badge">
+                <i class="fa-solid fa-check"></i>
+              </div>
+              <div class="head-graphic-wrapper">
+                <img src="assets/images/variant-head-fixed.svg" alt="Fixed Head" class="head-char-img">
+              </div>
+              <div class="head-card-info">
+                <h4 class="head-title">Fixed Head</h4>
+                <p class="head-desc">Head stays fixed.</p>
+                <span class="head-price-tag included">Included</span>
+              </div>
+            </div>
+
+            <!-- BobbleHead Card -->
+            <div class="visual-head-card active" data-head="bobblehead">
+              <span class="floating-pill-badge customer-favorite-badge">
+                <i class="fa-solid fa-star"></i> CUSTOMER FAVORITE
+              </span>
+              <div class="card-check-badge">
+                <i class="fa-solid fa-check"></i>
+              </div>
+              <div class="head-graphic-wrapper is-wobbling">
+                <img src="assets/images/variant-head-bobble.svg" alt="BobbleHead" class="head-char-img bobble-anim">
+              </div>
+              <div class="head-card-info">
+                <h4 class="head-title">BobbleHead</h4>
+                <p class="head-desc">Moves naturally when touched.</p>
+                <span class="head-price-tag extra modal-head-price-bobble">+ $12</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TOTAL & TRUST BADGES FOOTER -->
+        <div class="config-summary-box">
+          <div class="config-total-row">
+            <span class="total-label">Total</span>
+            <span class="total-amount modal-total-price" id="modal-total-price">USD 65.88</span>
+          </div>
+
+          <div class="config-trust-badges-row">
+            <div class="trust-badge-pill">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>FREE WHATSAPP PREVIEW</span>
+            </div>
+            <div class="trust-badge-pill">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>UNLIMITED REVISIONS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODAL CHECKOUT ACTION -->
+        <button class="buy-button-main" id="modal-complete-order-btn" style="margin-top: 14px;">
+          <span><i class="fa-solid fa-lock"></i> PROCEED TO SECURE CHECKOUT</span>
+          <span class="btn-sub-label">Photos Uploaded After Checkout via WhatsApp</span>
+        </button>
+      </div>
     </div>
   </div>
 

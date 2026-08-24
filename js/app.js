@@ -462,7 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
   // 5. FIGURE SELECTION & IMAGE SWITCHER
   // ==========================================================================
-  const figureCards = document.querySelectorAll('.figure-card');
+  const figurePillCards = document.querySelectorAll('.figure-pill-card, .figure-card');
   const thumbnails = document.querySelectorAll('.thumb-item');
 
   function updateProductImage(figureKey) {
@@ -486,14 +486,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  figureCards.forEach(card => {
+  figurePillCards.forEach(card => {
     card.addEventListener('click', () => {
-      figureCards.forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
-      state.figureType = card.getAttribute('data-figure');
+      figurePillCards.forEach(c => c.classList.remove('active'));
+      const fType = card.getAttribute('data-figure');
+      state.figureType = fType;
+      
+      // Sync active class to matching cards
+      document.querySelectorAll(`[data-figure="${fType}"]`).forEach(c => c.classList.add('active'));
 
       if (figureTypeSelected) {
-        figureTypeSelected.textContent = card.querySelector('.v-title').textContent;
+        const titleSpan = card.querySelector('.pill-title') || card.querySelector('.v-title');
+        if (titleSpan) figureTypeSelected.textContent = titleSpan.textContent;
       }
 
       updateProductImage(state.figureType);
@@ -519,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (thumbType) {
-        figureCards.forEach(c => {
+        figurePillCards.forEach(c => {
           if (c.getAttribute('data-figure') === thumbType) {
             c.click();
           }
@@ -536,6 +540,14 @@ document.addEventListener('DOMContentLoaded', () => {
     mainImageViewport.classList.remove('is-bobbling');
     void mainImageViewport.offsetWidth;
     mainImageViewport.classList.add('is-bobbling');
+
+    // Also trigger bobble animation on head cards
+    document.querySelectorAll('.head-char-img').forEach(img => {
+      img.classList.remove('bobble-anim');
+      void img.offsetWidth;
+      img.classList.add('bobble-anim');
+    });
+
     showToast('✨ Bobblehead spring activated! Wobbling smoothly.');
   }
 
@@ -551,8 +563,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // 7. DYNAMIC PRICING & CURRENCY CONVERSION
+  // 7. DYNAMIC PRICING & CURRENCY CONVERSION (WITH MOCKUP LABELS)
   // ==========================================================================
+  const configTotalEl = document.getElementById('configurator-total-price');
+  const modalTotalEl = document.getElementById('modal-total-price');
+  const headSelected = document.getElementById('selected-head-val');
+  const baseSelected = document.getElementById('selected-base-val');
+
   function calculateTotal() {
     let base = state.basePrice || 49.90;
     let compareBase = state.comparePrice || 99.80;
@@ -569,16 +586,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const rate = state.rates[state.currency] || 1;
     const finalPrice = (base * rate).toFixed(2);
     const finalCompare = (compareBase * rate).toFixed(2);
-    const symbol = state.symbols[state.currency] || 'CHF';
+    const symbol = state.symbols[state.currency] || '$';
 
-    const formattedPrice = state.currency === 'EUR' || state.currency === 'USD' 
-      ? `${symbol}${finalPrice}` 
-      : `${symbol} ${finalPrice}`;
+    const formattedPrice = `${state.currency} ${finalPrice}`;
+    const formattedCompare = `${state.currency} ${finalCompare}`;
 
-    const formattedCompare = state.currency === 'EUR' || state.currency === 'USD' 
-      ? `${symbol}${finalCompare}` 
-      : `${symbol} ${finalCompare}`;
-
+    // Update main page price displays
     if (currentPriceEl) {
       currentPriceEl.textContent = formattedPrice;
       currentPriceEl.classList.remove('price-updated');
@@ -587,6 +600,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (comparePriceEl) comparePriceEl.textContent = formattedCompare;
     if (stickyPriceEl) stickyPriceEl.textContent = formattedPrice;
+    if (configTotalEl) configTotalEl.textContent = formattedPrice;
+    if (modalTotalEl) modalTotalEl.textContent = formattedPrice;
+
+    // Dynamically format modifier tags across UI
+    function fmtMod(amt) {
+      const val = Math.round(amt * rate);
+      return val > 0 ? `+ ${symbol}${val}` : 'Included';
+    }
+
+    // Size modifiers
+    document.querySelectorAll('#size-price-20, .modal-size-price-20').forEach(el => {
+      el.textContent = fmtMod(priceModifiers.height['20cm'] || 12);
+    });
+    document.querySelectorAll('#size-price-22, .modal-size-price-22').forEach(el => {
+      el.textContent = fmtMod(priceModifiers.height['22cm'] || 24);
+    });
+
+    // Head modifiers
+    document.querySelectorAll('#head-price-bobble, .modal-head-price-bobble').forEach(el => {
+      el.textContent = fmtMod(priceModifiers.headStyle['bobblehead'] || 12);
+    });
+
+    // Figure modifiers
+    const modCouple = document.getElementById('price-mod-couple');
+    const modPet = document.getElementById('price-mod-pet');
+    const modFam = document.getElementById('price-mod-family');
+    if (modCouple) modCouple.textContent = fmtMod(priceModifiers.figureType['couple'] || 30);
+    if (modPet) modPet.textContent = fmtMod(priceModifiers.figureType['pet'] || 15);
+    if (modFam) modFam.textContent = fmtMod(priceModifiers.figureType['family'] || 60);
+
+    // Base modifiers
+    const bAcrylic = document.getElementById('base-price-acrylic');
+    const bHeart = document.getElementById('base-price-heart');
+    const bSoccer = document.getElementById('base-price-soccer');
+    if (bAcrylic) bAcrylic.textContent = fmtMod(priceModifiers.baseTheme['acrylic'] || 5);
+    if (bHeart) bHeart.textContent = fmtMod(priceModifiers.baseTheme['heart'] || 5);
+    if (bSoccer) bSoccer.textContent = fmtMod(priceModifiers.baseTheme['soccer'] || 5);
   }
 
   if (currencySelector) {
@@ -597,41 +647,77 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Height Selectors
-  const heightCards = document.querySelectorAll('.height-card');
-  heightCards.forEach(card => {
+  // ==========================================================================
+  // 8. VISUAL SIZE CARD HANDLERS (SYNCED PAGE & MODAL)
+  // ==========================================================================
+  const visualSizeCards = document.querySelectorAll('.visual-size-card, .height-card');
+  visualSizeCards.forEach(card => {
     card.addEventListener('click', () => {
-      heightCards.forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
-      state.height = card.getAttribute('data-height');
+      const hVal = card.getAttribute('data-height') || '18cm';
+      state.height = hVal;
+
+      // Sync active state across all size cards (in page and in modal)
+      visualSizeCards.forEach(c => {
+        if (c.getAttribute('data-height') === hVal) {
+          c.classList.add('active');
+        } else {
+          c.classList.remove('active');
+        }
+      });
+
       if (heightSelected) {
-        heightSelected.textContent = card.querySelector('.v-title').textContent;
+        const titleEl = card.querySelector('.size-title') || card.querySelector('.v-title');
+        const isIncluded = hVal === '18cm' ? '(Included)' : `(+ $${priceModifiers.height[hVal]})`;
+        heightSelected.textContent = `${titleEl ? titleEl.textContent : hVal} ${isIncluded}`;
       }
+
       calculateTotal();
     });
   });
 
-  // Head Style Selectors
-  const headStyleCards = document.querySelectorAll('.head-style-card');
-  headStyleCards.forEach(card => {
+  // ==========================================================================
+  // 9. VISUAL HEAD STYLE CARD HANDLERS (SYNCED PAGE & MODAL)
+  // ==========================================================================
+  const visualHeadCards = document.querySelectorAll('.visual-head-card, .head-style-card');
+  visualHeadCards.forEach(card => {
     card.addEventListener('click', () => {
-      headStyleCards.forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
-      state.headStyle = card.getAttribute('data-head');
-      if (state.headStyle === 'bobblehead') {
+      const headVal = card.getAttribute('data-head') || 'bobblehead';
+      state.headStyle = headVal;
+
+      // Sync active state across all head cards
+      visualHeadCards.forEach(c => {
+        if (c.getAttribute('data-head') === headVal) {
+          c.classList.add('active');
+        } else {
+          c.classList.remove('active');
+        }
+      });
+
+      if (headSelected) {
+        headSelected.textContent = headVal === 'bobblehead' ? 'BobbleHead (+ $12)' : 'Fixed Head (Included)';
+      }
+
+      if (headVal === 'bobblehead') {
         triggerBobbleAnimation();
       }
+
       calculateTotal();
     });
   });
 
-  // Base Theme Selectors
-  const baseCards = document.querySelectorAll('.base-card');
-  baseCards.forEach(card => {
+  // ==========================================================================
+  // 10. BASE THEME PILL HANDLERS
+  // ==========================================================================
+  const basePillCards = document.querySelectorAll('.base-pill-card, .base-card');
+  basePillCards.forEach(card => {
     card.addEventListener('click', () => {
-      baseCards.forEach(c => c.classList.remove('active'));
+      basePillCards.forEach(c => c.classList.remove('active'));
       card.classList.add('active');
       state.baseTheme = card.getAttribute('data-base');
+      if (baseSelected) {
+        const titleSpan = card.querySelector('.b-title') || card.querySelector('.v-title');
+        if (titleSpan) baseSelected.textContent = titleSpan.textContent;
+      }
       calculateTotal();
     });
   });
@@ -645,6 +731,33 @@ document.addEventListener('DOMContentLoaded', () => {
       if (engravingCount) {
         engravingCount.textContent = `${state.engravingText.length}/30 characters`;
       }
+    });
+  }
+
+  // ==========================================================================
+  // 11. STEP CUSTOMIZER DRAWER / MODAL HANDLERS
+  // ==========================================================================
+  const customizerModal = document.getElementById('customizer-step-modal');
+  const customizerCloseBtn = document.getElementById('customizer-close-btn');
+  const modalCompleteOrderBtn = document.getElementById('modal-complete-order-btn');
+
+  function openCustomizerModal() {
+    if (customizerModal) {
+      customizerModal.style.display = 'flex';
+      calculateTotal();
+    }
+  }
+
+  function closeCustomizerModal() {
+    if (customizerModal) {
+      customizerModal.style.display = 'none';
+    }
+  }
+
+  if (customizerCloseBtn) customizerCloseBtn.addEventListener('click', closeCustomizerModal);
+  if (customizerModal) {
+    customizerModal.addEventListener('click', (e) => {
+      if (e.target === customizerModal) closeCustomizerModal();
     });
   }
 
