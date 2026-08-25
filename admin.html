@@ -20,6 +20,54 @@
 <body class="admin-body">
 
   <!-- ==========================================================================
+       ADMIN AUTHENTICATION LOCK SCREEN (POLARIS STYLE)
+       ========================================================================== -->
+  <div class="admin-auth-overlay" id="admin-auth-overlay">
+    <div class="admin-auth-card" id="admin-auth-card">
+      <div class="auth-brand-badge">
+        <i class="fa-solid fa-gem"></i>
+      </div>
+      <h2 class="auth-title">Tarelcraft Admin Access</h2>
+      <p class="auth-subtitle">Enter your secure administrator password to access the Shopify Polaris control center.</p>
+
+      <form id="admin-login-form" class="auth-form" autocomplete="off" onsubmit="return false;">
+        <div class="auth-input-group">
+          <label for="admin-pass-input" class="auth-label">Admin Security Password</label>
+          <div class="auth-input-wrapper">
+            <i class="fa-solid fa-lock auth-input-icon"></i>
+            <input 
+              type="password" 
+              id="admin-pass-input" 
+              class="auth-input" 
+              placeholder="Enter admin password" 
+              autocomplete="new-password" 
+              value="" 
+              required
+            >
+            <button type="button" class="auth-toggle-pass-btn" id="auth-toggle-pass-btn" title="Show / Hide Password" aria-label="Toggle password visibility">
+              <i class="fa-solid fa-eye" id="auth-eye-icon"></i>
+            </button>
+          </div>
+          <div class="auth-error-msg" id="auth-error-msg" style="display: none;">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span>Incorrect password. Access denied.</span>
+          </div>
+        </div>
+
+        <button type="submit" class="auth-submit-btn" id="admin-login-btn">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          <span>Unlock Admin Dashboard</span>
+        </button>
+      </form>
+
+      <div class="auth-footer-note">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>256-Bit Encrypted Atelier Administration Gateway</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
        1. GLOBAL TOPBAR (SHOPIFY POLARIS STYLE)
        ========================================================================== -->
   <header class="admin-topbar">
@@ -66,6 +114,11 @@
         <div class="user-avatar">TC</div>
         <span style="font-size: 0.82rem; font-weight: 600;">Store Owner</span>
         <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; color: #a6acb2;"></i>
+      </button>
+
+      <!-- Lock / Logout Admin Button -->
+      <button class="topbar-icon-btn btn-admin-logout" id="admin-logout-btn" title="Lock Admin Dashboard">
+        <i class="fa-solid fa-lock"></i>
       </button>
     </div>
   </header>
@@ -1097,6 +1150,10 @@
         <li class="command-result-item" data-action="open-storefront">
           <span><i class="fa-solid fa-arrow-up-right-from-square" style="margin-right: 8px;"></i> Open Live Storefront</span>
           <span class="p-badge p-badge-success">External</span>
+        </li>
+        <li class="command-result-item" data-action="lock-admin">
+          <span><i class="fa-solid fa-lock" style="margin-right: 8px;"></i> Lock Admin Dashboard</span>
+          <span class="p-badge p-badge-critical">Security</span>
         </li>
       </ul>
     </div>

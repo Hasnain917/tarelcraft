@@ -1312,3 +1312,208 @@ canvas.admin-chart-canvas {
     display: none;
   }
 }
+
+/* ==========================================================================
+   11. ADMIN AUTHENTICATION LOCK SCREEN (POLARIS STYLE)
+   ========================================================================== */
+.admin-auth-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(18, 19, 20, 0.96) 0%, rgba(10, 11, 12, 0.99) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.admin-auth-card {
+  background: var(--p-surface);
+  border: 1px solid var(--p-border);
+  border-radius: var(--p-radius-lg);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  max-width: 440px;
+  width: 100%;
+  padding: 36px 32px 30px;
+  text-align: center;
+  position: relative;
+  animation: authCardPop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes authCardPop {
+  from { opacity: 0; transform: scale(0.94) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.auth-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  background: linear-gradient(135deg, #008060 0%, #004c3f 100%);
+  color: #ffffff;
+  border-radius: 16px;
+  font-size: 1.6rem;
+  margin-bottom: 18px;
+  box-shadow: 0 8px 20px rgba(0, 128, 96, 0.35);
+}
+
+.auth-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--p-text);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.auth-subtitle {
+  font-size: 0.85rem;
+  color: var(--p-text-subdued);
+  line-height: 1.45;
+  margin-bottom: 24px;
+}
+
+.auth-form {
+  text-align: left;
+}
+
+.auth-input-group {
+  margin-bottom: 20px;
+}
+
+.auth-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--p-text);
+  margin-bottom: 7px;
+}
+
+.auth-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.auth-input-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--p-text-subdued);
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 12px 42px 12px 38px;
+  background: var(--p-surface-subdued);
+  border: 1.5px solid var(--p-border);
+  border-radius: var(--p-radius-md);
+  color: var(--p-text);
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: var(--p-transition);
+  outline: none;
+}
+
+.auth-input:focus {
+  border-color: var(--p-primary);
+  background: var(--p-surface);
+  box-shadow: 0 0 0 3px rgba(0, 128, 96, 0.18);
+}
+
+.auth-input.is-invalid {
+  border-color: var(--p-critical) !important;
+  background: var(--p-critical-bg) !important;
+}
+
+.auth-toggle-pass-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--p-text-subdued);
+  cursor: pointer;
+  padding: 6px;
+  font-size: 0.95rem;
+  border-radius: var(--p-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--p-transition);
+}
+
+.auth-toggle-pass-btn:hover {
+  color: var(--p-text);
+}
+
+.auth-error-msg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--p-critical);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 7px;
+  animation: fadeIn 0.2s ease;
+}
+
+.auth-submit-btn {
+  width: 100%;
+  padding: 12px 20px;
+  background: var(--p-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--p-radius-md);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: var(--p-transition);
+  box-shadow: 0 2px 6px rgba(0, 128, 96, 0.25);
+}
+
+.auth-submit-btn:hover {
+  background: var(--p-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 128, 96, 0.35);
+}
+
+.auth-submit-btn:active {
+  transform: translateY(0);
+}
+
+.auth-card-shake {
+  animation: shakeAuth 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shakeAuth {
+  10%, 90% { transform: translate3d(-2px, 0, 0); }
+  20%, 80% { transform: translate3d(4px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+  40%, 60% { transform: translate3d(6px, 0, 0); }
+}
+
+.auth-footer-note {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--p-border-subdued);
+  font-size: 0.76rem;
+  color: var(--p-text-subdued);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-admin-logout:hover {
+  color: var(--p-critical);
+  border-color: var(--p-critical);
+}
+

@@ -65,6 +65,93 @@ document.addEventListener('DOMContentLoaded', () => {
   const quickResetDefaultsBtn = document.getElementById('quick-reset-defaults-btn');
 
   // ==========================================================================
+  // 0. ADMIN AUTHENTICATION GATE & SECURITY
+  // ==========================================================================
+  const ADMIN_MASTER_PASSWORD = 'HH47389*439(89f939csf';
+  const adminAuthOverlay = document.getElementById('admin-auth-overlay');
+  const adminAuthCard = document.getElementById('admin-auth-card');
+  const adminLoginForm = document.getElementById('admin-login-form');
+  const adminPassInput = document.getElementById('admin-pass-input');
+  const authTogglePassBtn = document.getElementById('auth-toggle-pass-btn');
+  const authEyeIcon = document.getElementById('auth-eye-icon');
+  const authErrorMsg = document.getElementById('auth-error-msg');
+  const adminLogoutBtn = document.getElementById('admin-logout-btn');
+
+  function checkAdminAuth() {
+    if (!adminAuthOverlay) return;
+    const isAuth = sessionStorage.getItem('tc_admin_authenticated') === 'true';
+    if (isAuth) {
+      adminAuthOverlay.style.display = 'none';
+    } else {
+      adminAuthOverlay.style.display = 'flex';
+      adminAuthOverlay.style.opacity = '1';
+      if (adminPassInput) {
+        adminPassInput.value = ''; // Never auto-fill password
+        adminPassInput.classList.remove('is-invalid');
+        setTimeout(() => adminPassInput.focus(), 150);
+      }
+      if (authErrorMsg) authErrorMsg.style.display = 'none';
+    }
+  }
+
+  function handleAdminLogin(e) {
+    if (e) e.preventDefault();
+    if (!adminPassInput) return;
+    const enteredPass = adminPassInput.value.trim();
+
+    if (enteredPass === ADMIN_MASTER_PASSWORD) {
+      sessionStorage.setItem('tc_admin_authenticated', 'true');
+      adminPassInput.value = ''; // Clear value
+      if (authErrorMsg) authErrorMsg.style.display = 'none';
+      adminPassInput.classList.remove('is-invalid');
+
+      adminAuthOverlay.style.transition = 'opacity 0.25s ease';
+      adminAuthOverlay.style.opacity = '0';
+      setTimeout(() => {
+        adminAuthOverlay.style.display = 'none';
+        adminAuthOverlay.style.opacity = '1';
+      }, 250);
+
+      showToast('🔓 Admin Dashboard Unlocked', 'success');
+    } else {
+      adminPassInput.classList.add('is-invalid');
+      if (authErrorMsg) authErrorMsg.style.display = 'flex';
+      if (adminAuthCard) {
+        adminAuthCard.classList.remove('auth-card-shake');
+        void adminAuthCard.offsetWidth; // Trigger reflow for animation restart
+        adminAuthCard.classList.add('auth-card-shake');
+      }
+      adminPassInput.focus();
+      adminPassInput.select();
+    }
+  }
+
+  function handleAdminLogout() {
+    sessionStorage.removeItem('tc_admin_authenticated');
+    checkAdminAuth();
+    showToast('🔒 Admin Dashboard Locked', 'info');
+  }
+
+  // Initialize auth check
+  checkAdminAuth();
+
+  if (adminLoginForm) {
+    adminLoginForm.addEventListener('submit', handleAdminLogin);
+  }
+  if (adminLogoutBtn) {
+    adminLogoutBtn.addEventListener('click', handleAdminLogout);
+  }
+  if (authTogglePassBtn && adminPassInput) {
+    authTogglePassBtn.addEventListener('click', () => {
+      const isPass = adminPassInput.type === 'password';
+      adminPassInput.type = isPass ? 'text' : 'password';
+      if (authEyeIcon) {
+        authEyeIcon.className = isPass ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
+      }
+    });
+  }
+
+  // ==========================================================================
   // 1. THEME SWITCHER & TOAST SYSTEM
   // ==========================================================================
   const savedAdminTheme = localStorage.getItem('tarelcraft-admin-theme') || 'light';
@@ -1405,6 +1492,8 @@ document.addEventListener('DOMContentLoaded', () => {
         switchView(targetView);
       } else if (action === 'open-storefront') {
         window.open('index.html', '_blank');
+      } else if (action === 'lock-admin') {
+        handleAdminLogout();
       }
     });
   });
