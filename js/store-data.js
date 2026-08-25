@@ -38,7 +38,7 @@
         status: 'active', // active, draft, archived
         category: 'Custom Bobbleheads',
         vendor: 'Tarelcraft Atelier Zurich',
-        rating: 4.9,
+        rating: 5.0,
         reviewsCount: 1480,
         basePrice: 49.90,
         comparePrice: 99.80,

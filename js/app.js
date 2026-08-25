@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     subtitle: 'Turn any photo into a detailed, museum-quality personalized figurine.',
     basePrice: 49.90,
     comparePrice: 99.80,
-    rating: 4.9,
+    rating: 5.0,
     reviewsCount: 1480
   };
 

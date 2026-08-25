@@ -365,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('edit-prod-track-qty').checked = prod.trackQuantity !== false;
     document.getElementById('edit-prod-category').value = prod.category || '';
     document.getElementById('edit-prod-vendor').value = prod.vendor || '';
-    document.getElementById('edit-prod-rating').value = prod.rating || 4.9;
+    document.getElementById('edit-prod-rating').value = prod.rating || 5.0;
     document.getElementById('edit-prod-reviews-count').value = prod.reviewsCount || 1480;
 
     // SEO
@@ -626,7 +626,7 @@ document.addEventListener('DOMContentLoaded', () => {
       trackQuantity: document.getElementById('edit-prod-track-qty').checked,
       category: document.getElementById('edit-prod-category').value.trim(),
       vendor: document.getElementById('edit-prod-vendor').value.trim(),
-      rating: parseFloat(document.getElementById('edit-prod-rating').value) || 4.9,
+      rating: parseFloat(document.getElementById('edit-prod-rating').value) || 5.0,
       reviewsCount: parseInt(document.getElementById('edit-prod-reviews-count').value, 10) || 1480,
       variants: Object.assign({}, prod.variants, { figureTypes: updatedVariants }),
       seo: {
